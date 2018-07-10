@@ -1,10 +1,10 @@
 <template>
   <div class="home">
+    <my-aside></my-aside>
     <div class="main">
       <my-header></my-header>
-      <router-view></router-view>
+      <router-view class="container"></router-view>
     </div>
-    <my-aside></my-aside>
   </div>
 </template>
 
@@ -22,3 +22,25 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.home {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+.aside {
+  width: 200px;
+}
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.header {
+  height: 100px;
+}
+.container {
+  flex: 1;
+}
+</style>

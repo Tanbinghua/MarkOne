@@ -2,7 +2,7 @@
   "name": "mark-one",
   "version": "1.0.0",
   "description": "A Vue-based note-taking website!",
-  "author": "",
+  "author": "Binghua <14718152017@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -17,6 +17,7 @@
     "axios": "^0.18.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
+    "vue-slicksort": "^0.1.8",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
