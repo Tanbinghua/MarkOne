@@ -17,5 +17,6 @@ export default {
   background: #ccc;
   list-style: none;
   padding: 0;
+  overflow: hidden;
 }
 </style>
