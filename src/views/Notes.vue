@@ -55,6 +55,10 @@ export default {
 </script>
 
 <style>
+.notes {
+  margin: 64px 214px 0 96px;
+}
+
 .change-bg {
   background: #fff;
 }
