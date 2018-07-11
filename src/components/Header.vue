@@ -9,7 +9,7 @@
 .header {
   display: flex;
   line-height: 80px;
-  justify-content: space-around;
+  justify-content: center;
 }
 .search {
   &-input {

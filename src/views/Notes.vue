@@ -14,6 +14,7 @@
       <p>Created:&nbsp;{{ note.date }}</p>
       <p>From: <a :href="note.fromUrl" target="_blank"><span>{{ note.fromUrl }}</span></a></p>
     </div>
+    <my-search></my-search>
   </div>
 </template>
 
@@ -21,6 +22,7 @@
 import SortableList from '../components/SortableList'
 import SortableItem from '../components/SortableItem'
 import CollapseTransition from '../components/Collapse'
+import MySearch from '../components/Search'
 
 export default {
   data () {
@@ -53,7 +55,8 @@ export default {
   components: {
     SortableList,
     SortableItem,
-    CollapseTransition
+    CollapseTransition,
+    MySearch
   },
   methods: {
     sortstart () {
