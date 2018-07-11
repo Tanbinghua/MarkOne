@@ -1,8 +1,8 @@
 <template>
   <li class="list-item">
-    <span class="delete" v-if="showDelete">X</span>
+    <span class="delete">X</span>
     {{item}}
-    <span v-handle class="handle" v-if="showHandle">三</span>
+    <span v-handle class="handle">三</span>
   </li>
 </template>
 
@@ -11,22 +11,27 @@ import { ElementMixin, HandleDirective } from 'vue-slicksort'
 
 export default {
   mixins: [ElementMixin],
-  props: ['item', 'showHandle', 'showDelete'],
+  props: ['item'],
   directives: { handle: HandleDirective }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .list-item {
   border: 1px solid #fff;
   display: block;
   position: relative;
   padding: 15px 0 15px 50px;
+  &:hover .handle, &:hover .delete {
+    background: #eee;
+    display: inline-block;
+  }
 }
 .handle, .delete {
-  background: #eee;
-  display: inline-block;
+  display: none;
   color: #666;
+  background: transparent;
+  transition: all 3s ease;
   padding: 5px 10px;
   position: absolute;
 }
