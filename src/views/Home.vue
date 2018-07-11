@@ -29,16 +29,10 @@ export default {
   flex-direction: row;
   height: 100%;
 }
-.aside {
-  width: 200px;
-}
 .main {
   display: flex;
   flex: 1;
   flex-direction: column;
-}
-.header {
-  height: 100px;
 }
 .container {
   flex: 1;
