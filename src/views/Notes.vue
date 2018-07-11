@@ -2,13 +2,13 @@
   <div class="notes">
     <div>
       <h3 @click="noteVisible = !noteVisible">The Universe in a Nutshell</h3>
-      <transition name="slide">
+      <collapse-transition>
         <sortable-list v-model="items" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
           :useDragHandle="true" lockAxis="y" helperClass="change-bg" v-show="noteVisible">
           <sortable-item v-for="(item, index) in items" :showHandle="showHandle" :showDelete="showDelete"
             :index="index" :key="item.id" :item="item.value"></sortable-item>
         </sortable-list>
-      </transition>
+      </collapse-transition>
       <p>Created:&nbsp;{{ date }}</p>
       <p>From: <a :href="fromUrl" target="_blank"><span>{{ fromUrl }}</span></a></p>
     </div>
@@ -18,6 +18,7 @@
 <script>
 import SortableList from '../components/SortableList'
 import SortableItem from '../components/SortableItem'
+import CollapseTransition from '../components/Collapse'
 
 export default {
   data () {
@@ -41,7 +42,8 @@ export default {
   },
   components: {
     SortableList,
-    SortableItem
+    SortableItem,
+    CollapseTransition
   },
   methods: {
     sortstart () {
@@ -57,20 +59,5 @@ export default {
 <style>
 .change-bg {
   background: #fff;
-}
-
-@keyframes identifier {
- from {transform: translateY(100%);}
- to {transform: translateY(0%);}
-}
-@keyframes against {
- from {transform: translateY(0%);}
- to {transform: translateY(100%);}
-}
-.slide-enter-active {
-  animation: identifier .4s;
-}
-.slide-leave-active {
-  animation: against .4s;
 }
 </style>
