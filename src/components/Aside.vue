@@ -31,7 +31,9 @@ export default {
 .aside {
   box-shadow: 10px 0 15px -6px rgba(0, 0, 0, 0.3);
   text-align: center;
-  width: 320px;
+  width: 22.2%;
+  min-width: 280px;
+  max-width: 320px;
 }
 .title {
   color: #1a2270;
