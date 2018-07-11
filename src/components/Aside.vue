@@ -29,40 +29,42 @@ export default {
 
 <style lang="scss" scoped>
 .aside {
-  width: 320px;
-  text-align: center;
   box-shadow: 10px 0 15px -6px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 320px;
 }
 .title {
-  margin: 33px 0 68px;
-  font-size: 36px;
   color: #1a2270;
+  font-size: 36px;
+  margin: 33px 0 68px;
 }
 .new {
   margin-bottom: 45px;
   &-btn {
-    width: 216px;
-    line-height: 48px;
     background: #ff6e03;
     border: none;
-    outline: none;
     border-radius: 32px;
-    font-size: 20px;
     color: #fff;
+    font-size: 20px;
+    line-height: 48px;
+    outline: none;
+    transition: all .4s ease;
+    width: 216px;
     &:hover {
-      cursor: pointer;
       background: rgba(255, 110, 3, 0.8);
+      cursor: pointer;
     }
   }
 }
 .nav {
   &-list {
-    line-height: 66px;
-    font-size: 20px;
     color: #1a2270;
+    font-size: 20px;
+    line-height: 66px;
+    transition: all .4s ease;
     &:hover {
-      cursor: pointer;
       background: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
     }
     &-active {
       color: #ff6e03;

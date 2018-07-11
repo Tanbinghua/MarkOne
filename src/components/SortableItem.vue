@@ -18,17 +18,17 @@ export default {
 
 <style scoped>
 .list-item {
-  position: relative;
-  display: block;
-  padding: 15px 0 15px 50px;
   border: 1px solid #fff;
+  display: block;
+  position: relative;
+  padding: 15px 0 15px 50px;
 }
 .handle, .delete {
-  position: absolute;
-  display: inline-block;
-  padding: 5px 10px;
   background: #eee;
+  display: inline-block;
   color: #666;
+  padding: 5px 10px;
+  position: absolute;
 }
 .handle {
   right: 5px;
