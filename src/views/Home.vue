@@ -37,6 +37,7 @@ export default {
   flex-direction: column;
 }
 .container {
+  background: #f8f8f8;
   flex: 1;
   overflow: auto;
 }

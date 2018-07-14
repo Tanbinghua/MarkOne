@@ -18,7 +18,8 @@ export default {
 
 <style lang="scss" scoped>
 .list-item {
-  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
   color: #666;
   display: block;
   font-size: 16px;
