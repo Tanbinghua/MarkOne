@@ -17,7 +17,7 @@
   justify-content: center;
 }
 .search {
-  margin-right: 127px;
+  margin-right: 11%;
   width: 50%;
   &-box {
     border-bottom: 1px solid #ccc;
@@ -36,7 +36,7 @@
       flex: 1;
       line-height: 32px;
       outline: none;
-      transition: all .4s ease;
+      transition: all .3s ease;
       &:hover { border-color: #aaa; }
       &:focus { border-color: #ff6e03; }
       &:focus + .search-box-border { transform: scaleX(1); }
