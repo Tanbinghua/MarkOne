@@ -13,6 +13,7 @@
 
 <style lang="scss" scoped>
 .header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
 }
@@ -25,6 +26,7 @@
     height: 32px;
     margin: 24px auto;
     position: relative;
+    transition: all .3s ease;
     &-icon {
       background: #ccc;
       height: 24px;
@@ -33,11 +35,10 @@
     }
     &-input {
       border: none;
+      color: #555;
       flex: 1;
       line-height: 32px;
       outline: none;
-      transition: all .3s ease;
-      &:hover { border-color: #aaa; }
       &:focus { border-color: #ff6e03; }
       &:focus + .search-box-border { transform: scaleX(1); }
     }
@@ -52,6 +53,7 @@
       width: 100%;
       z-index: 1;
     }
+    &:hover { border-color: #aaa; }
   }
 }
 .avatar {

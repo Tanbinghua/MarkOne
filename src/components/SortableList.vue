@@ -14,7 +14,6 @@ export default {
 
 <style>
 .list {
-  background: #ccc;
   list-style: none;
   padding: 0;
   overflow: hidden;

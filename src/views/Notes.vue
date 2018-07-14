@@ -2,7 +2,8 @@
   <div class="notes">
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
-        <h3 @click="note.noteVisible = !note.noteVisible">{{ note.title }}</h3>
+        <span class="note-list-header-icon"></span>
+        <h3>{{ note.title }}</h3>
       </div>
       <collapse-transition>
         <sortable-list v-model="note.items" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
@@ -11,8 +12,11 @@
             :index="index" :key="item.id" :item="item.value"></sortable-item>
         </sortable-list>
       </collapse-transition>
-      <p>Created:&nbsp;{{ note.date }}</p>
-      <p>From: <a :href="note.fromUrl" target="_blank"><span>{{ note.fromUrl }}</span></a></p>
+      <div class="note-list-footer">
+        <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">{{ note.noteVisible ? 'Flod' : 'More' }} <span class="note-list-footer-box-icon"></span></p>
+        <p class="note-list-footer-time">Created：{{ note.date }}</p>
+        <p class="note-list-footer-link">&nbsp;&nbsp;From：<a :href="note.fromUrl" target="_blank"><span>{{ note.fromUrl }}</span></a></p>
+      </div>
     </div>
   </div>
 </template>
@@ -28,21 +32,36 @@ export default {
       notes: [
         {
           title: 'The Universe in a Nutshell',
-          items: [ { id: 1, value: 'iPhone' }, { id: 3, value: 'Siaomi' }, { id: 4, value: 'HuaWei' }, { id: 8, value: 'hello world' } ],
+          items: [
+            { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
+            { id: 3, value: 'Siaomi' },
+            { id: 4, value: 'Sometimes we see things as being black or white: Perhaps you have two categories of coworkers in your mind—the good ones and the bad ones. It\'s easy to take one particular event and generalize it to the rest of our life. If you failed to close one deal, you may decide, "I\'m bad at closing deals." Labeling involves putting a name to something. ' },
+            { id: 8, value: 'hello world' }
+          ],
           date: 'Jun 11, 2018',
           fromUrl: 'https://baidu.com',
           noteVisible: true
         },
         {
           title: 'Lorem ipsum dolor sit amet',
-          items: [ { id: 1, value: 'iPhone' }, { id: 3, value: 'Siaomi' }, { id: 4, value: 'HuaWei' }, { id: 8, value: 'hello world' } ],
+          items: [
+            { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
+            { id: 3, value: 'Siaomi' },
+            { id: 4, value: 'Sometimes we see things as being black or white: Perhaps you have two categories of coworkers in your mind—the good ones and the bad ones. It\'s easy to take one particular event and generalize it to the rest of our life. If you failed to close one deal, you may decide, "I\'m bad at closing deals." Labeling involves putting a name to something. ' },
+            { id: 8, value: 'hello world' }
+          ],
           date: 'Jun 11, 2018',
           fromUrl: 'https://baidu.com',
           noteVisible: true
         },
         {
           title: 'Sed tempor nisl a lorem consequat',
-          items: [ { id: 1, value: 'iPhone' }, { id: 3, value: 'Siaomi' }, { id: 4, value: 'HuaWei' }, { id: 8, value: 'hello world' } ],
+          items: [
+            { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
+            { id: 3, value: 'Siaomi' },
+            { id: 4, value: 'Sometimes we see things as being black or white: Perhaps you have two categories of coworkers in your mind—the good ones and the bad ones. It\'s easy to take one particular event and generalize it to the rest of our life. If you failed to close one deal, you may decide, "I\'m bad at closing deals." Labeling involves putting a name to something. ' },
+            { id: 8, value: 'hello world' }
+          ],
           date: 'Jun 11, 2018',
           fromUrl: 'https://baidu.com',
           noteVisible: true
@@ -68,20 +87,56 @@ export default {
 
 <style lang="scss" scoped>
 .notes {
-  padding: 0 14.9% 0 6.7%;
+  padding: 0 14.9% 6.7% 6.7%;
 }
 .note {
   &-list {
     &-header {
-      background: #ccc;
-      color: #fff;
-      margin-top: 64px;
-      position: sticky;
-      position: -webkit-sticky;
-      top: 0;
-      z-index: 1;
-      &:hover {
-        cursor: pointer;
+      color: #1a2270;
+      font-family: PingFangSC-Medium, sans-serif;
+      font-size: 20px;
+      margin: 64px 0 16px;
+      // position: sticky;
+      // position: -webkit-sticky;
+      // top: 0;
+      // z-index: 1;
+      &-icon {
+        background: #ccc;
+        display: block;
+        float: right;
+        height: 27px;
+        width: 30px;
+      }
+    }
+    &-footer {
+      &-time, &-link {
+        color: #999;
+        display: inline-block;
+        font-family: 'ArialMT', sans-serif;
+        font-size: 14px;
+      }
+      &-link a {
+        color: #1a2270;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      &-box {
+        color: #1a2270;
+        float: right;
+        transition: all .3s ease;
+        &-icon {
+          background: #ccc;
+          display: inline-block;
+          height: 20px;
+          vertical-align: middle;
+          width: 20px;
+        }
+        &:hover {
+          color: #FF6E03;
+          cursor: pointer;
+        }
       }
     }
   }

@@ -3,7 +3,9 @@
     <my-aside></my-aside>
     <div class="main">
       <my-header></my-header>
-      <router-view class="container"></router-view>
+      <transition name="fade" mode="out-in">
+        <router-view class="container"></router-view>
+      </transition>
     </div>
   </div>
 </template>
@@ -37,5 +39,11 @@ export default {
 .container {
   flex: 1;
   overflow: auto;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

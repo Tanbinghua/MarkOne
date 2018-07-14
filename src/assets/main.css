@@ -4,7 +4,7 @@
 }
 
 html, body, #app {
-  font-family: PingFangSC-Semibold, sans-serif;
+  font-family: PingFangSC-Regular, sans-serif;
   height: 100vh;
 }
 
@@ -47,5 +47,12 @@ html, body, #app {
   }
   .notes {
     padding: 0 6.7% !important;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .aside {
+    transform: translate(0, 0);
+    transition: all .4s ease;
   }
 }

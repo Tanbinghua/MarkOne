@@ -6,13 +6,13 @@
     </div>
     <div class="nav">
       <div :class="{'nav-list': true, 'nav-list-active': tab === 'notes'}" @click="tab = 'notes'">
-        <p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Notes</span></p>
+        <router-link class="nav-list-link" to="/"><p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Notes</span></p></router-link>
       </div>
       <div :class="{'nav-list': true, 'nav-list-active': tab === 'highlights'}" @click="tab = 'highlights'">
-        <p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Highlights</span></p>
+        <router-link class="nav-list-link" to="/highlight"><p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Highlights</span></p></router-link>
       </div>
       <div :class="{'nav-list': true, 'nav-list-active': tab === 'trash'}" @click="tab = 'trash'">
-        <p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Trash</span></p>
+        <router-link class="nav-list-link" to="/trash"><p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Trash</span></p></router-link>
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
 }
 .title {
   color: #1a2270;
-  // font-family: Skia-Regular_Bold;
+  font-family: sans-serif;
   font-size: 36px;
   margin: 33px 0 68px;
 }
@@ -62,6 +62,7 @@ export default {
     border-radius: 32px;
     box-shadow: 0 3px 4px 0 #FBB37D;
     color: #fff;
+    font-family: PingFangSC-Semibold, sans-serif;
     font-size: 20px;
     line-height: 48px;
     outline: none;
@@ -79,7 +80,7 @@ export default {
 }
 .nav {
   &-list {
-    color: #1a2270;
+    font-family: PingFangSC-Semibold, sans-serif;
     font-size: 20px;
     margin: 0 auto;
     line-height: 66px;
@@ -88,7 +89,11 @@ export default {
       background: rgba(0, 0, 0, 0.1);
       cursor: pointer;
     }
-    &-active {
+    &-link {
+      color: #1a2270;
+      text-decoration: none;
+    }
+    &-active a {
       color: #ff6e03;
     }
     &-text {

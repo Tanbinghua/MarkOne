@@ -1,8 +1,8 @@
 <template>
   <li class="list-item">
-    <span class="delete">X</span>
+    <!-- <span class="delete">X</span> -->
     {{item}}
-    <span v-handle class="handle">三</span>
+    <!-- <span v-handle class="handle">三</span> -->
   </li>
 </template>
 
@@ -18,10 +18,14 @@ export default {
 
 <style lang="scss" scoped>
 .list-item {
-  border: 1px solid #fff;
+  border: 1px solid #ddd;
+  color: #666;
   display: block;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 16px 0;
   position: relative;
-  padding: 15px 0 15px 50px;
+  padding: 24px 50px;
   &:hover .handle, &:hover .delete {
     background: #eee;
     display: inline-block;

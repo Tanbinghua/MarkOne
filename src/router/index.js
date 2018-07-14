@@ -10,7 +10,9 @@ export default new Router({
       path: '/',
       component: _import('Home'),
       children: [
-        { path: '/', name: 'Notes', component: _import('Notes') }
+        { path: '/', name: 'Notes', component: _import('Notes') },
+        { path: 'highlight', name: 'HighLight', component: _import('Highlight') },
+        { path: 'trash', name: 'Trash', component: _import('Trash') }
       ]
     }
   ]
