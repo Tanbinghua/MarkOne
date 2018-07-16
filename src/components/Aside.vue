@@ -6,13 +6,19 @@
     </div>
     <div class="nav">
       <div :class="{'nav-list': true, 'nav-list-active': tab === 'notes'}" @click="tab = 'notes'">
-        <router-link class="nav-list-link" to="/"><p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Notes</span></p></router-link>
+        <router-link class="nav-list-link" to="/">
+          <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="notes"></icon-svg></span><span>Notes</span></p>
+        </router-link>
       </div>
       <div :class="{'nav-list': true, 'nav-list-active': tab === 'highlights'}" @click="tab = 'highlights'">
-        <router-link class="nav-list-link" to="/highlight"><p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Highlights</span></p></router-link>
+        <router-link class="nav-list-link" to="/highlight">
+          <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="highlight"></icon-svg></span><span>Highlights</span></p>
+        </router-link>
       </div>
       <div :class="{'nav-list': true, 'nav-list-active': tab === 'trash'}" @click="tab = 'trash'">
-        <router-link class="nav-list-link" to="/trash"><p class="nav-list-text"><span class="nav-list-text-icon"></span><span>Trash</span></p></router-link>
+        <router-link class="nav-list-link" to="/trash">
+          <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="trash"></icon-svg></span><span>Trash</span></p>
+        </router-link>
       </div>
     </div>
   </div>
@@ -47,6 +53,7 @@ export default {
   max-width: 320px;
   text-align: center;
   width: 22.2%;
+  z-index: 1;
 }
 .title {
   color: #1a2270;

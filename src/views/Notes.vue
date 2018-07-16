@@ -3,7 +3,7 @@
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
         <span class="note-list-header-icon"></span>
-        <h3>{{ note.title }}</h3>
+        <h3 :id="note.id"><a :href="'#' + note.id">{{ note.title }}</a></h3>
       </div>
       <collapse-transition>
         <sortable-list v-model="note.items" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
@@ -31,6 +31,7 @@ export default {
     return {
       notes: [
         {
+          id: '1',
           title: 'The Universe in a Nutshell',
           items: [
             { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
@@ -43,6 +44,7 @@ export default {
           noteVisible: true
         },
         {
+          id: '2',
           title: 'Lorem ipsum dolor sit amet',
           items: [
             { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
@@ -55,6 +57,7 @@ export default {
           noteVisible: true
         },
         {
+          id: '3',
           title: 'Sed tempor nisl a lorem consequat',
           items: [
             { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
@@ -92,7 +95,6 @@ export default {
 .note {
   &-list {
     &-header {
-      color: #1a2270;
       font-family: PingFangSC-Medium, sans-serif;
       font-size: 20px;
       margin: 64px 0 16px;
@@ -100,6 +102,10 @@ export default {
       // position: -webkit-sticky;
       // top: 0;
       // z-index: 1;
+      & a {
+        color: #1a2270;
+        text-decoration: none;
+      }
       &-icon {
         background: #ccc;
         display: block;
