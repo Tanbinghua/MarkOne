@@ -90,7 +90,7 @@ export default {
 
 <style lang="scss" scoped>
 .notes {
-  padding: 0 14.9% 6.7% 6.7%;
+  padding: 0 16% 6.7% 6.7%;
 }
 .note {
   &-list {

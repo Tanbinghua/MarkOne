@@ -1,8 +1,11 @@
 <template>
   <li class="list-item">
-    <!-- <span class="delete">X</span> -->
-    {{item}}
-    <!-- <span v-handle class="handle">三</span> -->
+    <p>{{item}}</p>
+    <div class="list-item-box">
+      <span class="list-item-box-icon"></span>
+      <span class="list-item-box-icon"></span>
+      <span class="list-item-box-icon" v-handle></span>
+    </div>
   </li>
 </template>
 
@@ -27,31 +30,35 @@ export default {
   margin: 16px 0;
   position: relative;
   padding: 24px 50px;
-  &:hover .handle, &:hover .delete {
-    background: #eee;
-    display: inline-block;
+  &-box {
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all .3s ease;
+    width: 168px;
+    z-index: -1;
+    &-icon {
+      background: rgba(26,34,112,0.10);
+      flex: 1;
+      transition: all .3s ease;
+      &:hover {
+        background: #FEECDC;
+        cursor: pointer;
+        opacity: 1;
+      }
+    }
   }
-}
-.handle, .delete {
-  display: none;
-  color: #666;
-  background: transparent;
-  transition: all 3s ease;
-  padding: 5px 10px;
-  position: absolute;
-}
-.handle {
-  right: 5px;
-  top: 8px;
-}
-.delete {
-  left: 5px;
-  top: 8px;
-}
-.handle:hover {
-  cursor: move;
-}
-.delete:hover {
-  cursor: pointer;
+  &:hover {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  &:hover > &-box {
+    border-radius: 0;
+    right: -168px;
+  }
 }
 </style>

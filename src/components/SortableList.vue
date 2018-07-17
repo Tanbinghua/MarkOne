@@ -16,6 +16,8 @@ export default {
 .list {
   list-style: none;
   padding: 0;
+  position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 </style>

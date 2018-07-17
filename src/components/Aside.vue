@@ -5,12 +5,12 @@
       <button class="new-btn" @click="change"><span class="new-btn-icon">＋</span>New Note</button>
     </div>
     <div class="nav">
-      <div :class="{'nav-list': true, 'nav-list-active': tab === 'notes'}" @click="tab = 'notes'">
+      <div :class="{'nav-list': true, 'nav-list-active': tab === ''}" @click="tab = ''">
         <router-link class="nav-list-link" to="/">
           <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="notes"></icon-svg></span><span>Notes</span></p>
         </router-link>
       </div>
-      <div :class="{'nav-list': true, 'nav-list-active': tab === 'highlights'}" @click="tab = 'highlights'">
+      <div :class="{'nav-list': true, 'nav-list-active': tab === 'highlight'}" @click="tab = 'highlight'">
         <router-link class="nav-list-link" to="/highlight">
           <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="highlight"></icon-svg></span><span>Highlights</span></p>
         </router-link>
@@ -28,12 +28,12 @@
 export default {
   data () {
     return {
-      tab: 'notes'
+      tab: this.$route.path.substring(1)
     }
   },
   methods: {
     change () {
-      console.log('hello')
+      console.log(this.tab)
     }
   }
 }
@@ -53,7 +53,7 @@ export default {
   max-width: 320px;
   text-align: center;
   width: 22.2%;
-  z-index: 1;
+  z-index: 2;
 }
 .title {
   color: #1a2270;
@@ -112,7 +112,7 @@ export default {
         display: inline-block;
         height: 30px;
         margin: 0 25px 0 35px;
-        vertical-align: sub;
+        vertical-align: text-bottom;
         width: 30px;
       }
     }

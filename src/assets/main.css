@@ -47,6 +47,7 @@ html, body, #app {
   .notes {
     padding: 0 6.7% !important;
   }
+  .main { height: 100%; }
 }
 
 @media screen and (min-width: 900px) {
