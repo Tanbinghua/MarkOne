@@ -2,7 +2,7 @@
   <div class="aside">
     <h3 class="title">Markone</h3>
     <div class="new">
-      <button class="new-btn" @click="change"><span class="new-btn-icon">＋</span>New Note</button>
+      <button class="new-btn" @click="change"><span class="new-btn-icon"><icon-svg icon-class="new"></icon-svg></span>New Note</button>
     </div>
     <div class="nav">
       <div :class="{'nav-list': true, 'nav-list-active': tab === ''}" @click="tab = ''">
@@ -12,7 +12,9 @@
       </div>
       <div :class="{'nav-list': true, 'nav-list-active': tab === 'highlight'}" @click="tab = 'highlight'">
         <router-link class="nav-list-link" to="/highlight">
-          <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="highlight"></icon-svg></span><span>Highlights</span></p>
+          <p class="nav-list-text"><span class="nav-list-text-icon">
+            <icon-svg :icon-class="tab === 'highlight' ? 'highlight-signed' : 'highlight-unsign'" ></icon-svg>
+          </span><span>Highlights</span></p>
         </router-link>
       </div>
       <div :class="{'nav-list': true, 'nav-list-active': tab === 'trash'}" @click="tab = 'trash'">
@@ -80,8 +82,12 @@ export default {
       cursor: pointer;
     }
     &-icon {
-      font-size: 22px;
       margin-right: 25px;
+      & svg {
+        height: 24px;
+        vertical-align: sub;
+        width: 24px;
+      }
     }
   }
 }
@@ -108,12 +114,16 @@ export default {
       text-align: left;
       width: 216px;
       &-icon {
-        background: #ccc;
         display: inline-block;
         height: 30px;
         margin: 0 25px 0 35px;
         vertical-align: text-bottom;
         width: 30px;
+        & svg {
+          height: 32px;
+          vertical-align: super;
+          width: 32px;
+        }
       }
     }
   }

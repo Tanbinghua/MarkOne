@@ -2,7 +2,7 @@
   <div class="notes">
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
-        <span class="note-list-header-icon"></span>
+        <span class="note-list-header-icon"><icon-svg icon-class="option"></icon-svg></span>
         <h3 :id="note.id"><a :href="'#' + note.id">{{ note.title }}</a></h3>
       </div>
       <collapse-transition>
@@ -13,7 +13,7 @@
         </sortable-list>
       </collapse-transition>
       <div class="note-list-footer">
-        <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">{{ note.noteVisible ? 'Flod' : 'More' }} <span class="note-list-footer-box-icon"></span></p>
+        <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">{{ note.noteVisible ? 'Flod' : 'More' }} <span :class="{'note-list-footer-box-icon': true, rotate: !note.noteVisible}"><icon-svg icon-class="down"></icon-svg></span></p>
         <p class="note-list-footer-time">Created：{{ note.date }}</p>
         <p class="note-list-footer-link">&nbsp;&nbsp;From：<a :href="note.fromUrl" target="_blank"><span>{{ note.fromUrl }}</span></a></p>
       </div>
@@ -107,11 +107,16 @@ export default {
         text-decoration: none;
       }
       &-icon {
-        background: #ccc;
         display: block;
         float: right;
-        height: 27px;
+        height: 31px;
+        text-align: center;
         width: 30px;
+        & svg {
+          height: 10px;
+          width: 20px;
+        }
+        &:hover { cursor: pointer; }
       }
     }
     &-footer {
@@ -133,11 +138,22 @@ export default {
         float: right;
         transition: all .3s ease;
         &-icon {
-          background: #ccc;
           display: inline-block;
           height: 20px;
-          vertical-align: middle;
+          text-align: center;
+          transform-origin: center;
+          transition: all .3s ease;
+          vertical-align: bottom;
           width: 20px;
+          & svg {
+            height: 6px;
+            vertical-align: middle;
+            width: 10px;
+          }
+          &:hover { color: #FF6E03; }
+        }
+        & .rotate {
+          transform: rotate(180deg);
         }
         &:hover {
           color: #FF6E03;

@@ -39,7 +39,7 @@ export default {
 .container {
   background: #f8f8f8;
   flex: 1;
-  overflow: auto;
+  overflow-y: scroll;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s;

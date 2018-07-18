@@ -27,7 +27,7 @@ export default {
   display: block;
   font-size: 16px;
   line-height: 24px;
-  margin: 16px 0;
+  margin: 0 0 16px;
   position: relative;
   padding: 24px 50px;
   &-box {

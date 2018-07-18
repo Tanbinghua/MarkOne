@@ -2,7 +2,7 @@
   <div class="header">
     <div class="search">
       <div class="search-box">
-        <span class="search-box-icon"></span>
+        <span class="search-box-icon"><icon-svg icon-class="search"></icon-svg></span>
         <input class="search-box-input" type="text" placeholder="search">
         <span class="search-box-border"></span>
       </div>
@@ -28,15 +28,19 @@
     position: relative;
     transition: all .3s ease;
     &-icon {
-      background: #ccc;
       height: 24px;
-      margin: 4px auto;
+      margin: 4px 16px 4px 0;
       width: 24px;
+      & svg {
+        height: 24px;
+        width: 24px;
+      }
     }
     &-input {
       border: none;
       color: #555;
       flex: 1;
+      font-size: 14px;
       line-height: 32px;
       outline: none;
       &:focus { border-color: #ff6e03; }
