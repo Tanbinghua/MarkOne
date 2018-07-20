@@ -28,7 +28,8 @@ export default new Router({
       children: [
         { path: '/', name: 'Notes', component: _import('Notes') },
         { path: 'highlight', name: 'HighLight', component: _import('Highlight') },
-        { path: 'trash', name: 'Trash', component: _import('Trash') }
+        { path: 'trash', name: 'Trash', component: _import('Trash') },
+        { path: 'signup', name: 'Signup', component: _import('Signup') }
       ]
     }
   ],
