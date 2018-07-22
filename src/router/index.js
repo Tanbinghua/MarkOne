@@ -4,21 +4,21 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 
 Vue.use(Router)
 
-const scrollBehavior = (to, from, savedPosition) => {
-  if (savedPosition) {
-    return savedPosition
-  } else {
-    const position = {}
-    if (to.hash) {
-      position.selector = to.hash
-    }
-    if (to.matched.some(m => m.meta.scrollToTop)) {
-      position.x = 0
-      position.y = 0
-    }
-    return position
-  }
-}
+// const scrollBehavior = (to, from, savedPosition) => {
+//   if (savedPosition) {
+//     return savedPosition
+//   } else {
+//     const position = {}
+//     if (to.hash) {
+//       position.selector = to.hash
+//     }
+//     if (to.matched.some(m => m.meta.scrollToTop)) {
+//       position.x = 0
+//       position.y = 0
+//     }
+//     return position
+//   }
+// }
 
 export default new Router({
   routes: [
@@ -32,7 +32,7 @@ export default new Router({
       ]
     },
     { path: '/sign', name: 'Sign', component: _import('Sign') }
-  ],
-  mode: 'history',
-  scrollBehavior
+  ]
+  // mode: 'history',
+  // scrollBehavior
 })

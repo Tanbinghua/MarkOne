@@ -25,6 +25,7 @@
 import SortableList from '../components/SortableList'
 import SortableItem from '../components/SortableItem'
 import CollapseTransition from '../components/Collapse'
+import { getNotes } from '../api/interface'
 
 export default {
   data () {
@@ -83,7 +84,17 @@ export default {
     sortmove () {
     },
     sortend () {
+    },
+    getdata () {
+      getNotes().then(res => {
+        if (res.data) {
+          console.log(res.data)
+        }
+      })
     }
+  },
+  mounted () {
+    this.getdata()
   }
 }
 </script>

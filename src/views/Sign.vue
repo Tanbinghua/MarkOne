@@ -81,6 +81,7 @@ export default {
       signIn(data).then(res => {
         if (res.data) {
           alert('Success!')
+          localStorage.setItem('name', res.data.name)
           this.$router.push('/')
         }
       })

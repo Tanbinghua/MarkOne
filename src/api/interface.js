@@ -22,3 +22,10 @@ export function signOut () {
     method: 'PUT'
   })
 }
+
+export function getNotes () {
+  return fetch({
+    url: 'api/notes/',
+    method: 'GET'
+  })
+}

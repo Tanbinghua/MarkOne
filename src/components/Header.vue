@@ -7,7 +7,7 @@
         <span class="search-box-border"></span>
       </div>
     </div>
-    <div class="avatar"><img class="avatar-img" src="../assets/avatar.jpg" alt="User's avatar" title="User's name"></div>
+    <div class="avatar" @click="$router.push('sign')"><img class="avatar-img" src="../assets/avatar.jpg" alt="User's avatar" title="User's name"></div>
   </div>
 </template>
 
