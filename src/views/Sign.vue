@@ -4,7 +4,7 @@
       <p class="sign-box-title">{{ state ? 'Join Mark One' : 'Sign in'}}</p>
       <div class="sign-box-google">
         <span class="sign-box-google-icon"></span>
-        <button class="sign-box-google-text">Sign in with Google</button>
+        <button class="sign-box-google-text" @click="signout">Sign in with Google</button>
       </div>
       <div class="sign-box-other">
         <span class="sign-box-other-border left"></span>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { signUp, signIn } from '../api/interface'
+import { signUp, signIn, signOut } from '../api/interface'
 
 export default {
   data () {
@@ -68,6 +68,7 @@ export default {
       }
       signUp(data).then(res => {
         if (res.data) {
+          alert('Success!')
           this.reset()
         }
       })
@@ -79,8 +80,14 @@ export default {
       }
       signIn(data).then(res => {
         if (res.data) {
+          alert('Success!')
           this.$router.push('/')
         }
+      })
+    },
+    signout () {
+      signOut().then(res => {
+        console.log(res)
       })
     },
     reset () {

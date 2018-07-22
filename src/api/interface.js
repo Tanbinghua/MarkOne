@@ -15,3 +15,10 @@ export function signIn (data) {
     data
   })
 }
+
+export function signOut () {
+  return fetch({
+    url: '/api/users/logout',
+    method: 'PUT'
+  })
+}
