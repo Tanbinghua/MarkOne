@@ -4,7 +4,7 @@
     <div class="list-item-box">
       <span class="list-item-box-icon"></span>
       <span class="list-item-box-icon"></span>
-      <span class="list-item-box-icon" v-handle></span>
+      <!-- <span class="list-item-box-icon" v-handle></span> -->
     </div>
   </li>
 </template>
@@ -39,7 +39,7 @@ export default {
     right: 0;
     top: 0;
     transition: all .3s ease;
-    width: 168px;
+    width: 112px;
     z-index: -1;
     &-icon {
       background: rgba(26,34,112,0.10);
@@ -58,7 +58,7 @@ export default {
   }
   &:hover > &-box {
     border-radius: 0;
-    right: -168px;
+    right: -112px;
   }
 }
 </style>
