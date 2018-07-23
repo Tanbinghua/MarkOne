@@ -1,9 +1,9 @@
 <template>
   <div class="aside">
     <h3 class="title">Markone</h3>
-    <div class="new">
+    <!-- <div class="new">
       <button class="new-btn" @click="change"><span class="new-btn-icon"><icon-svg icon-class="new"></icon-svg></span>New Note</button>
-    </div>
+    </div> -->
     <div class="nav">
       <div :class="{'nav-list': true, 'nav-list-active': tab === ''}" @click="tab = ''">
         <router-link class="nav-list-link" to="/">
@@ -45,11 +45,11 @@ export default {
 .aside {
   box-shadow: 10px 0 15px -6px rgba(0, 0, 0, 0.3);
   background: #fff;
+  font-size: 18px;
   height: 100%;
-  min-width: 260px;
-  max-width: 320px;
+  min-width: 288px;
   text-align: center;
-  width: 22.2%;
+  width: 288px;
   z-index: 2;
 }
 .title {
@@ -110,14 +110,14 @@ export default {
       width: 216px;
       &-icon {
         display: inline-block;
-        height: 30px;
+        height: 24px;
         margin: 0 25px 0 35px;
         vertical-align: text-bottom;
-        width: 30px;
+        width: 24px;
         & svg {
-          height: 32px;
-          vertical-align: super;
-          width: 32px;
+          height: 24px;
+          vertical-align: top;
+          width: 24px;
         }
       }
     }

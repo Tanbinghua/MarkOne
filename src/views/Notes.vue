@@ -13,9 +13,9 @@
         </sortable-list>
       </collapse-transition>
       <div class="note-list-footer">
-        <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">{{ note.noteVisible ? 'Flod' : 'More' }} <span :class="{'note-list-footer-box-icon': true, rotate: !note.noteVisible}"><icon-svg icon-class="down"></icon-svg></span></p>
-        <p class="note-list-footer-time">Created：{{ note.date }}</p>
-        <p class="note-list-footer-link">&nbsp;&nbsp;From：<a :href="note.fromUrl" target="_blank"><span>{{ note.fromUrl }}</span></a></p>
+        <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">{{ note.noteVisible ? 'Fold' : 'More' }} <span :class="{'note-list-footer-box-icon': true, rotate: !note.noteVisible}"><icon-svg icon-class="down"></icon-svg></span></p>
+        <p class="note-list-footer-time">Created:&nbsp;{{ note.date }}</p>
+        <p class="note-list-footer-link">&nbsp;&nbsp;From:&nbsp;<a :href="note.fromUrl" target="_blank"><span>{{ note.fromUrl }}</span></a></p>
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@ export default {
     }
   },
   mounted () {
-    this.getdata()
+    // this.getdata()
   }
 }
 </script>
