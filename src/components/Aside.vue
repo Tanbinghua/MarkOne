@@ -42,11 +42,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @font-face {
-//   font-family: Skia-Regular_Bold;
-//   src: url("../assets/Skia_Regular.ttf");
-// }
-
 .aside {
   box-shadow: 10px 0 15px -6px rgba(0, 0, 0, 0.3);
   background: #fff;
@@ -59,7 +54,7 @@ export default {
 }
 .title {
   color: #1a2270;
-  font-family: sans-serif;
+  font-family: Skia-Regular_Bold, sans-serif;
   font-size: 36px;
   margin: 33px 0 68px;
 }

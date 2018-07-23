@@ -105,7 +105,6 @@ export default {
 
 <style lang="scss" scoped>
 .sign {
-  font-family: sans-serif;
   height: 100vh;
   &-box {
     background: #f8f8f8;
@@ -181,7 +180,6 @@ export default {
       }
       ::-webkit-input-placeholder {
         color: rgba(153,153,153,0.50);
-        font-family: PingFangSC-Regular, sans-serif;
         font-size: 14px;
       }
       &-tip {
