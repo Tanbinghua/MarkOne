@@ -110,15 +110,14 @@ export default {
     background: #f8f8f8;
     box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.2);
     border-radius: 32px;
+    height: 634px;
     left: 50%;
-    height: 65%;
-    max-height: 800px;
     min-width: 560px;
     padding-top: 166px;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 40%;
+    width: 560px;
     &-title {
       color: #1A2270;
       font-family: PingFangSC-Semibold, sans-serif;
@@ -171,6 +170,7 @@ export default {
       & input {
         background: #fff;
         border: none;
+        border-radius: 8px;
         color: #999;
         height: 40px;
         margin-top: 16px;

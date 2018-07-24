@@ -1,30 +1,30 @@
 <template>
   <div class="header">
+    <div class="avatar" @click="$router.push('sign')"><img class="avatar-img" src="../assets/avatar.jpg" alt="User's avatar" title="User's name"></div>
     <div class="search">
       <div class="search-box">
         <span class="search-box-icon"><icon-svg icon-class="search"></icon-svg></span>
-        <input class="search-box-input" type="text" placeholder="search">
+        <input class="search-box-input" type="text" placeholder="Search">
         <span class="search-box-border"></span>
       </div>
     </div>
-    <div class="avatar" @click="$router.push('sign')"><img class="avatar-img" src="../assets/avatar.jpg" alt="User's avatar" title="User's name"></div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
+  padding: 0 40px;
 }
 .search {
-  margin-right: 11%;
-  width: 50%;
+  margin: auto;
+  padding-right: 112px;
+  max-width: 800px;
   &-box {
     border-bottom: 1px solid #ccc;
     display: flex;
     height: 32px;
-    margin: 24px auto;
+    margin: 23px 70px 23px 50px;
     position: relative;
     transition: all .3s ease;
     &-icon {
@@ -32,8 +32,8 @@
       margin: 4px 16px 4px 0;
       width: 24px;
       & svg {
-        height: 24px;
-        width: 24px;
+        height: 20px;
+        width: 20px;
       }
     }
     &-input {
@@ -61,10 +61,11 @@
   }
 }
 .avatar {
+  float: right;
   &-img {
-    border-radius: 24px;
-    margin: 14px auto;
-    width: 48px;
+    border-radius: 20px;
+    margin: 18px auto;
+    width: 40px;
     &:hover {
       cursor: pointer;
     }

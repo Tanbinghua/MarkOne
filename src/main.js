@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import './assets/main.css'
 import './assets/icons'
-// import './utils/permission'
+import './utils/permission'
 
 Vue.config.productionTip = false
 

@@ -94,7 +94,7 @@ export default {
     line-height: 66px;
     transition: all .4s ease;
     &:hover {
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(26,34,112,0.10);
       cursor: pointer;
     }
     &-link {

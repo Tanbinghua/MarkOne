@@ -2,7 +2,10 @@
   <div class="notes">
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
-        <span class="note-list-header-icon"><icon-svg icon-class="option"></icon-svg></span>
+        <span class="note-list-header-icon">
+          Copy all
+          <!-- <icon-svg icon-class="option"></icon-svg> -->
+        </span>
         <h3 :id="note.id"><a :href="'#' + note.id">{{ note.title }}</a></h3>
       </div>
       <collapse-transition>
@@ -14,7 +17,7 @@
       </collapse-transition>
       <div class="note-list-footer">
         <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">{{ note.noteVisible ? 'Fold' : 'More' }} <span :class="{'note-list-footer-box-icon': true, rotate: !note.noteVisible}"><icon-svg icon-class="down"></icon-svg></span></p>
-        <p class="note-list-footer-time">Created:&nbsp;{{ note.date }}</p>
+        <p class="note-list-footer-time">Edited:&nbsp;{{ note.date }}</p>
         <p class="note-list-footer-link">&nbsp;&nbsp;From:&nbsp;<a :href="note.fromUrl" target="_blank"><span>{{ note.fromUrl }}</span></a></p>
       </div>
     </div>
@@ -101,10 +104,13 @@ export default {
 
 <style lang="scss" scoped>
 .notes {
-  padding: 0 16% 6.7% 6.7%;
+  padding: 0 40px 100px;
 }
 .note {
   &-list {
+    margin: auto;
+    padding-right: 112px;
+    max-width: 810px;
     &-header {
       font-family: PingFangSC-Medium, sans-serif;
       font-size: 20px;
@@ -118,11 +124,14 @@ export default {
         text-decoration: none;
       }
       &-icon {
+        color: #1a2270;
         display: block;
         float: right;
+        font-size: 14px;
         height: 31px;
+        line-height: 31px;
         text-align: center;
-        width: 30px;
+        // width: 30px;
         & svg {
           height: 10px;
           width: 20px;
@@ -138,7 +147,7 @@ export default {
         font-size: 14px;
       }
       &-link a {
-        color: #1a2270;
+        color: #999;
         text-decoration: none;
         &:hover {
           text-decoration: underline;
@@ -157,9 +166,9 @@ export default {
           vertical-align: bottom;
           width: 20px;
           & svg {
-            height: 6px;
+            height: 9px;
             vertical-align: middle;
-            width: 10px;
+            width: 15px;
           }
           &:hover { color: #FF6E03; }
         }

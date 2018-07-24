@@ -31,7 +31,9 @@ export default new Router({
         { path: 'trash', name: 'Trash', component: _import('Trash') }
       ]
     },
-    { path: '/sign', name: 'Sign', component: _import('Sign') }
+    { path: '/sign', name: 'Sign', component: _import('Sign') },
+    { path: '*', redirect: '/error' },
+    { path: '/error', name: 'Error', component: _import('Error') }
   ]
   // mode: 'history',
   // scrollBehavior
