@@ -29,3 +29,10 @@ export function getNotes () {
     method: 'GET'
   })
 }
+
+export function userInfo () {
+  return fetch({
+    url: 'api/users/profile',
+    method: 'GET'
+  })
+}
