@@ -23,6 +23,9 @@
         </router-link>
       </div>
     </div>
+    <div class="nav-icon">
+      <span class="nav-icon-box"><icon-svg icon-class="menu"></icon-svg></span>
+    </div>
   </div>
 </template>
 
@@ -43,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .aside {
-  box-shadow: 10px 0 15px -6px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 0 15px -6px rgba(0, 0, 0, 0.2);
   background: #fff;
   font-size: 18px;
   height: 100%;
@@ -121,6 +124,20 @@ export default {
         }
       }
     }
+  }
+  &-icon {
+    position: absolute;
+    left: 288px;
+    &-box {
+      background: #fff;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 12px;
+      & svg {
+        height: 14px;
+        width: 14px;
+      }
+    }
+    &:hover { cursor: pointer; }
   }
 }
 </style>

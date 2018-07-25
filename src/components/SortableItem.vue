@@ -1,10 +1,14 @@
 <template>
-  <li :class="{'list-item': true, 'has-left-radius': isHighlight}">
-    <img v-if="img" :src="img" alt="Markone" class="list-item-img">
+  <li :class="{'list-item': true, 'has-left-radius': isHighlight, 'border-left-radius': isHighlight}">
+    <img v-if="img" :src="img" alt="Markone" :class="{'list-item-img': true, 'border-left-radius': isHighlight}">
     <p v-else class="list-item-text">{{item}}</p>
     <div class="list-item-box">
-      <span class="list-item-box-icon"></span>
-      <span class="list-item-box-icon"></span>
+      <span class="list-item-box-icon">
+        <icon-svg :icon-class="isHighlight ? 'highlighted' : 'highlight'"></icon-svg>
+      </span>
+      <span class="list-item-box-icon">
+        <icon-svg icon-class="back-to-video"></icon-svg>
+      </span>
       <!-- <span class="list-item-box-icon" v-handle></span> -->
     </div>
   </li>
@@ -23,13 +27,14 @@ export default {
 <style lang="scss" scoped>
 .has-left-radius {
   border-left: 4px solid #FF6E03;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+}
+.border-left-radius {
+  border-top-left-radius: 4px!important;
+  border-bottom-left-radius: 4px!important;
 }
 .list-item {
   background: #fff;
-  border-bottom-right-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 8px;
   color: #666;
   display: block;
   font-size: 16px;
@@ -61,12 +66,28 @@ export default {
     &-icon {
       background: rgba(26,34,112,0.10);
       flex: 1;
+      position: relative;
+      text-align: center;
       transition: all .3s ease;
       &:hover {
         background: #FEECDC;
         cursor: pointer;
         opacity: 1;
       }
+      & svg {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    &-icon:nth-of-type(1) svg {
+      height: 28px;
+      width: 22px;
+    }
+    &-icon:nth-of-type(2) svg {
+      height: 26px;
+      width: 30px;
     }
   }
   &:hover {

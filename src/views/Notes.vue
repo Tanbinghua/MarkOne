@@ -1,5 +1,6 @@
 <template>
   <div class="notes">
+    <no-data v-if="loading || !notes.length" :loading="loading" :nodata="!loading && !notes.length"></no-data>
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
         <span class="note-list-header-icon">
@@ -29,19 +30,22 @@
 import SortableList from '../components/SortableList'
 import SortableItem from '../components/SortableItem'
 import CollapseTransition from '../components/Collapse'
+import NoData from '../components/Nodata'
 import { getNotes } from '../api/interface'
 import { formatDate } from '../utils/tools'
 
 export default {
   data () {
     return {
-      notes: []
+      notes: [],
+      loading: false
     }
   },
   components: {
     SortableList,
     SortableItem,
-    CollapseTransition
+    CollapseTransition,
+    NoData
   },
   methods: {
     sortstart () {
@@ -51,10 +55,14 @@ export default {
     sortend () {
     },
     getdata () {
+      this.loading = true
       getNotes().then(res => {
         if (res.data) {
           this.notes = res.data.results
+          this.loading = false
         }
+      }).catch(() => {
+        this.loading = false
       })
     }
   },

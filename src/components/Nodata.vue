@@ -1,8 +1,15 @@
 <template>
   <div class="no-data">
-    <p>-- No data --</p>
+    <p v-if="loading">Loding ...</p>
+    <p v-if="nodata">-- No data --</p>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['loading', 'nodata']
+}
+</script>
 
 <style scoped>
 .no-data {

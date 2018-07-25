@@ -1,6 +1,6 @@
 <template>
   <div class="highlight">
-    <no-data v-if="!data.sections"></no-data>
+    <no-data :loading="loading" :nodata="!loading && !data.length"></no-data>
     <ul class="light">
       <note-list v-for="item in data.sections" :key="item.uuid" :context="item.remark" type="highlight"></note-list>
     </ul>
@@ -15,15 +15,20 @@ import NoData from '../components/Nodata'
 export default {
   data () {
     return {
-      data: []
+      data: [],
+      loading: false
     }
   },
   methods: {
     getDate () {
+      this.loading = true
       getHighList().then(res => {
         if (res.data) {
           this.data = res.data.results
+          this.loading = false
         }
+      }).catch(() => {
+        this.loading = false
       })
     }
   },
