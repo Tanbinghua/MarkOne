@@ -12,7 +12,7 @@
         <sortable-list v-model="note.items" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
           :useDragHandle="true" lockAxis="y" helperClass="change-bg" v-show="note.noteVisible">
           <sortable-item v-for="(item, index) in note.items"
-            :index="index" :key="item.id" :item="item.value"></sortable-item>
+            :index="index" :key="item.id" :item="item.value" :isHighlight="item.isHighlight"></sortable-item>
         </sortable-list>
       </collapse-transition>
       <div class="note-list-footer">
@@ -97,7 +97,7 @@ export default {
     }
   },
   mounted () {
-    // this.getdata()
+    this.getdata()
   }
 }
 </script>

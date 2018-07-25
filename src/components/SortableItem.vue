@@ -1,5 +1,5 @@
 <template>
-  <li class="list-item">
+  <li :class="{'list-item': true, 'has-left-radius': isHighlight}">
     <p>{{item}}</p>
     <div class="list-item-box">
       <span class="list-item-box-icon"></span>
@@ -14,12 +14,17 @@ import { ElementMixin, HandleDirective } from 'vue-slicksort'
 
 export default {
   mixins: [ElementMixin],
-  props: ['item'],
+  props: ['item', 'isHighlight'],
   directives: { handle: HandleDirective }
 }
 </script>
 
 <style lang="scss" scoped>
+.has-left-radius {
+  border-left: 4px solid #FF6E03;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
 .list-item {
   background: #fff;
   border-radius: 8px;

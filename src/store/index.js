@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     nickname: null,
     avatar: null,
-    create_at: null,
+    created_at: null,
     email: null,
     phone: null,
     last_login: null,
@@ -21,7 +21,7 @@ export default new Vuex.Store({
       let JSONinfo = JSON.parse(info.info)
       state.nickname = JSONinfo.nickname
       state.avatar = JSONinfo.avatar
-      state.create_at = JSONinfo.create_at
+      state.created_at = JSONinfo.created_at
       state.email = JSONinfo.email
       state.phone = JSONinfo.phone
       state.last_login = JSONinfo.last_login
