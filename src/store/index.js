@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { userInfo } from '../api/interface'
+import getters from './getters'
 
 Vue.use(Vuex)
 
-const user = {
+export default new Vuex.Store({
   state: {
     nickname: null,
     avatar: null,
@@ -30,21 +30,5 @@ const user = {
       state.is_admin = JSONinfo.is_admin
     }
   },
-  actions: {
-    getUserInfo ({ commit }) {
-      userInfo().then(res => {
-        if (res.status === 200) {
-          commit('SET_USER_INFO', res.data)
-        } else {
-          this.$router.push('/sign')
-        }
-      })
-    }
-  }
-}
-
-export default new Vuex.Store({
-  modules: {
-    user
-  }
+  getters
 })

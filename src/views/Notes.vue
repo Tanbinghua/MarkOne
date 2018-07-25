@@ -28,7 +28,7 @@
 import SortableList from '../components/SortableList'
 import SortableItem from '../components/SortableItem'
 import CollapseTransition from '../components/Collapse'
-import { getNotes, userInfo } from '../api/interface'
+import { getNotes } from '../api/interface'
 
 export default {
   data () {
@@ -98,7 +98,6 @@ export default {
   },
   mounted () {
     // this.getdata()
-    userInfo()
   }
 }
 </script>

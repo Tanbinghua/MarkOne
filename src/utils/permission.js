@@ -1,31 +1,32 @@
-import router from '../router/index'
-import store from '../store/index'
+import router from '../router'
+import store from '../store'
+import { userInfo } from '../api/interface'
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/sign') {
-    if (sessionStorage.getItem('nickname')) {
-      next('/')
-    } else {
-      next()
-    }
-  } else if (to.path === '/error') {
-    next()
-  } else {
-    if (!sessionStorage.getItem('nickname') || sessionStorage.getItem('nickname') === '') {
-      next('/sign')
-    } else {
-      if (store.state.user_info.nickname === '') {
-        userInfo().then(res => {
-          if (res.data) {
-            store.commit({
-              type: 'setUserInfo',
-              info: JSON.stringify(res.data)
-            })
-          }
-        }).catch(err => {
-          next('/sign')
-        })
+    userInfo().then(res => {
+      if (res.data) {
+        next('/')
+      } else {
+        next()
       }
+    })
+  } else {
+    if (!store.getters.nickname) {
+      userInfo().then(res => {
+        if (res.data) {
+          store.commit({
+            type: 'SET_USER_INFO',
+            info: JSON.stringify(res.data)
+          })
+          next()
+        }
+      }).catch(err => {
+        if (err) {
+          next('/sign')
+        }
+      })
+    } else {
       next()
     }
   }
