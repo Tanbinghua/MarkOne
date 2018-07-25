@@ -1,6 +1,7 @@
 <template>
   <li :class="{'list-item': true, 'has-left-radius': isHighlight}">
-    <p>{{item}}</p>
+    <img v-if="img" :src="img" alt="Markone" class="list-item-img">
+    <p v-else class="list-item-text">{{item}}</p>
     <div class="list-item-box">
       <span class="list-item-box-icon"></span>
       <span class="list-item-box-icon"></span>
@@ -14,7 +15,7 @@ import { ElementMixin, HandleDirective } from 'vue-slicksort'
 
 export default {
   mixins: [ElementMixin],
-  props: ['item', 'isHighlight'],
+  props: ['item', 'isHighlight', 'img'],
   directives: { handle: HandleDirective }
 }
 </script>
@@ -27,14 +28,25 @@ export default {
 }
 .list-item {
   background: #fff;
-  border-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
   color: #666;
   display: block;
   font-size: 16px;
   line-height: 24px;
   margin: 0 0 16px;
   position: relative;
-  padding: 24px 50px;
+  &-text {
+    padding: 24px 32px;
+  }
+  &-img {
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    &:hover {
+      cursor: zoom-in;
+    }
+  }
   &-box {
     border-radius: 0 10px 10px 0;
     display: flex;
@@ -58,6 +70,10 @@ export default {
     }
   }
   &:hover {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  &:hover > &-img {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }

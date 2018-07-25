@@ -12,7 +12,7 @@ service.interceptors.response.use(res => {
     this.store.commit('SET_USER_INFO', JSON.stringify({}))
 
     return '{success: false}'
-  } else if (res.statusText !== 'OK') {
+  } else if (!(res.status).toString().startsWith('2')) {
     console.log(res.status + ': ' + res.statusText)
     return res
   } else {

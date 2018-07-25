@@ -1,26 +1,38 @@
 <template>
   <div class="highlight">
+    <no-data v-if="!data.sections"></no-data>
     <ul class="light">
-      <note-list v-for="item in data" :key="item.id" :context="item.context" type="trash"></note-list>
+      <note-list v-for="item in data.sections" :key="item.uuid" :context="item.remark" type="trash"></note-list>
     </ul>
   </div>
 </template>
 
 <script>
 import NoteList from '../components/NoteList'
+import { getTrashList } from '../api/interface'
+import NoData from '../components/Nodata'
 
 export default {
   data () {
     return {
-      data: [
-        {context: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."', notes: '1'},
-        {context: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."', notes: '2'},
-        {context: 'Sometimes we see things as being black or white: Perhaps you have two categories of coworkers in your mind—the good ones and the bad ones. It\'s easy to take one particular event and generalize it to the rest of our life. If you failed to close one deal, you may decide, "I\'m bad at closing deals." Labeling involves putting a name to something. "', notes: '3'}
-      ]
+      data: []
     }
   },
   components: {
-    NoteList
+    NoteList,
+    NoData
+  },
+  methods: {
+    getData () {
+      getTrashList().then(res => {
+        if (res.data) {
+          this.data = res.data.results
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getData()
   }
 }
 </script>

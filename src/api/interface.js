@@ -36,3 +36,17 @@ export function userInfo () {
     method: 'GET'
   })
 }
+
+export function getHighList () {
+  return fetch({
+    url: 'api/notes/highlight',
+    method: 'GET'
+  })
+}
+
+export function getTrashList () {
+  return fetch({
+    url: 'api/notes/trash',
+    method: 'GET'
+  })
+}

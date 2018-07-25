@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/notes/blue</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icon/notes/blue" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M24.5733,14.9269 L26.9423,14.9269" id="Stroke-1" stroke="#1A2270" stroke-width="1.779" stroke-linecap="round" stroke-linejoin="round"></path>
+        <g id="Group-14" transform="translate(0.000000, 0.779400)" stroke="#1A2270" stroke-width="1.779">
+            <path d="M10.3638,10.0572 L20.5008,10.0572 C22.0638,10.0572 23.3658,11.4312 23.6968,13.2862 C23.7528,13.5872 23.7838,13.9082 23.7838,14.2282 L23.7838,20.0842" id="Stroke-2"></path>
+            <path d="M23.7842,20.0835 L23.7842,25.9385 C23.7842,28.2455 22.3162,30.1095 20.5012,30.1095 L4.1742,30.1095 C3.8892,30.1095 3.6142,30.0605 3.3452,29.9705 C1.9312,29.5085 0.8892,27.8845 0.8892,25.9385 L0.8892,14.2285 C0.8892,11.9225 2.3572,10.0575 4.1742,10.0575 L10.3632,10.0575" id="Stroke-4" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M7.9947,4.2803 C7.9947,1.9773 9.4647,0.1103 11.2787,0.1103 L27.6057,0.1103 C29.4197,0.1103 30.8897,1.9773 30.8897,4.2803 L30.8897,15.9933 C30.8897,18.2963 29.4197,20.1633 27.6057,20.1633" id="Stroke-6" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M5.6265,16.1534 L19.8365,16.1534" id="Stroke-8" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M5.6265,24.1743 L19.8365,24.1743" id="Stroke-10" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M12.7315,6.1265 L26.9425,6.1265" id="Stroke-12" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

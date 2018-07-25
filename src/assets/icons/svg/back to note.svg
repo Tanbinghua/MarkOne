@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/back to note</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="金句/已标记4行" transform="translate(-72.000000, -60.000000)" stroke="#FF6E03" stroke-width="1.779">
+            <g id="icon/back-to-note" transform="translate(72.000000, 60.000000)">
+                <path d="M4.329225,13.060425 L14.986725,13.060425" id="Stroke-1"></path>
+                <path d="M4.329225,19.068525 L14.986725,19.068525" id="Stroke-2"></path>
+                <path d="M7.329225,6.8964 L9.657975,4.56765" id="Stroke-3"></path>
+                <path d="M7.329225,6.8964 L9.657975,9.2259" id="Stroke-4"></path>
+                <path d="M23.167125,10.582875 L23.167125,11.970375 C23.167125,13.697625 22.064625,15.097875 20.704125,15.097875" id="Stroke-5"></path>
+                <path d="M20.703975,7.0599 C22.064475,7.0599 23.166975,8.46015 23.166975,10.1874 L23.166975,11.5644" id="Stroke-7"></path>
+                <path d="M7.329225,7.0599 L20.236725,7.0599" id="Stroke-9"></path>
+                <path d="M18.292125,9.5736 L18.292125,20.3331 C18.292125,21.98985 16.948875,23.3331 15.292125,23.3331 L3.667125,23.3331 C2.010375,23.3331 0.667125,21.98985 0.667125,20.3331 L0.667125,3.8331 C0.667125,2.17635 2.010375,0.8331 3.667125,0.8331 L15.292125,0.8331 C16.948875,0.8331 18.292125,2.17635 18.292125,3.8331 L18.292125,4.8996" id="Stroke-11"></path>
+            </g>
+        </g>
+    </g>
+</svg>

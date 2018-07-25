@@ -24,7 +24,7 @@
     border-bottom: 1px solid #ccc;
     display: flex;
     height: 32px;
-    margin: 23px 70px 23px 50px;
+    margin: 23px 40px 23px 30px;
     position: relative;
     transition: all .3s ease;
     &-icon {

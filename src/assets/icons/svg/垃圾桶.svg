@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="32px" viewBox="0 0 28 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/trash/blue</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icon/trash/blue" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <g id="Group" stroke="#1A2270">
+            <path d="M22.0444,30.7979 L5.5524,30.7979 C3.7714,30.7979 2.3284,29.1639 2.3284,27.1499 L2.3284,8.2979 L13.7984,8.2979 L25.2694,8.2979 L25.2694,27.1499 C25.2694,29.1639 23.8254,30.7979 22.0444,30.7979 Z" id="Stroke-1" stroke-width="1.627"></path>
+            <path d="M26.7983,7.8814 L26.7983,8.2984 L0.7983,8.2984 L0.7983,7.8814 C0.7983,6.0394 2.1673,4.5484 3.8573,4.5484 L23.7393,4.5484 C25.2383,4.5484 26.4843,5.7234 26.7443,7.2814 C26.7833,7.4734 26.7983,7.6734 26.7983,7.8814 Z" id="Stroke-3" stroke-width="1.597"></path>
+            <path d="M10.7392,2.4654 C10.7392,1.5454 11.4242,0.7984 12.2682,0.7984 L15.3272,0.7984 C16.1722,0.7984 16.8562,1.5444 16.8562,2.4654" id="Stroke-5" stroke-width="1.597" stroke-linecap="round"></path>
+            <path d="M13.7983,13.2984 L13.7983,24.9654" id="Stroke-7" stroke-width="1.597" stroke-linecap="round"></path>
+            <path d="M7.6801,13.2984 L7.6801,24.9654" id="Stroke-9" stroke-width="1.597" stroke-linecap="round"></path>
+            <path d="M19.9165,13.2984 L19.9165,24.9654" id="Stroke-11" stroke-width="1.597" stroke-linecap="round"></path>
+        </g>
+    </g>
+</svg>

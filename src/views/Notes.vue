@@ -9,16 +9,17 @@
         <h3 :id="note.id"><a :href="'#' + note.id">{{ note.title }}</a></h3>
       </div>
       <collapse-transition>
-        <sortable-list v-model="note.items" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
-          :useDragHandle="true" lockAxis="y" helperClass="change-bg" v-show="note.noteVisible">
-          <sortable-item v-for="(item, index) in note.items"
-            :index="index" :key="item.id" :item="item.value" :isHighlight="item.isHighlight"></sortable-item>
+        <sortable-list v-model="note.sections" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
+          :useDragHandle="true" lockAxis="y" helperClass="change-bg" v-show="true">
+          <sortable-item v-for="(item, index) in note.sections"
+            :index="index" :key="item.uuid" :item="item.remark"
+            :isHighlight="item.highlight" :img="item.image"></sortable-item>
         </sortable-list>
       </collapse-transition>
       <div class="note-list-footer">
         <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">{{ note.noteVisible ? 'Fold' : 'More' }} <span :class="{'note-list-footer-box-icon': true, rotate: !note.noteVisible}"><icon-svg icon-class="down"></icon-svg></span></p>
-        <p class="note-list-footer-time">Edited:&nbsp;{{ note.date }}</p>
-        <p class="note-list-footer-link">&nbsp;&nbsp;From:&nbsp;<a :href="note.fromUrl" target="_blank"><span>{{ note.fromUrl }}</span></a></p>
+        <p class="note-list-footer-time">Edited:&nbsp;{{ note.updated_at | formatDate }}</p>
+        <p class="note-list-footer-link">&nbsp;&nbsp;From:&nbsp;<a :href="note.origin" target="_blank"><span>{{ note.origin }}</span></a></p>
       </div>
     </div>
   </div>
@@ -29,51 +30,12 @@ import SortableList from '../components/SortableList'
 import SortableItem from '../components/SortableItem'
 import CollapseTransition from '../components/Collapse'
 import { getNotes } from '../api/interface'
+import { formatDate } from '../utils/tools'
 
 export default {
   data () {
     return {
-      notes: [
-        {
-          id: '1',
-          title: 'The Universe in a Nutshell',
-          items: [
-            { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
-            { id: 3, value: 'Siaomi' },
-            { id: 4, value: 'Sometimes we see things as being black or white: Perhaps you have two categories of coworkers in your mind—the good ones and the bad ones. It\'s easy to take one particular event and generalize it to the rest of our life. If you failed to close one deal, you may decide, "I\'m bad at closing deals." Labeling involves putting a name to something. ' },
-            { id: 8, value: 'hello world' }
-          ],
-          date: 'Jun 11, 2018',
-          fromUrl: 'https://baidu.com',
-          noteVisible: true
-        },
-        {
-          id: '2',
-          title: 'Lorem ipsum dolor sit amet',
-          items: [
-            { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
-            { id: 3, value: 'Siaomi' },
-            { id: 4, value: 'Sometimes we see things as being black or white: Perhaps you have two categories of coworkers in your mind—the good ones and the bad ones. It\'s easy to take one particular event and generalize it to the rest of our life. If you failed to close one deal, you may decide, "I\'m bad at closing deals." Labeling involves putting a name to something. ' },
-            { id: 8, value: 'hello world' }
-          ],
-          date: 'Jun 11, 2018',
-          fromUrl: 'https://baidu.com',
-          noteVisible: true
-        },
-        {
-          id: '3',
-          title: 'Sed tempor nisl a lorem consequat',
-          items: [
-            { id: 1, value: 'Labeling involves putting a name to something. Instead of thinking, "He made a mistake," you might label your neighbor as "an idiot."' },
-            { id: 3, value: 'Siaomi' },
-            { id: 4, value: 'Sometimes we see things as being black or white: Perhaps you have two categories of coworkers in your mind—the good ones and the bad ones. It\'s easy to take one particular event and generalize it to the rest of our life. If you failed to close one deal, you may decide, "I\'m bad at closing deals." Labeling involves putting a name to something. ' },
-            { id: 8, value: 'hello world' }
-          ],
-          date: 'Jun 11, 2018',
-          fromUrl: 'https://baidu.com',
-          noteVisible: true
-        }
-      ]
+      notes: []
     }
   },
   components: {
@@ -91,13 +53,16 @@ export default {
     getdata () {
       getNotes().then(res => {
         if (res.data) {
-          console.log(res.data)
+          this.notes = res.data.results
         }
       })
     }
   },
   mounted () {
     this.getdata()
+  },
+  filters: {
+    formatDate
   }
 }
 </script>

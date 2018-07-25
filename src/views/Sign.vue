@@ -56,7 +56,7 @@ export default {
       passworld: null,
       signinEmail: null,
       signinPassword: null,
-      state: true
+      state: false
     }
   },
   methods: {
