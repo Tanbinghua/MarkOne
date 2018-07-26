@@ -6,7 +6,8 @@
       <span class="list-item-box-icon">
         <icon-svg :icon-class="isHighlight ? 'highlighted' : 'highlight'"></icon-svg>
       </span>
-      <span class="list-item-box-icon">
+      <span :class="{'list-item-box-icon': true, 'ban': !isVideo}">
+        <a v-if="isVideo" :href="origin + '?t=' + startTime + 's'" class="list-item-box-icon-link" target="_blank"></a>
         <icon-svg icon-class="back-to-video"></icon-svg>
       </span>
       <!-- <span class="list-item-box-icon" v-handle></span> -->
@@ -19,7 +20,7 @@ import { ElementMixin, HandleDirective } from 'vue-slicksort'
 
 export default {
   mixins: [ElementMixin],
-  props: ['item', 'isHighlight', 'img'],
+  props: ['item', 'isHighlight', 'img', 'isVideo', 'origin', 'startTime'],
   directives: { handle: HandleDirective }
 }
 </script>
@@ -64,7 +65,6 @@ export default {
     width: 112px;
     z-index: -1;
     &-icon {
-      background: rgba(26,34,112,0.10);
       flex: 1;
       position: relative;
       text-align: center;
@@ -80,7 +80,17 @@ export default {
         top: 50%;
         transform: translate(-50%, -50%);
       }
+      &-link {
+        height: 100%;
+        display: inline-block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+      }
     }
+    & .ban { cursor: not-allowed; }
     &-icon:nth-of-type(1) svg {
       height: 28px;
       width: 22px;
@@ -99,6 +109,7 @@ export default {
     border-top-right-radius: 0;
   }
   &:hover > &-box {
+    background: rgba(26,34,112,0.10);
     border-radius: 0;
     right: -112px;
   }

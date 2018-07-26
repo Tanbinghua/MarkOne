@@ -1,5 +1,5 @@
 <template>
-  <div class="aside">
+  <div :class="{aside: true, 'slide-to-left': slide && screenWidth <= 900}" v-clickoutside="handleClose">
     <h3 class="title">Markone</h3>
     <!-- <div class="new">
       <button class="new-btn" @click="change"><span class="new-btn-icon"><icon-svg icon-class="new"></icon-svg></span>New Note</button>
@@ -23,7 +23,7 @@
         </router-link>
       </div>
     </div>
-    <div class="nav-icon">
+    <div class="nav-icon" @click="slide = !slide">
       <span class="nav-icon-box"><icon-svg icon-class="menu"></icon-svg></span>
     </div>
   </div>
@@ -33,12 +33,40 @@
 export default {
   data () {
     return {
-      tab: this.$route.path.substring(1)
+      tab: this.$route.path.substring(1),
+      screenWidth: document.body.clientWidth,
+      slide: false,
+      timer: false
     }
   },
   methods: {
     change () {
       console.log(this.tab)
+    },
+    handleClose () {
+      if (this.slide) this.slide = false
+    }
+  },
+  watch: {
+    screenWidth (val) {
+      if (!this.timer) {
+        this.screenWidth = val
+        if (this.screenWidth > 900) this.slide = false
+        this.timer = true
+        let that = this
+        setTimeout(function () {
+          that.timer = false
+        }, 1000)
+      }
+    }
+  },
+  mounted () {
+    const that = this
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth
+        that.screenWidth = window.screenWidth
+      })()
     }
   }
 }
@@ -55,6 +83,12 @@ export default {
   width: 288px;
   z-index: 2;
 }
+
+.slide-to-left {
+  transform: translate(0, 0);
+  transition: all 0.4s ease;
+}
+
 .title {
   color: #1a2270;
   font-family: Skia-Regular_Bold, sans-serif;
@@ -126,11 +160,15 @@ export default {
     }
   }
   &-icon {
-    position: absolute;
+    box-shadow: 10px 0 15px -6px rgba(0, 0, 0, 0.2);
+    display: none;
     left: 288px;
+    position: absolute;
+    top: 95px;
     &-box {
       background: #fff;
       border-radius: 0 8px 8px 0;
+      display: inline-block;
       padding: 10px 12px;
       & svg {
         height: 14px;

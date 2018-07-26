@@ -4,7 +4,7 @@
       <p class="sign-box-title">{{ state ? 'Join Mark One' : 'Sign in'}}</p>
       <div class="sign-box-google">
         <span class="sign-box-google-icon"></span>
-        <button class="sign-box-google-text" @click="signout">Sign in with Google</button>
+        <button class="sign-box-google-text">Sign in with Google</button>
       </div>
       <div class="sign-box-other">
         <span class="sign-box-other-border left"></span>
@@ -12,13 +12,13 @@
         <span class="sign-box-other-border right"></span>
       </div>
       <div class="sign-box-form" v-if="state">
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Nickname" v-model="nickname"></div>
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Email" v-model="email"></div>
-        <div class="sign-box-form-input"><input type="password" name="" placeholder="Password" v-model="passworld"></div>
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Nickname" v-model="nickname" @keyup.enter="signup"></div>
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Email" v-model="email" @keyup.enter="signup"></div>
+        <div class="sign-box-form-input"><input type="password" name="" placeholder="Password" v-model="passworld" @keyup.enter="signup"></div>
       </div>
       <div class="sign-box-form" v-if="!state">
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail"></div>
-        <div class="sign-box-form-input"><input type="password" name="" placeholder="Password" v-model="signinPassword"></div>
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail" @keyup.enter="signin"></div>
+        <div class="sign-box-form-input"><input type="password" name="" placeholder="Password" v-model="signinPassword" @keyup.enter="signin"></div>
         <div class="sign-box-form-tip"><a href="javascript:void(0)">Forgot password?</a></div>
       </div>
       <div class="sign-box-signin" v-if="state">
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { signUp, signIn, signOut } from '../api/interface'
+import { signUp, signIn } from '../api/interface'
 
 export default {
   data () {
@@ -61,34 +61,38 @@ export default {
   },
   methods: {
     signup () {
+      if (!this.nickname || !this.email || !this.passworld) {
+        alert('Please input your info.')
+        return
+      }
       const data = {
         nickname: this.nickname,
         email: this.email,
         passworld: this.passworld
       }
       signUp(data).then(res => {
-        if (res.data) {
-          alert('Success!')
+        if (res.status === 201) {
           this.reset()
         }
       })
     },
     signin () {
+      if (!this.signinEmail || !this.signinPassword) {
+        alert('Please input you info.')
+        return
+      }
       const data = {
         email: this.signinEmail,
         password: this.signinPassword
       }
       signIn(data).then(res => {
-        if (res.data) {
-          alert('Success!')
-          localStorage.setItem('name', res.data.name)
+        if (res.status === 200) {
+          this.$store.commit({
+            type: 'SET_USER_INFO',
+            info: JSON.stringify(res.data)
+          })
           this.$router.push('/')
         }
-      })
-    },
-    signout () {
-      signOut().then(res => {
-        console.log(res)
       })
     },
     reset () {

@@ -14,7 +14,8 @@
           :useDragHandle="true" lockAxis="y" helperClass="change-bg" v-show="true">
           <sortable-item v-for="(item, index) in note.sections"
             :index="index" :key="item.uuid" :item="item.remark"
-            :isHighlight="item.highlight" :img="item.image"></sortable-item>
+            :isHighlight="item.highlight" :img="item.image"
+            :isVideo="item.is_video" :origin="item.origin" :startTime="item.start_time"></sortable-item>
         </sortable-list>
       </collapse-transition>
       <div class="note-list-footer">

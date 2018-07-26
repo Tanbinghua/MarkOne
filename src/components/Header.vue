@@ -1,6 +1,11 @@
 <template>
   <div class="header">
-    <div class="avatar" @click="$router.push('sign')"><img class="avatar-img" src="../assets/avatar.jpg" alt="User's avatar" title="User's name"></div>
+    <div class="avatar">
+      <div class="avatar-box">
+        <img class="avatar-box-img" :src="avatar" alt="User's avatar">
+        <div class="avatar-box-option" @click="signout"><p>Sign out</p></div>
+      </div>
+    </div>
     <div class="search">
       <div class="search-box">
         <span class="search-box-icon"><icon-svg icon-class="search"></icon-svg></span>
@@ -10,6 +15,26 @@
     </div>
   </div>
 </template>
+
+<script>
+import { signOut } from '../api/interface'
+
+export default {
+  data () {
+    return {
+      avatar: this.$store.getters.avatar,
+      email: this.$store.getters.email
+    }
+  },
+  methods: {
+    signout () {
+      signOut().then(res => {
+        if (res.status === 204) this.$router.push('sign')
+      })
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .header {
@@ -30,10 +55,12 @@
     &-icon {
       height: 24px;
       margin: 4px 16px 4px 0;
+      text-align: center;
       width: 24px;
       & svg {
-        height: 20px;
-        width: 20px;
+        height: 16px;
+        vertical-align: -6px;
+        width: 16px;
       }
     }
     &-input {
@@ -62,12 +89,41 @@
 }
 .avatar {
   float: right;
-  &-img {
-    border-radius: 20px;
-    margin: 18px auto;
-    width: 40px;
+  &-box {
+    border-radius: 28px;
+    height: 56px;
+    margin: 12px auto;
+    position: relative;
+    width: 56px;
     &:hover {
+      background-image: radial-gradient(55% 55%, #FF6E03 50%, #FFFFFF 100%);
       cursor: pointer;
+    }
+    &:hover > &-option {
+      display: block;
+    }
+    &-img {
+      border-radius: 20px;
+      height: 40px;
+      margin: 8px;
+      width: 40px;
+    }
+    &-option {
+      background: #e2dfdd;
+      border-radius: 4px;
+      display: none;
+      left: -22px;
+      position: absolute;
+      top: 56px;
+      transition: all .3s ease;
+      width: 100px;
+      :hover { background: #FEECDC; }
+      & p {
+        color: #ff6e03;
+        font-size: 14px;
+        padding: 10px 20px;
+        text-align: center;
+      }
     }
   }
 }

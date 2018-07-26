@@ -5,14 +5,14 @@ import { userInfo } from '../api/interface'
 router.beforeEach((to, from, next) => {
   if (to.path === '/sign') {
     userInfo().then(res => {
-      if (res.data) {
+      if (res.status === 200) {
         next('/')
-      } else {
-        next()
       }
+    }).catch(() => {
+      next()
     })
   } else {
-    if (!store.getters.nickname) {
+    if (!store.getters.email) {
       userInfo().then(res => {
         if (res.data) {
           store.commit({
