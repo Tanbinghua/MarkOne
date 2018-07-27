@@ -73,6 +73,11 @@ export default {
       signUp(data).then(res => {
         if (res.status === 201) {
           this.reset()
+          this.$store.commit({
+            type: 'SET_USER_INFO',
+            info: JSON.stringify(res.data)
+          })
+          this.$router.push('/')
         }
       })
     },
