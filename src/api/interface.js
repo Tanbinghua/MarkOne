@@ -50,3 +50,17 @@ export function getTrashList () {
     method: 'GET'
   })
 }
+
+export function toHighlight (uuid) {
+  return fetch({
+    url: `api/sections/${uuid}`,
+    method: 'PUT'
+  })
+}
+
+export function toTrash (uuid) {
+  return fetch({
+    url: `api/sections/${uuid}`,
+    method: 'DELETE'
+  })
+}

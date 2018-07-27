@@ -9,21 +9,33 @@
         </span>
         <h3 :id="note.id"><a :href="'#' + note.id">{{ note.title }}</a></h3>
       </div>
-      <collapse-transition>
-        <sortable-list v-model="note.sections" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
-          :useDragHandle="true" lockAxis="y" helperClass="change-bg" v-show="true">
-          <sortable-item v-for="(item, index) in note.sections"
-            :index="index" :key="item.uuid" :item="item.remark"
-            :isHighlight="item.highlight" :img="item.image"
-            :isVideo="item.is_video" :origin="item.origin" :startTime="item.start_time"></sortable-item>
-        </sortable-list>
-      </collapse-transition>
+      <sortable-list v-model="note.sections" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
+        :useDragHandle="true" lockAxis="y" helperClass="change-bg">
+        <sortable-item v-for="(item, index) in note.show"
+          :index="index" :key="item.uuid" :item="item.remark"
+          :isHighlight="item.highlight" :img="item.image"
+          :isVideo="item.is_video" :origin="item.origin"
+          :startTime="item.start_time" @click.native="clickImg(item.image)"></sortable-item>
+        <collapse-transition>
+          <div class="collapse" v-show="note.noteVisible">
+            <sortable-item v-for="(item, index) in note.fold"
+              :index="index" :key="item.uuid" :item="item.remark"
+              :isHighlight="item.highlight" :img="item.image"
+              :isVideo="item.is_video" :origin="item.origin"
+              :startTime="item.start_time"></sortable-item>
+          </div>
+        </collapse-transition>
+      </sortable-list>
       <div class="note-list-footer">
-        <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">{{ note.noteVisible ? 'Fold' : 'More' }} <span :class="{'note-list-footer-box-icon': true, rotate: !note.noteVisible}"><icon-svg icon-class="down"></icon-svg></span></p>
+        <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">
+          {{ note.noteVisible ? 'Fold' : 'More' }}&nbsp;
+          <span :class="{'note-list-footer-box-icon': true, rotate: !note.noteVisible}"><icon-svg icon-class="down"></icon-svg></span>
+        </p>
         <p class="note-list-footer-time">Edited:&nbsp;{{ note.updated_at | formatDate }}</p>
         <p class="note-list-footer-link">&nbsp;&nbsp;From:&nbsp;<a :href="note.origin" target="_blank"><span>{{ note.origin }}</span></a></p>
       </div>
     </div>
+    <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
   </div>
 </template>
 
@@ -32,21 +44,25 @@ import SortableList from '../components/SortableList'
 import SortableItem from '../components/SortableItem'
 import CollapseTransition from '../components/Collapse'
 import NoData from '../components/Nodata'
-import { getNotes } from '../api/interface'
+import BigImg from '../components/BigImg'
+import { getNotes, toHighlight } from '../api/interface'
 import { formatDate } from '../utils/tools'
 
 export default {
   data () {
     return {
       notes: [],
-      loading: false
+      loading: false,
+      showImg: false,
+      imgSrc: ''
     }
   },
   components: {
     SortableList,
     SortableItem,
     CollapseTransition,
-    NoData
+    NoData,
+    BigImg
   },
   methods: {
     sortstart () {
@@ -59,12 +75,41 @@ export default {
       this.loading = true
       getNotes().then(res => {
         if (res.data) {
-          this.notes = res.data.results
+          res.data.results.every(item => {
+            const { sections, ...info } = item
+            const mark = {
+              show: [],
+              fold: []
+            }
+            if (item.sections.length <= 3) {
+              for (let i = 0; i < item.sections.length; i++) mark.show.push(item.sections[i])
+            } else {
+              for (let i = 0; i < 3; i++) mark.show.push(item.sections[i])
+              for (let i = 3; i < item.sections.length; i++) mark.fold.push(item.sections[i])
+            }
+            this.notes.push({...info, ...mark, noteVisible: false, sections})
+          })
           this.loading = false
         }
       }).catch(() => {
         this.loading = false
       })
+    },
+    highLight (uuid) {
+      toHighlight(uuid).then(res => {
+        if (res.status === 204) {
+          console.log('success')
+          this.getdata()
+        }
+      })
+    },
+    clickImg (src) {
+      if (!src) return
+      this.imgSrc = src
+      this.showImg = true
+    },
+    viewImg () {
+      this.showImg = false
     }
   },
   mounted () {
@@ -133,15 +178,13 @@ export default {
         transition: all .3s ease;
         &-icon {
           display: inline-block;
-          height: 20px;
           text-align: center;
           transform-origin: center;
           transition: all .3s ease;
-          vertical-align: bottom;
           width: 20px;
           & svg {
             height: 9px;
-            vertical-align: middle;
+            vertical-align: 1px;
             width: 15px;
           }
           &:hover { color: #FF6E03; }
