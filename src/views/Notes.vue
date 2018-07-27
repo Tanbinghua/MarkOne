@@ -9,7 +9,7 @@
         </span>
         <h3 :id="note.id"><a :href="'#' + note.id">{{ note.title }}</a></h3>
       </div>
-      <sortable-list v-model="note.sections" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
+      <sortable-list v-model="note.show" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
         :useDragHandle="true" lockAxis="y" helperClass="change-bg">
         <sortable-item v-for="(item, index) in note.show"
           :index="index" :key="item.uuid" :item="item.remark"
@@ -27,7 +27,7 @@
         </collapse-transition>
       </sortable-list>
       <div class="note-list-footer">
-        <p class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">
+        <p v-if="note.fold && note.fold.length" class="note-list-footer-box" @click="note.noteVisible = !note.noteVisible">
           {{ note.noteVisible ? 'Fold' : 'More' }}&nbsp;
           <span :class="{'note-list-footer-box-icon': true, rotate: !note.noteVisible}"><icon-svg icon-class="down"></icon-svg></span>
         </p>
