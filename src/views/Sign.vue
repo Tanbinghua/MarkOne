@@ -77,6 +77,7 @@ export default {
             type: 'SET_USER_INFO',
             info: JSON.stringify(res.data)
           })
+          this.$toast('Sign up successfully!', 1500)
           this.$router.push('/')
         }
       })
@@ -96,6 +97,7 @@ export default {
             type: 'SET_USER_INFO',
             info: JSON.stringify(res.data)
           })
+          this.$toast('Sign in successfully!')
           this.$router.push('/')
         }
       })

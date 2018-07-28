@@ -14,7 +14,8 @@ export default new Vuex.Store({
     last_login: null,
     name: null,
     type: null,
-    is_admin: false
+    is_admin: false,
+    uuid: null
   },
   mutations: {
     SET_USER_INFO (state, info) {
@@ -28,6 +29,7 @@ export default new Vuex.Store({
       state.name = JSONinfo.name
       state.type = JSONinfo.type
       state.is_admin = JSONinfo.is_admin
+      state.uuid = JSONinfo.uuid
     }
   },
   getters

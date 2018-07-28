@@ -3,11 +3,8 @@
     <no-data v-if="loading || !notes.length" :loading="loading" :nodata="!loading && !notes.length"></no-data>
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
-        <span class="note-list-header-icon">
-          Copy all
-          <!-- <icon-svg icon-class="option"></icon-svg> -->
-        </span>
-        <h3 :id="note.id"><a :href="'#' + note.id">{{ note.title }}</a></h3>
+        <span class="note-list-header-icon">Copy all</span>
+        <h3 :id="note.id"><a :href="'#' + note.title">{{ note.title }}</a></h3>
       </div>
       <sortable-list v-model="note.show" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
         :useDragHandle="true" lockAxis="y" helperClass="change-bg">
@@ -15,7 +12,9 @@
           :index="index" :key="item.uuid" :item="item.remark"
           :isHighlight="item.highlight" :img="item.image"
           :isVideo="item.is_video" :origin="item.origin"
-          :startTime="item.start_time" @click.native="clickImg(item.image)"></sortable-item>
+          :startTime="item.start_time" @clickShowImg="clickImg(item.image)"
+          @tohighlight="highLight(note.uuid, item.uuid, item.highlight)"
+          @toTrash="totrash(note.uuid, item.uuid)" :isTrash="item.trash"></sortable-item>
         <collapse-transition>
           <div class="collapse" v-show="note.noteVisible">
             <sortable-item v-for="(item, index) in note.fold"
@@ -95,11 +94,32 @@ export default {
         this.loading = false
       })
     },
-    highLight (uuid) {
-      toHighlight(uuid).then(res => {
-        if (res.status === 204) {
-          console.log('success')
+    highLight (notesUuid, itemUuid, flag) {
+      const data = {
+        highlight: !flag,
+        notes: notesUuid,
+        user: this.$store.getters.uuid
+      }
+      toHighlight(itemUuid, data).then(res => {
+        if (res.status === 200) {
+          this.notes = []
           this.getdata()
+          const msg = flag ? 'Marked as not highlight successfully!' : 'Marked as highlight successfully!'
+          this.$toast(msg, 1500)
+        }
+      })
+    },
+    totrash (notesUuid, itemUuid) {
+      const data = {
+        trash: true,
+        notes: notesUuid,
+        user: this.$store.getters.uuid
+      }
+      toHighlight(itemUuid, data).then(res => {
+        if (res.status === 200) {
+          this.notes = []
+          this.getdata()
+          this.$toast('Put to trash successfully!', 1500)
         }
       })
     },
@@ -134,10 +154,12 @@ export default {
       font-family: PingFangSC-Medium, sans-serif;
       font-size: 20px;
       margin: 64px 0 16px;
-      // position: sticky;
-      // position: -webkit-sticky;
-      // top: 0;
-      // z-index: 1;
+      & h3 {
+        max-width: 520px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+      }
       & a {
         color: #1a2270;
         text-decoration: none;
@@ -150,7 +172,6 @@ export default {
         height: 31px;
         line-height: 31px;
         text-align: center;
-        // width: 30px;
         & svg {
           height: 10px;
           width: 20px;
@@ -165,11 +186,15 @@ export default {
         font-family: 'ArialMT', sans-serif;
         font-size: 14px;
       }
-      &-link a {
-        color: #999;
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
+      &-link {
+        max-width: 287px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        & a {
+          color: #999;
+          text-decoration: none;
+          &:hover { text-decoration: underline; }
         }
       }
       &-box {

@@ -7,6 +7,7 @@ const getters = {
   last_login: state => state.last_login,
   name: state => state.name,
   type: state => state.type,
-  is_admin: state => state.is_admin
+  is_admin: state => state.is_admin,
+  uuid: state => state.uuid
 }
 export default getters

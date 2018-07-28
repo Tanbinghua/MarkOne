@@ -2,6 +2,7 @@
   <div class="header">
     <div class="avatar">
       <div class="avatar-box">
+        <div class="avatar-box-shadow"></div>
         <img class="avatar-box-img" :src="avatar" alt="User's avatar">
         <div class="avatar-box-option" @click="signout"><p>Sign out</p></div>
       </div>
@@ -29,7 +30,10 @@ export default {
   methods: {
     signout () {
       signOut().then(res => {
-        if (res.status === 204) this.$router.push('sign')
+        if (res.status === 204) {
+          this.$toast('Sign out successfully!', 1500)
+          this.$router.push('sign')
+        }
       })
     }
   }
@@ -96,11 +100,22 @@ export default {
     position: relative;
     width: 56px;
     &:hover {
-      background-image: radial-gradient(55% 55%, #FF6E03 50%, #FFFFFF 100%);
       cursor: pointer;
     }
     &:hover > &-option {
       display: block;
+    }
+    &:hover > &-shadow { opacity: 1; }
+    &-shadow {
+      background-image: radial-gradient(55% 55%, #FF6E03 50%, #FFFFFF 100%);
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      transition: all .3s ease;
+      width: 100%;
+      z-index: -1;
     }
     &-img {
       border-radius: 20px;
@@ -112,6 +127,7 @@ export default {
       background: #e2dfdd;
       border-radius: 4px;
       display: none;
+      font-family: PingFangSC-Semibold, sans-serif;
       left: -22px;
       position: absolute;
       top: 56px;

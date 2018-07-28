@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { clickoutside } from '../utils/tools'
+
 export default {
   data () {
     return {
@@ -68,6 +70,9 @@ export default {
         that.screenWidth = window.screenWidth
       })()
     }
+  },
+  directives: {
+    clickoutside
   }
 }
 </script>

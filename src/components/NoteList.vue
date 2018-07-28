@@ -1,11 +1,18 @@
 <template>
-  <li :class="{'light-list': true, 'has-left-radius': type === 'highlight', 'no-left-radius': type === 'trash'}">
-    <p>{{ context }}</p>
+  <li v-if="(type === 'highlight' && !isTrash) || type === 'trash'" :class="{'light-list': true, 'has-left-radius': type === 'highlight', 'no-left-radius': type === 'trash'}">
+    <div v-if="img" class="light-list-img-box"><img :src="img" alt="Markone"
+      :class="{'list-item-img': true, 'border-left-radius': isHighlight}"
+      @click="$emit('clickShowImg')">
+    </div>
+    <p v-else>{{ context }}</p>
     <div class="light-list-box highlight" v-if="type === 'highlight'">
-      <span class="light-list-box-icon"></span>
-      <span class="light-list-box-icon"></span>
+      <span class="light-list-box-icon" @click="$emit('tohighlight')">
+        <icon-svg icon-class="highlighted"></icon-svg>
+      </span>
+      <span class="light-list-box-icon"><icon-svg icon-class="back-to-note"></icon-svg></span>
     </div>
     <div class="light-list-box trash" v-if="type === 'trash'">
+      <span class="light-list-box-icon"></span>
       <span class="light-list-box-icon"></span>
     </div>
   </li>
@@ -13,7 +20,7 @@
 
 <script>
 export default {
-  props: ['context', 'type']
+  props: ['context', 'type', 'img', 'isHighlight', 'isTrash']
 }
 </script>
 
@@ -26,8 +33,6 @@ export default {
 .no-left-radius {
   border-radius: 8px;
 }
-.highlight { width: 112px; }
-.trash { width: 56px; }
 .light-list {
   background: #fff;
   border-bottom-right-radius: 8px;
@@ -35,8 +40,8 @@ export default {
   color: #666;
   line-height: 24px;
   margin-bottom: 16px;
-  padding: 24px 50px;
   position: relative;
+  & p { padding: 24px 32px; }
   &-box {
     border-radius: 0 10px 10px 0;
     display: flex;
@@ -46,29 +51,61 @@ export default {
     right: 0;
     top: 0;
     transition: all .3s ease;
+    width: 112px;
     z-index: -1;
     &-icon {
       background: rgba(26,34,112,0.10);
       flex: 1;
+      position: relative;
       transition: all .3s ease;
       &:hover {
         background: #FEECDC;
         cursor: pointer;
         opacity: 1;
       }
+      & svg {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
     }
+    &-icon:nth-of-type(1) svg {
+      height: 28px;
+      width: 22px;
+    }
+    &-icon:nth-of-type(2) svg {
+      height: 26px;
+      width: 30px;
+    }
+  }
+  &-img-box {
+    max-height: 200px;
+    overflow: hidden;
   }
   &:hover {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
-  &:hover > .highlight {
+  &:hover > &-box {
     border-radius: 0;
     right: -112px;
   }
-  &:hover > .trash {
-    border-radius: 0;
-    right: -56px;
+  &:hover > div .list-item-img{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
   }
+}
+.list-item-img {
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+  &:hover {
+    cursor: zoom-in;
+  }
+}
+.border-left-radius {
+  border-top-left-radius: 4px!important;
+  border-bottom-left-radius: 4px!important;
 }
 </style>

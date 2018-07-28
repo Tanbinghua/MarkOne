@@ -1,10 +1,10 @@
 <template>
   <!-- <transition name="fade"> -->
   <div class="img-view">
-  <div class="img-layer" @click="bigImg"></div>
-  <div class="img">
-    <img :src="imgSrc">
-  </div>
+    <div class="img-layer" @click="bigImg"></div>
+    <div class="img">
+      <img :src="imgSrc">
+    </div>
   </div>
   <!-- </transition> -->
 </template>

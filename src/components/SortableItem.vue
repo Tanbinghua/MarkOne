@@ -1,9 +1,13 @@
 <template>
-  <li :class="{'list-item': true, 'has-left-radius': isHighlight, 'border-left-radius': isHighlight}">
-    <img v-if="img" :src="img" alt="Markone" :class="{'list-item-img': true, 'border-left-radius': isHighlight}">
+  <li v-if="!isTrash" :class="{'list-item': true, 'has-left-radius': isHighlight, 'border-left-radius': isHighlight}">
+    <div v-if="img" class="list-item-img-box"><img :src="img" alt="Markone"
+      :class="{'list-item-img': true, 'border-left-radius': isHighlight}"
+      @click="$emit('clickShowImg')">
+    </div>
     <p v-else class="list-item-text">{{item}}</p>
+    <div class="list-item-delete" @click="$emit('toTrash')"><span>✖</span></div>
     <div class="list-item-box">
-      <span class="list-item-box-icon">
+      <span class="list-item-box-icon" @click="highlight">
         <icon-svg :icon-class="isHighlight ? 'highlighted' : 'highlight'"></icon-svg>
       </span>
       <span :class="{'list-item-box-icon': true, 'ban': !isVideo}">
@@ -20,8 +24,13 @@ import { ElementMixin, HandleDirective } from 'vue-slicksort'
 
 export default {
   mixins: [ElementMixin],
-  props: ['item', 'isHighlight', 'img', 'isVideo', 'origin', 'startTime'],
-  directives: { handle: HandleDirective }
+  props: ['item', 'isHighlight', 'img', 'isVideo', 'origin', 'startTime', 'isTrash'],
+  directives: { handle: HandleDirective },
+  methods: {
+    highlight () {
+      this.$emit('tohighlight')
+    }
+  }
 }
 </script>
 
@@ -51,6 +60,10 @@ export default {
     width: 100%;
     &:hover {
       cursor: zoom-in;
+    }
+    &-box {
+      max-height: 200px;
+      overflow: hidden;
     }
   }
   &-box {
@@ -100,11 +113,25 @@ export default {
       width: 30px;
     }
   }
+  &-delete {
+    background: rgba(26,34,112,0.10);
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.3);
+    display: none;
+    height: 25px;
+    line-height: 25px;
+    right: 4px;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+    width: 25px;
+    &:hover { cursor: pointer; }
+  }
   &:hover {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
-  &:hover > &-img {
+  &:hover > div &-img {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
@@ -113,5 +140,6 @@ export default {
     border-radius: 0;
     right: -112px;
   }
+  &:hover > &-delete { display: block; }
 }
 </style>

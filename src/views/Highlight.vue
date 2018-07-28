@@ -1,26 +1,33 @@
 <template>
   <div class="highlight">
     <no-data :loading="loading" :nodata="!loading && !data.length"></no-data>
-    <ul class="light">
-      <note-list v-for="item in data.sections" :key="item.uuid" :context="item.remark" type="highlight"></note-list>
+    <ul class="light" v-for="item in data" :key="item.uuid">
+      <note-list v-for="section in item.sections" :key="section.uuid"
+        :context="section.remark" type="highlight" :img="section.image"
+        :isHighlight="section.highlight"  @clickShowImg="clickImg(section.image)"
+        @tohighlight="highLight(item.uuid, section.uuid)" :isTrash="section.trash"></note-list>
     </ul>
+    <big-img v-if="showImg" @clickit="imgShow" :imgSrc="imgSrc"></big-img>
   </div>
 </template>
 
 <script>
 import NoteList from '../components/NoteList'
-import { getHighList } from '../api/interface'
+import { getHighList, toHighlight } from '../api/interface'
 import NoData from '../components/Nodata'
+import BigImg from '../components/BigImg'
 
 export default {
   data () {
     return {
       data: [],
-      loading: false
+      loading: false,
+      showImg: false,
+      imgSrc: ''
     }
   },
   methods: {
-    getDate () {
+    getData () {
       this.loading = true
       getHighList().then(res => {
         if (res.data) {
@@ -30,24 +37,47 @@ export default {
       }).catch(() => {
         this.loading = false
       })
+    },
+    clickImg (src) {
+      if (!src) return
+      this.imgSrc = src
+      this.showImg = true
+    },
+    imgShow () {
+      this.showImg = false
+    },
+    highLight (notesUuid, itemUuid) {
+      const data = {
+        highlight: false,
+        notes: notesUuid,
+        user: this.$store.getters.uuid
+      }
+      toHighlight(itemUuid, data).then(res => {
+        if (res.status === 200) {
+          this.getData()
+          this.$toast('Mark as not highlight successfully!', 1500)
+        }
+      })
     }
   },
   components: {
     NoteList,
-    NoData
+    NoData,
+    BigImg
   },
   mounted () {
-    this.getDate()
+    this.getData()
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .highlight {
-  padding: 6.7% 14.9% 6.7% 6.7%;
+  padding: 0 40px 100px;
 }
 .light {
   list-style-type: none;
+  padding-right: 112px;
   position: relative;
   z-index: 1;
 }
