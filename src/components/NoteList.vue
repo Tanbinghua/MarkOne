@@ -1,26 +1,26 @@
 <template>
   <li v-if="(type === 'highlight' && !isTrash) || type === 'trash'" :class="{'light-list': true, 'has-left-radius': type === 'highlight', 'no-left-radius': type === 'trash'}">
-    <div v-if="img" class="light-list-img-box"><img :src="img" alt="Markone"
-      :class="{'list-item-img': true, 'border-left-radius': isHighlight}"
-      @click="$emit('clickShowImg')">
+    <div v-if="img" :class="{'light-list-img-box': true, 'border-left-radius': isHighlight}">
+      <img :src="img" alt="Markone" class="list-item-img" @click="$emit('clickShowImg')">
     </div>
     <p v-else>{{ context }}</p>
+    <div v-if="type === 'highlight'" class="light-list-delete" @click="$emit('toTrash')"><span>✖</span></div>
     <div class="light-list-box highlight" v-if="type === 'highlight'">
       <span class="light-list-box-icon" @click="$emit('tohighlight')">
         <icon-svg icon-class="highlighted"></icon-svg>
       </span>
-      <span class="light-list-box-icon"><icon-svg icon-class="back-to-note"></icon-svg></span>
+      <span class="light-list-box-icon" @click="$router.push({path: '/', hash: title})"><icon-svg icon-class="back-to-note"></icon-svg></span>
     </div>
     <div class="light-list-box trash" v-if="type === 'trash'">
-      <span class="light-list-box-icon"></span>
-      <span class="light-list-box-icon"></span>
+      <span class="light-list-box-icon" @click="$emit('reduction')"></span>
+      <span class="light-list-box-icon" @click="$emit('delete')"></span>
     </div>
   </li>
 </template>
 
 <script>
 export default {
-  props: ['context', 'type', 'img', 'isHighlight', 'isTrash']
+  props: ['context', 'type', 'img', 'isHighlight', 'isTrash', 'title']
 }
 </script>
 
@@ -80,8 +80,24 @@ export default {
     }
   }
   &-img-box {
+    border-radius: 8px;
     max-height: 200px;
     overflow: hidden;
+    transition: all .3s ease;
+  }
+  &-delete {
+    background: rgba(26,34,112,0.10);
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.3);
+    display: none;
+    height: 25px;
+    line-height: 25px;
+    right: 4px;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+    width: 25px;
+    &:hover { cursor: pointer; }
   }
   &:hover {
     border-bottom-right-radius: 0;
@@ -91,13 +107,13 @@ export default {
     border-radius: 0;
     right: -112px;
   }
-  &:hover > div .list-item-img{
+  &:hover > &-img-box {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
+  &:hover &-delete { display: block; }
 }
 .list-item-img {
-  border-radius: 8px;
   display: block;
   width: 100%;
   &:hover {

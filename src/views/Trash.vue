@@ -1,11 +1,12 @@
 <template>
   <div class="highlight">
-    <no-data :loading="loading" :nodata="!loading && !data.length"></no-data>
+    <no-data :loading="loading" :nodata="!loading && nodata"></no-data>
     <ul class="light" v-for="item in data" :key="item.uuid">
       <note-list v-for="section in item.sections" :key="section.uuid"
         :context="section.remark" type="trash" :img="section.image"
         :isHighlight="section.highlight"  @clickShowImg="clickImg(section.image)"
-        @tohighlight="highLight(item.uuid, section.uuid)" :isTrash="section.trash"></note-list>
+        @reduction="highLight(item.uuid, section.uuid)" :isTrash="section.trash"
+        @delete="todelete(item.uuid, section.uuid)"></note-list>
     </ul>
     <big-img v-if="showImg" @clickit="imgShow" :imgSrc="imgSrc"></big-img>
   </div>
@@ -13,7 +14,7 @@
 
 <script>
 import NoteList from '../components/NoteList'
-import { getTrashList, toHighlight } from '../api/interface'
+import { getTrashList, toHighlight, deleteView } from '../api/interface'
 import NoData from '../components/Nodata'
 import BigImg from '../components/BigImg'
 
@@ -23,7 +24,8 @@ export default {
       data: [],
       loading: false,
       showImg: false,
-      imgSrc: ''
+      imgSrc: '',
+      nodata: true
     }
   },
   methods: {
@@ -32,6 +34,9 @@ export default {
       getTrashList().then(res => {
         if (res.data) {
           this.data = res.data.results
+          this.data.every(item => {
+            if (item.sections.length) this.nodata = false
+          })
           this.loading = false
         }
       }).catch(() => {
@@ -54,9 +59,21 @@ export default {
       }
       toHighlight(itemUuid, data).then(res => {
         if (res.status === 200) {
-          this.getData()
           this.$toast('Mark as not highlight successfully!', 1500)
+          this.data = []
+          this.getData()
         }
+      })
+    },
+    todelete (notesUuid, itemUuid) {
+      const data = {
+        notes: notesUuid,
+        user: this.$store.getters.uuid
+      }
+      deleteView(itemUuid, data).then(res => {
+        this.$toast('', 1500)
+        this.data = []
+        this.getData()
       })
     }
   },

@@ -1,11 +1,12 @@
 <template>
   <div class="highlight">
-    <no-data :loading="loading" :nodata="!loading && !data.length"></no-data>
+    <no-data :loading="loading" :nodata="!loading && nodata"></no-data>
     <ul class="light" v-for="item in data" :key="item.uuid">
       <note-list v-for="section in item.sections" :key="section.uuid"
         :context="section.remark" type="highlight" :img="section.image"
         :isHighlight="section.highlight"  @clickShowImg="clickImg(section.image)"
-        @tohighlight="highLight(item.uuid, section.uuid)" :isTrash="section.trash"></note-list>
+        @tohighlight="highLight(item.uuid, section.uuid)" :isTrash="section.trash"
+        @toTrash="totrash(item.uuid, section.uuid)" :title="section.title"></note-list>
     </ul>
     <big-img v-if="showImg" @clickit="imgShow" :imgSrc="imgSrc"></big-img>
   </div>
@@ -23,7 +24,8 @@ export default {
       data: [],
       loading: false,
       showImg: false,
-      imgSrc: ''
+      imgSrc: '',
+      nodata: true
     }
   },
   methods: {
@@ -32,6 +34,9 @@ export default {
       getHighList().then(res => {
         if (res.data) {
           this.data = res.data.results
+          this.data.every(item => {
+            if (item.sections.length) this.nodata = false
+          })
           this.loading = false
         }
       }).catch(() => {
@@ -54,8 +59,23 @@ export default {
       }
       toHighlight(itemUuid, data).then(res => {
         if (res.status === 200) {
-          this.getData()
           this.$toast('Mark as not highlight successfully!', 1500)
+          this.data = []
+          this.getData()
+        }
+      })
+    },
+    totrash (notesUuid, itemUuid) {
+      const data = {
+        trash: true,
+        notes: notesUuid,
+        user: this.$store.getters.uuid
+      }
+      toHighlight(itemUuid, data).then(res => {
+        if (res.status === 200) {
+          this.$toast('Put to trash successfully!', 1500)
+          this.data = []
+          this.getData()
         }
       })
     }

@@ -81,10 +81,10 @@ export default {
               fold: []
             }
             if (item.sections.length <= 3) {
-              for (let i = 0; i < item.sections.length; i++) mark.show.push(item.sections[i])
+              for (let i = 0, len = item.sections.length; i < len; i++) mark.show.push(item.sections[i])
             } else {
               for (let i = 0; i < 3; i++) mark.show.push(item.sections[i])
-              for (let i = 3; i < item.sections.length; i++) mark.fold.push(item.sections[i])
+              for (let i = 3, len = item.sections.length; i < len; i++) mark.fold.push(item.sections[i])
             }
             this.notes.push({...info, ...mark, noteVisible: false, sections})
           })

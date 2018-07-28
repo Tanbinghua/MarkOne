@@ -59,7 +59,7 @@ export function toHighlight (uuid, data) {
   })
 }
 
-export function toTrash (uuid, data) {
+export function deleteView (uuid, data) {
   return fetch({
     url: `api/sections/${uuid}`,
     method: 'DELETE',

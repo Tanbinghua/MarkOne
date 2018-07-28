@@ -1,8 +1,7 @@
 <template>
   <li v-if="!isTrash" :class="{'list-item': true, 'has-left-radius': isHighlight, 'border-left-radius': isHighlight}">
-    <div v-if="img" class="list-item-img-box"><img :src="img" alt="Markone"
-      :class="{'list-item-img': true, 'border-left-radius': isHighlight}"
-      @click="$emit('clickShowImg')">
+    <div v-if="img" :class="{'list-item-img-box': true, 'border-left-radius': isHighlight}">
+      <img :src="img" alt="Markone" class="list-item-img" @click="$emit('clickShowImg')">
     </div>
     <p v-else class="list-item-text">{{item}}</p>
     <div class="list-item-delete" @click="$emit('toTrash')"><span>✖</span></div>
@@ -55,13 +54,13 @@ export default {
     padding: 24px 32px;
   }
   &-img {
-    border-radius: 8px;
     display: block;
     width: 100%;
     &:hover {
       cursor: zoom-in;
     }
     &-box {
+      border-radius: 8px;
       max-height: 200px;
       overflow: hidden;
     }
@@ -131,7 +130,7 @@ export default {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
-  &:hover > div &-img {
+  &:hover > &-img-box {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
