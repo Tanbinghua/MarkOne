@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="26px" height="23px" viewBox="0 0 26 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>icon/back to note</title>
+    <title></title>
     <desc>Created with Sketch.</desc>
     <defs>
         <polygon id="path-1" points="4.73885455 21.1276214 17.3449152 21.1276214 17.3449152 21.8266714 4.73885455 21.8266714"></polygon>
     </defs>
     <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="note/点击标为金句" transform="translate(-71.000000, -61.000000)">
+        <g transform="translate(-71.000000, -61.000000)">
             <g id="icon/back-to-video" transform="translate(71.000000, 61.000000)">
                 <path d="M20.3979455,9.60127143 L20.3979455,13.2705571 C20.3979455,15.0062 18.9868545,16.4134143 17.2464303,16.4134143 L3.85249091,16.4134143 C2.11206667,16.4134143 0.700975758,15.0062 0.700975758,13.2705571 L0.700975758,3.84198571 C0.700975758,2.10634286 2.11206667,0.699128571 3.85249091,0.699128571 L17.2464303,0.699128571 C18.9868545,0.699128571 20.3979455,2.10634286 20.3979455,3.84198571 L20.3979455,4.93334286" id="Stroke-1" stroke="#FF6E03" stroke-width="1.779" stroke-linecap="round" stroke-linejoin="round"></path>
                 <path d="M8.38893939,7.22495714 L10.835303,4.78531429" id="Stroke-3" stroke="#FF6E03" stroke-width="1.779" stroke-linecap="round" stroke-linejoin="round"></path>

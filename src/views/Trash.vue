@@ -5,8 +5,7 @@
       <note-list v-for="section in item.sections" :key="section.uuid"
         :context="section.remark" type="trash" :img="section.image"
         :isHighlight="section.highlight"  @clickShowImg="clickImg(section.image)"
-        @reduction="highLight(item.uuid, section.uuid)" :isTrash="section.trash"
-        @delete="todelete(item.uuid, section.uuid)"></note-list>
+        @reduction="highLight(item.uuid, section.uuid)" :isTrash="section.trash"></note-list>
     </ul>
     <big-img v-if="showImg" @clickit="imgShow" :imgSrc="imgSrc"></big-img>
   </div>
@@ -14,7 +13,7 @@
 
 <script>
 import NoteList from '../components/NoteList'
-import { getTrashList, toHighlight, deleteView } from '../api/interface'
+import { getTrashList, toHighlight } from '../api/interface'
 import NoData from '../components/Nodata'
 import BigImg from '../components/BigImg'
 
@@ -63,17 +62,6 @@ export default {
           this.data = []
           this.getData()
         }
-      })
-    },
-    todelete (notesUuid, itemUuid) {
-      const data = {
-        notes: notesUuid,
-        user: this.$store.getters.uuid
-      }
-      deleteView(itemUuid, data).then(res => {
-        this.$toast('', 1500)
-        this.data = []
-        this.getData()
       })
     }
   },

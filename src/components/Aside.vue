@@ -35,16 +35,20 @@ import { clickoutside } from '../utils/tools'
 export default {
   data () {
     return {
-      tab: this.$route.path.substring(1),
       screenWidth: document.body.clientWidth,
       slide: false,
       timer: false
     }
   },
+  computed: {
+    tab: {
+      get () {
+        return this.$route.path.substring(1)
+      },
+      set () {}
+    }
+  },
   methods: {
-    change () {
-      console.log(this.tab)
-    },
     handleClose () {
       if (this.slide) this.slide = false
     }

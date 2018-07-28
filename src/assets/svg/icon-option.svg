@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24px" height="4px" viewBox="0 0 24 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>icon/选项</title>
+    <title></title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="icon/选项" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <path d="M2,0 C3.104,0 4,0.896 4,2 C4,3.104 3.104,4 2,4 C0.896,4 0,3.104 0,2 C0,0.896 0.896,0 2,0" id="Fill-1" fill="#1A2270"></path>
         <path d="M12,0 C13.104,0 14,0.896 14,2 C14,3.104 13.104,4 12,4 C10.896,4 10,3.104 10,2 C10,0.896 10.896,0 12,0" id="Fill-3" fill="#1A2270"></path>
         <path d="M22,0 C23.104,0 24,0.896 24,2 C24,3.104 23.104,4 22,4 C20.896,4 20,3.104 20,2 C20,0.896 20.896,0 22,0" id="Fill-5" fill="#1A2270"></path>

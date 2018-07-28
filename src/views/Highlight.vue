@@ -6,7 +6,7 @@
         :context="section.remark" type="highlight" :img="section.image"
         :isHighlight="section.highlight"  @clickShowImg="clickImg(section.image)"
         @tohighlight="highLight(item.uuid, section.uuid)" :isTrash="section.trash"
-        @toTrash="totrash(item.uuid, section.uuid)" :title="section.title"></note-list>
+        @toTrash="totrash(item.uuid, section.uuid)" :title="item.title"></note-list>
     </ul>
     <big-img v-if="showImg" @clickit="imgShow" :imgSrc="imgSrc"></big-img>
   </div>
@@ -35,7 +35,11 @@ export default {
         if (res.data) {
           this.data = res.data.results
           this.data.every(item => {
-            if (item.sections.length) this.nodata = false
+            if (item.sections.length) {
+              item.sections.every(section => {
+                if (!section.trash) this.nodata = false
+              })
+            }
           })
           this.loading = false
         }

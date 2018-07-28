@@ -1,19 +1,21 @@
 <template>
-  <li v-if="(type === 'highlight' && !isTrash) || type === 'trash'" :class="{'light-list': true, 'has-left-radius': type === 'highlight', 'no-left-radius': type === 'trash'}">
+  <li v-if="(type === 'highlight' && !isTrash) || type === 'trash'"
+    :class="{'light-list': true, 'has-left-radius': type === 'highlight', 'no-left-radius': type === 'trash'}">
     <div v-if="img" :class="{'light-list-img-box': true, 'border-left-radius': isHighlight}">
       <img :src="img" alt="Markone" class="list-item-img" @click="$emit('clickShowImg')">
     </div>
     <p v-else>{{ context }}</p>
-    <div v-if="type === 'highlight'" class="light-list-delete" @click="$emit('toTrash')"><span>✖</span></div>
+    <div v-if="type === 'highlight'" class="light-list-delete" @click="$emit('toTrash')" title="Move to trash"><span>✖</span></div>
     <div class="light-list-box highlight" v-if="type === 'highlight'">
-      <span class="light-list-box-icon" @click="$emit('tohighlight')">
+      <span class="light-list-box-icon" @click="$emit('tohighlight')" title="Unmark">
         <icon-svg icon-class="highlighted"></icon-svg>
       </span>
-      <span class="light-list-box-icon" @click="$router.push({path: '/', hash: title})"><icon-svg icon-class="back-to-note"></icon-svg></span>
+      <span class="light-list-box-icon" @click="$router.push('/#' + title)" title="Return notes">
+        <icon-svg icon-class="back-to-note"></icon-svg>
+      </span>
     </div>
     <div class="light-list-box trash" v-if="type === 'trash'">
-      <span class="light-list-box-icon" @click="$emit('reduction')"></span>
-      <span class="light-list-box-icon" @click="$emit('delete')"></span>
+      <span class="light-list-box-icon" @click="$emit('reduction')" title="Revert"></span>
     </div>
   </li>
 </template>
@@ -33,6 +35,8 @@ export default {
 .no-left-radius {
   border-radius: 8px;
 }
+.highlight { width: 112px; }
+.trash { width: 56px; }
 .light-list {
   background: #fff;
   border-bottom-right-radius: 8px;
@@ -51,7 +55,6 @@ export default {
     right: 0;
     top: 0;
     transition: all .3s ease;
-    width: 112px;
     z-index: -1;
     &-icon {
       background: rgba(26,34,112,0.10);
@@ -103,9 +106,13 @@ export default {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
-  &:hover > &-box {
+  &:hover > .highlight {
     border-radius: 0;
     right: -112px;
+  }
+  &:hover > .trash {
+    border-radius: 0;
+    right: -56px;
   }
   &:hover > &-img-box {
     border-bottom-right-radius: 0;

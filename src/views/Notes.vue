@@ -3,7 +3,7 @@
     <no-data v-if="loading || !notes.length" :loading="loading" :nodata="!loading && !notes.length"></no-data>
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
-        <span class="note-list-header-icon">Copy all</span>
+        <span class="note-list-header-icon" @click="copyAll(note)">Copy all</span>
         <h3 :id="note.id"><a :href="'#' + note.title">{{ note.title }}</a></h3>
       </div>
       <sortable-list v-model="note.show" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
@@ -35,6 +35,11 @@
       </div>
     </div>
     <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
+    <div class="copy-bord">
+      <div ref="copyBord" id="section">
+        <p v-for="item in copyList" :key="item.uuid">{{ item.remark }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,7 +58,8 @@ export default {
       notes: [],
       loading: false,
       showImg: false,
-      imgSrc: ''
+      imgSrc: '',
+      copyList: []
     }
   },
   components: {
@@ -130,6 +136,15 @@ export default {
     },
     viewImg () {
       this.showImg = false
+    },
+    copyAll (note) {
+      this.copyList = note.sections
+      const range = document.createRange()
+      range.selectNode(document.getElementById('section'))
+      const selection = window.getSelection()
+      if (selection.rangeCount > 0) selection.removeAllRanges()
+      selection.addRange(range)
+      if (document.execCommand('copy')) this.$toast('Copied!')
     }
   },
   mounted () {
@@ -227,5 +242,11 @@ export default {
 }
 .change-bg {
   background: #fff;
+}
+.copy-bord {
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  z-index: -99;
 }
 </style>
