@@ -121,10 +121,10 @@ export default {
       }
       toHighlight(itemUuid, data).then(res => {
         if (res.status === 200) {
+          // const msg = flag ? 'Marked as not highlight successfully!' : 'Marked as highlight successfully!'
+          // this.$toast(msg, 1500)
           this.notes = []
           this.getdata()
-          const msg = flag ? 'Marked as not highlight successfully!' : 'Marked as highlight successfully!'
-          this.$toast(msg, 1500)
         }
       })
     },
@@ -152,12 +152,14 @@ export default {
     },
     copyAll (note) {
       this.copyList = note.sections
-      const range = document.createRange()
-      range.selectNode(document.getElementById('section'))
-      const selection = window.getSelection()
-      if (selection.rangeCount > 0) selection.removeAllRanges()
-      selection.addRange(range)
-      if (document.execCommand('copy')) this.$toast('Copied!')
+      setTimeout(() => {
+        const range = document.createRange()
+        range.selectNode(document.getElementById('section'))
+        const selection = window.getSelection()
+        if (selection.rangeCount > 0) selection.removeAllRanges()
+        selection.addRange(range)
+        if (document.execCommand('copy')) this.$toast('Copied!')
+      }, 500)
     },
     loadMore () {
       this.loadingmore = true

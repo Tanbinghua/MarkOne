@@ -18,16 +18,16 @@ export default {
 <style lang="scss" scoped>
 .toast {
   background-color: rgba(26,34,112,0.60);
-  border-radius: 5vw;
+  border-radius: 25px;
   color: #fff;
   font-size: 16px;
   left: 50%;
-  margin-left: -15vw;
-  padding: 2vw;
+  margin-left: -200px;
+  padding: 15px;
   position: fixed;
   text-align: center;
   top: 70%;
-  width: 30vw;
+  width: 400px;
   z-index: 999;
 }
 

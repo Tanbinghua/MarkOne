@@ -34,12 +34,12 @@ export default {
       getHighList().then(res => {
         if (res.data) {
           this.data = res.data.results
-          this.data.every(item => {
+          this.data.forEach(item => {
             if (item.sections.length) {
-              item.sections.every(section => {
+              item.sections.forEach(section => {
                 if (!section.trash) this.nodata = false
               })
-            }
+            } else this.nodata = true
           })
           this.loading = false
         }
@@ -77,7 +77,7 @@ export default {
       }
       toHighlight(itemUuid, data).then(res => {
         if (res.status === 200) {
-          this.$toast('Put to trash successfully!', 1500)
+          // this.$toast('Put to trash successfully!', 1500)
           this.data = []
           this.getData()
         }

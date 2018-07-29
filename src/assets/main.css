@@ -30,7 +30,7 @@ html, body, #app {
   background-color: rgba(153,153,153,1);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 752px) {
   .home {
     display: block !important;
   }
@@ -44,7 +44,7 @@ html, body, #app {
   .main { height: 100%; }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 752px) {
   .aside {
     transform: translate(0, 0);
     transition: all .4s ease;

@@ -1,23 +1,23 @@
 <template>
-  <div :class="{aside: true, 'slide-to-left': slide && screenWidth <= 900}" v-clickoutside="handleClose">
-    <h3 class="title">Markone</h3>
+  <div :class="{aside: true, 'slide-to-left': slide && screenWidth <= 752}" v-clickoutside="handleClose">
+    <div class="aside-logo"><img src="../assets/logo.png" alt=""></div>
     <!-- <div class="new">
       <button class="new-btn" @click="change"><span class="new-btn-icon"><icon-svg icon-class="new"></icon-svg></span>New Note</button>
     </div> -->
     <div class="nav">
-      <div :class="{'nav-list': true, 'nav-list-active': tab === ''}" @click="tab = ''">
+      <div :class="{'nav-list': true, 'nav-list-active': tab === ''}" @click="toLink('')">
         <router-link class="nav-list-link" to="/">
           <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="notes"></icon-svg></span><span>Notes</span></p>
         </router-link>
       </div>
-      <div :class="{'nav-list': true, 'nav-list-active': tab === 'highlight'}" @click="tab = 'highlight'">
+      <div :class="{'nav-list': true, 'nav-list-active': tab === 'highlight'}" @click="toLink('highlight')">
         <router-link class="nav-list-link" to="/highlight">
           <p class="nav-list-text"><span class="nav-list-text-icon">
             <icon-svg :icon-class="tab === 'highlight' ? 'highlight-signed' : 'highlight-unsign'" ></icon-svg>
           </span><span>Highlights</span></p>
         </router-link>
       </div>
-      <div :class="{'nav-list': true, 'nav-list-active': tab === 'trash'}" @click="tab = 'trash'">
+      <div :class="{'nav-list': true, 'nav-list-active': tab === 'trash'}" @click="toLink('trash')">
         <router-link class="nav-list-link" to="/trash">
           <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="trash"></icon-svg></span><span>Trash</span></p>
         </router-link>
@@ -51,13 +51,17 @@ export default {
   methods: {
     handleClose () {
       if (this.slide) this.slide = false
+    },
+    toLink (str) {
+      this.tab = str
+      this.slide = false
     }
   },
   watch: {
     screenWidth (val) {
       if (!this.timer) {
         this.screenWidth = val
-        if (this.screenWidth > 900) this.slide = false
+        if (this.screenWidth > 752) this.slide = false
         this.timer = true
         let that = this
         setTimeout(function () {
@@ -91,18 +95,12 @@ export default {
   text-align: center;
   width: 288px;
   z-index: 2;
+  &-logo { margin-bottom: 97px; }
 }
 
 .slide-to-left {
   transform: translate(0, 0);
   transition: all 0.4s ease;
-}
-
-.title {
-  color: #1a2270;
-  font-family: Skia-Regular_Bold, sans-serif;
-  font-size: 36px;
-  margin: 33px 0 68px;
 }
 .new {
   margin-bottom: 45px;
@@ -173,7 +171,7 @@ export default {
     display: none;
     left: 288px;
     position: absolute;
-    top: 95px;
+    top: 85px;
     &-box {
       background: #fff;
       border-radius: 0 8px 8px 0;

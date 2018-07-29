@@ -1,10 +1,20 @@
 <template>
   <div class="header">
     <div class="avatar">
-      <div class="avatar-box">
-        <div class="avatar-box-shadow"></div>
-        <img class="avatar-box-img" :src="avatar" alt="User's avatar">
-        <div class="avatar-box-option" @click="signout"><p>Sign out</p></div>
+      <div class="avatar-box" v-clickoutside="hideSelect">
+        <div class="avatar-div">
+          <div class="avatar-box-shadow"></div>
+          <img class="avatar-box-img" :src="avatar" alt="User's avatar" @click="selectShow = true">
+        </div>
+        <transition name="fade">
+          <div class="avatar-box-option" v-show="selectShow">
+            <p>Account</p>
+            <p>Help Center</p>
+            <p>Feedback</p>
+            <p>About us</p>
+            <p @click="signout">Sign out</p>
+          </div>
+        </transition>
       </div>
     </div>
     <div class="search">
@@ -19,12 +29,14 @@
 
 <script>
 import { signOut } from '../api/interface'
+import { clickoutside } from '../utils/tools'
 
 export default {
   data () {
     return {
       avatar: this.$store.getters.avatar,
-      email: this.$store.getters.email
+      email: this.$store.getters.email,
+      selectShow: false
     }
   },
   methods: {
@@ -39,19 +51,23 @@ export default {
           this.$router.push('sign')
         }
       })
+    },
+    hideSelect () {
+      if (this.selectShow) this.selectShow = false
     }
-  }
+  },
+  directives: { clickoutside }
 }
 </script>
 
 <style lang="scss" scoped>
 .header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0 40px;
+  padding: 0 60px 0 40px;
 }
 .search {
   margin: auto;
-  padding-right: 112px;
+  padding-right: 92px;
   max-width: 800px;
   &-box {
     border-bottom: 1px solid #ccc;
@@ -103,13 +119,6 @@ export default {
     margin: 12px auto;
     position: relative;
     width: 56px;
-    &:hover {
-      cursor: pointer;
-    }
-    &:hover > &-option {
-      display: block;
-    }
-    &:hover > &-shadow { opacity: 1; }
     &-shadow {
       background-image: radial-gradient(55% 55%, #FF6E03 50%, #FFFFFF 100%);
       height: 100%;
@@ -128,23 +137,41 @@ export default {
       width: 40px;
     }
     &-option {
-      background: #e2dfdd;
       border-radius: 4px;
-      display: none;
       font-family: PingFangSC-Semibold, sans-serif;
-      left: -22px;
+      left: -52px;
       position: absolute;
       top: 56px;
-      transition: all .3s ease;
-      width: 100px;
-      :hover { background: #FEECDC; }
+      width: 160px;
+      z-index: 9;
       & p {
-        color: #ff6e03;
+        background: #fff;
+        color: #666;
         font-size: 14px;
         padding: 10px 20px;
         text-align: center;
+        transition: all .3s ease;
+        &:hover {
+          background: #e2dfdd;
+          color: #FF6E03;
+          cursor: pointer;
+        }
       }
+      & p:last-child { border-top: 1px solid rgba(153,153,153,0.50); }
     }
   }
+  &-div {
+    &:hover {
+      cursor: pointer;
+    }
+    &:hover > .avatar-box-shadow { opacity: 1; }
+  }
 }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 </style>

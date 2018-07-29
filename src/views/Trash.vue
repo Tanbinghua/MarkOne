@@ -35,6 +35,7 @@ export default {
           this.data = res.data.results
           this.data.every(item => {
             if (item.sections.length) this.nodata = false
+            else this.nodata = true
           })
           this.loading = false
         }
