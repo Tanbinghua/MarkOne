@@ -1,52 +1,86 @@
 <template>
   <div class="sign">
     <div class="sign-box">
-      <p class="sign-box-title">{{ state ? 'Join Mark One' : 'Sign in'}}</p>
-      <div class="sign-box-google">
-        <span class="sign-box-google-icon"></span>
+      <p class="sign-box-title">{{ state === 0 ? 'Join Mark One' : state === 1 ? 'Sign in' : state === 4 ? 'Congratulation!' : 'Reset password'}}</p>
+      <div class="sign-box-google" v-if="state === 0 || state === 1">
+        <span class="sign-box-google-icon"><icon-svg icon-class="google"></icon-svg></span>
         <button class="sign-box-google-text">Sign in with Google</button>
       </div>
-      <div class="sign-box-other">
+      <div class="sign-box-other" v-if="state === 0 || state === 1">
         <span class="sign-box-other-border left"></span>
         <p class="sign-box-other-text">or</p>
         <span class="sign-box-other-border right"></span>
       </div>
-      <div class="sign-box-form" v-if="state">
+      <div class="sign-box-tip" v-if="state >= 2">
+        <p v-if="state === 2">Plesase provide the email you used, we will send an email to reset your password. </p>
+        <p v-if="state === 3">An email with password reset instructions has been sent to your email address, if it exists in our system.</p>
+        <p v-if="state === 4">You have successfully reset your password :)</p>
+      </div>
+      <div class="sign-box-form" v-if="state === 0">
         <div class="sign-box-form-input"><input type="text" name="" placeholder="Nickname" v-model="nickname" @keyup.enter="signup"></div>
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Email" v-model="email" @keyup.enter="signup"></div>
-        <div class="sign-box-form-input"><input type="password" name="" placeholder="Password" v-model="passworld" @keyup.enter="signup"></div>
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Email" v-model="email" @keyup.enter="signup" @input="checkEmail"></div>
+        <div class="sign-box-form-input">
+          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="passworld" @keyup.enter="signup" @input="checkPassword">
+          <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
+        </div>
+        <div class="sign-box-form-warning signup">
+          <p v-if="warning === 'email'">
+            <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
+            <span class="sign-box-form-warning-text">Invalid email address</span>
+          </p>
+          <p v-if="warning === 'password'">
+            <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
+            <span class="sign-box-form-warning-text">Please use 6+ characters</span>
+          </p>
+        </div>
       </div>
-      <div class="sign-box-form" v-if="!state">
+      <div class="sign-box-form signin" v-if="state === 1">
         <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail" @keyup.enter="signin"></div>
-        <div class="sign-box-form-input"><input type="password" name="" placeholder="Password" v-model="signinPassword" @keyup.enter="signin"></div>
-        <div class="sign-box-form-tip"><a href="javascript:void(0)">Forgot password?</a></div>
+        <div class="sign-box-form-input">
+          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="signinPassword" @keyup.enter="signin">
+          <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
+        </div>
+        <div class="sign-box-form-tip"><a href="javascript:void(0)" @click="reset(2)">Forgot password?</a></div>
+        <div class="sign-box-form-warning signin">
+          <p v-if="warning === 'signin'">
+            <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
+            <span class="sign-box-form-warning-text">Incorrect email or password</span>
+          </p>
+        </div>
       </div>
-      <div class="sign-box-signin" v-if="state">
+      <div class="sign-box-form" v-if="state === 2">
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail" @keyup.enter="signin"></div>
+      </div>
+      <div class="sign-box-signin" v-if="state === 0">
         <p class="sign-box-signin-text">Already have an account?&nbsp;</p>
-        <button class="sign-box-signin-btn" @click="reset">Sign in.</button>
+        <button class="sign-box-signin-btn" @click="reset(1)">Sign in.</button>
       </div>
       <div class="sign-box-btn">
-        <button v-if="state" @click="signup">Register</button>
-        <button v-else @click="signin">Sign in</button>
+        <button v-if="state === 0" @click="signup">Register</button>
+        <button v-else-if="state === 1" @click="signin">Sign in</button>
+        <button v-else-if="state === 2" @click="sendEmail(3)">Send email</button>
       </div>
-      <div class="sign-box-footer" v-if="state">
+      <div class="sign-box-footer" v-if="state === 0">
         <p>By creating an account，you agree with our&nbsp;</p>
         <a href="javascript:void(0)">Terms of Service</a>
         <p>&nbsp;and&nbsp;</p>
         <a href="javascript:void(0)">Privacy Policy</a>
         <p>.</p>
       </div>
-      <div class="sign-box-footer" v-if="!state">
+      <div class="sign-box-footer" v-if="state === 1">
         <p>Don't have an account?</p>
         <br>
-        <button class="sign-box-signin-btn" @click="reset">Create new account</button>
+        <button class="sign-box-signin-btn" @click="reset(0)">Create new account</button>
+      </div>
+      <div class="sign-box-help" v-if="state === 2 || state === 3">
+        <p>Please contact <a href="">markone_support@163.com</a> for help if necessary.</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { signUp, signIn } from '../api/interface'
+import { signUp, signIn, checkUser } from '../api/interface'
 
 export default {
   data () {
@@ -56,13 +90,16 @@ export default {
       passworld: null,
       signinEmail: null,
       signinPassword: null,
-      state: false
+      state: 1,
+      warning: null,
+      eye: false,
+      timer: true
     }
   },
   methods: {
     signup () {
-      if (!this.nickname || !this.email || !this.passworld) {
-        alert('Please input your info.')
+      if (!this.nickname || !this.email || !this.passworld || this.warning) {
+        alert('Please make sure your information is complete and correct')
         return
       }
       const data = {
@@ -83,8 +120,8 @@ export default {
       })
     },
     signin () {
-      if (!this.signinEmail || !this.signinPassword) {
-        alert('Please input you info.')
+      if (!this.signinEmail || !this.signinPassword || this.warning) {
+        alert('Please make sure your information is complete and correct')
         return
       }
       const data = {
@@ -100,15 +137,41 @@ export default {
           this.$toast('Sign in successfully!')
           this.$router.push('/')
         }
+      }).catch(() => {
+        this.warning = 'signin'
       })
     },
-    reset () {
-      this.nickname = ''
-      this.email = ''
-      this.passworld = ''
-      this.signinEmail = ''
-      this.signinPassword = ''
-      this.state = !this.state
+    checkEmail () {
+      if (!this.timer) return
+      this.timer = false
+      setTimeout(() => {
+        checkUser({email: this.email}).then(res => {
+          if (res.data.result) this.warning = 'email'
+          else this.warning = null
+        })
+        this.timer = true
+      }, 1000)
+    },
+    checkPassword () {
+      if (!this.timer) return
+      this.timer = false
+      setTimeout(() => {
+        if (this.passworld.length <= 6) this.warning = 'password'
+        else this.warning = null
+        this.timer = true
+      }, 1000)
+    },
+    sendEmail (state) {
+      this.reset(state)
+    },
+    reset (state) {
+      this.nickname = null
+      this.email = null
+      this.passworld = null
+      this.signinEmail = null
+      this.signinPassword = null
+      this.warning = null
+      this.state = state
     }
   }
 }
@@ -145,14 +208,21 @@ export default {
         background: #fff;
         display: inline-block;
         height: 20px;
-        vertical-align: bottom;
+        vertical-align: middle;
         width: 20px;
+        & svg {
+          height: 20px;
+          vertical-align: top;
+          width: 20px;
+        }
       }
       &-text {
         background: transparent;
         border: none;
         color: #999;
         font-size: 14px;
+        line-height: 20px;
+        margin-left: 10px;
         outline: none;
         &:hover { cursor: pointer; }
       }
@@ -178,16 +248,29 @@ export default {
     &-form {
       padding: 8px 0 40px 0;
       text-align: center;
-      & input {
-        background: #fff;
-        border: none;
-        border-radius: 8px;
-        color: #999;
-        height: 40px;
-        margin-top: 16px;
-        padding-left: 16px;
-        outline: none;
-        width: 304px;
+      &-input {
+        & input {
+          background: #fff;
+          border: none;
+          border-radius: 8px;
+          color: #999;
+          height: 40px;
+          margin-top: 16px;
+          padding-left: 16px;
+          position: relative;
+          outline: none;
+          width: 304px;
+        }
+        &-icon {
+          margin-top: 27px;
+          position: absolute;
+          right: 140px;
+          & svg {
+            height: 18px;
+            width: 24px;
+          }
+          &:hover { cursor: pointer; }
+        }
       }
       ::-webkit-input-placeholder {
         color: rgba(153,153,153,0.50);
@@ -202,6 +285,29 @@ export default {
           text-decoration: none;
           &:active { color: #999; }
         }
+      }
+      &-warning {
+        color: #D81E06;;
+        font-size: 14px;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        &-icon svg {
+          height: 16px;
+          vertical-align: middle;
+          width: 16px;
+        }
+        & P {
+          margin: auto;
+          width: 320px;
+        }
+      }
+      & .signup {
+        margin-top: 8px;
+        & P { text-align: left; }
+      }
+      & .signin {
+        margin-top: 24px;
       }
     }
     &-signin {
@@ -246,6 +352,27 @@ export default {
         &:active { color: #999; }
       }
     }
+    &-tip {
+      color: #666;
+      font-size: 14px;
+      line-height: 20px;
+      margin: 40px auto 24px;
+      width: 323px;
+    }
+    &-help {
+      bottom: 64px;
+      color: #666;
+      font-size: 14px;
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      & a {
+        color: #FF6E03;
+        text-decoration: none;
+        &:hover { text-decoration: underline; }
+      }
+    }
+    & > .signin { margin-bottom: 54px; }
   }
 }
 </style>

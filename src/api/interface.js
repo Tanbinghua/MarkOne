@@ -23,10 +23,11 @@ export function signOut () {
   })
 }
 
-export function getNotes () {
+export function getNotes (params) {
   return fetch({
     url: 'api/notes/',
-    method: 'GET'
+    method: 'GET',
+    params
   })
 }
 
@@ -37,17 +38,19 @@ export function userInfo () {
   })
 }
 
-export function getHighList () {
+export function getHighList (params) {
   return fetch({
     url: 'api/notes/highlight',
-    method: 'GET'
+    method: 'GET',
+    params
   })
 }
 
-export function getTrashList () {
+export function getTrashList (params) {
   return fetch({
     url: 'api/notes/trash',
-    method: 'GET'
+    method: 'GET',
+    params
   })
 }
 
@@ -56,5 +59,13 @@ export function toHighlight (uuid, data) {
     url: `api/sections/${uuid}`,
     method: 'PUT',
     data
+  })
+}
+
+export function checkUser (params) {
+  return fetch({
+    url: 'api/users/check_user',
+    method: 'GET',
+    params
   })
 }

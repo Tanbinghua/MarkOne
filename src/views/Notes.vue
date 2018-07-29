@@ -1,6 +1,5 @@
 <template>
-  <div class="notes">
-    <no-data v-if="loading || !notes.length" :loading="loading" :nodata="!loading && !notes.length"></no-data>
+  <div class="notes" id="scroll">
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
         <span class="note-list-header-icon" @click="copyAll(note)">Copy all</span>
@@ -34,6 +33,11 @@
         <p class="note-list-footer-link">&nbsp;&nbsp;From:&nbsp;<a :href="note.origin" target="_blank"><span>{{ note.origin }}</span></a></p>
       </div>
     </div>
+    <no-data v-if="loading || !notes.length" :loading="loading" :nodata="!loading && !notes.length"></no-data>
+    <div class="load-more" v-if="next">
+      <h3 v-if="!loadingmore" class="load-more-btn" @click="loadMore">Load more</h3>
+      <h3 v-if="nomoredata">-- No more data --</h3>
+    </div>
     <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
     <div class="copy-bord">
       <div ref="copyBord" id="section">
@@ -59,7 +63,12 @@ export default {
       loading: false,
       showImg: false,
       imgSrc: '',
-      copyList: []
+      copyList: [],
+      next: null,
+      previous: null,
+      current: 1,
+      loadingmore: false,
+      nomoredata: false
     }
   },
   components: {
@@ -78,9 +87,12 @@ export default {
     },
     getdata () {
       this.loading = true
-      getNotes().then(res => {
+      getNotes({page: this.current}).then(res => {
         if (res.data) {
-          res.data.results.every(item => {
+          this.next = res.data.next
+          this.previous = res.data.previous
+          if (res.data.next && this.next >= 2) this.current = this.next - 1
+          res.data.results.forEach(item => {
             const { sections, ...info } = item
             const mark = {
               show: [],
@@ -97,6 +109,7 @@ export default {
           this.loading = false
         }
       }).catch(() => {
+        this.nomoredata = true
         this.loading = false
       })
     },
@@ -145,6 +158,11 @@ export default {
       if (selection.rangeCount > 0) selection.removeAllRanges()
       selection.addRange(range)
       if (document.execCommand('copy')) this.$toast('Copied!')
+    },
+    loadMore () {
+      this.loadingmore = true
+      this.current++
+      this.getdata()
     }
   },
   mounted () {
@@ -205,6 +223,7 @@ export default {
         max-width: 287px;
         overflow: hidden;
         text-overflow:ellipsis;
+        vertical-align: bottom;
         white-space: nowrap;
         & a {
           color: #999;
@@ -239,6 +258,12 @@ export default {
       }
     }
   }
+}
+.load-more {
+  color: #999;
+  margin-top: 40px;
+  text-align: center;
+  &-btn:hover { cursor: pointer; }
 }
 .change-bg {
   background: #fff;

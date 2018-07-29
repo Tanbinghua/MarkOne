@@ -82,6 +82,8 @@ export default {
 }
 .light {
   list-style-type: none;
+  max-width: 810px;
+  margin: auto;
   padding-right: 112px;
   position: relative;
   z-index: 1;
