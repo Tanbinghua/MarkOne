@@ -31,6 +31,10 @@ export default {
     signout () {
       signOut().then(res => {
         if (res.status === 204) {
+          this.$store.commit({
+            type: 'SET_USER_INFO',
+            info: JSON.stringify({})
+          })
           this.$toast('Sign out successfully!', 1500)
           this.$router.push('sign')
         }
