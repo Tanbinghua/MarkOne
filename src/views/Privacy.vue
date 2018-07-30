@@ -1,7 +1,7 @@
 <template>
   <div class="privacy">
     <div data-collapse="small" data-animation="default" data-duration="400" class="nav w-nav">
-      <div class="nav-container w-container"><router-link to="/" class="logo w-nav-brand"><img src="/static/images/logo.png" class="image-3"></router-link>
+      <div class="nav-container w-container"><router-link to="/" class="logo w-nav-brand"><img src="../../static/images/logo.png" class="image-3"></router-link>
         <nav role="navigation" class="nav-menu w-nav-menu"><a href="http://markonenote.com/notes" class="link w-button">Get Mark One from Chrome</a><router-link to="/" class="link login w-button">Come in</router-link></nav>
       </div>
     </div>

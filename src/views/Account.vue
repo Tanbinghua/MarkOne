@@ -1,7 +1,7 @@
 <template>
   <div class="account">
     <div data-collapse="small" data-animation="default" data-duration="400" class="nav w-nav">
-      <div class="nav-container w-container"><router-link to="/" class="logo w-nav-brand"><img src="/static/images/logo.png" class="image-3"></router-link>
+      <div class="nav-container w-container"><router-link to="/" class="logo w-nav-brand"><img src="../../static/images/logo.png" class="image-3"></router-link>
         <nav role="navigation" class="nav-menu w-nav-menu"><router-link to="/" class="link login w-button">Come in</router-link></nav>
       </div>
     </div>
@@ -16,7 +16,7 @@
           <p class="p4">Q: How to use Mark One?
             <br>A: Please click the logo on the right corner in the browser to activate Mark One in the first place. Then you can see the extension on the video page we support. Here is a picture to explain how to use Mark One:
             <br>
-          </p><img src="/static/images/markone_how_it_works.png" srcset="/static/images/markone_how_it_works-p-500.png 500w, /static/images/markone_how_it_works-p-800.png 800w, /static/images/markone_how_it_works.png 1069w" sizes="(max-width: 767px) 100vw, 700px" class="image-9">
+          </p><img src="../../static/images/markone_how_it_works.png" srcset="../../static/images/markone_how_it_works-p-500.png 500w, ../../static/images/markone_how_it_works-p-800.png 800w, ../../static/images/markone_how_it_works.png 1069w" sizes="(max-width: 767px) 100vw, 700px" class="image-9">
           <p class="p4">Q: Why Mark One doesn’t work on the video page I watch?
             <br>A: Sooooory for that. We only support Youtube right now. If you find other useful learning websites and want us to support, please contact us.
             <br>‍
@@ -41,7 +41,7 @@
         <div class="p5">
           <p>WeChat:
             <br>
-          </p><img src="/static/images/markone_wechat_qr0.png" width="120" height="120" class="image-8">
+          </p><img src="../../static/images/markone_wechat_qr0.png" width="120" height="120" class="image-8">
         </div>
       </div>
       <div class="div-block-17">
