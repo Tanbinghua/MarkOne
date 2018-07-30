@@ -8,9 +8,10 @@
         </div>
         <transition name="fade">
           <div class="avatar-box-option" v-show="selectShow">
-            <p>Help Center</p>
-            <p>Feedback</p>
-            <p>About us</p>
+            <p @click="$router.push('/account')">Account</p>
+            <p @click="$router.push('/account')">Help Center</p>
+            <p @click="$router.push('/account')">Feedback</p>
+            <p @click="$router.push('/account')">About us</p>
             <p @click="signout">Sign out</p>
           </div>
         </transition>

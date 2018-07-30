@@ -1,6 +1,6 @@
 <template>
   <div :class="{aside: true, 'slide-to-left': slide && screenWidth <= 752}" v-clickoutside="handleClose">
-    <div class="aside-logo"><img src="../assets/logo.png" alt=""></div>
+    <div class="aside-logo"><img src="static/images/MarkOne_logo.png" alt=""></div>
     <!-- <div class="new">
       <button class="new-btn" @click="change"><span class="new-btn-icon"><icon-svg icon-class="new"></icon-svg></span>New Note</button>
     </div> -->

@@ -11,6 +11,8 @@ router.beforeEach((to, from, next) => {
     }).catch(() => {
       next()
     })
+  } else if (whiteList.indexOf(to.path) !== -1) {
+    next()
   } else {
     if (!store.getters.email) {
       userInfo().then(res => {
@@ -23,7 +25,7 @@ router.beforeEach((to, from, next) => {
         }
       }).catch(err => {
         if (err) {
-          next('/sign')
+          next('/index')
         }
       })
     } else {
@@ -31,3 +33,5 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
+
+const whiteList = ['/terms', '/privacy', '/error', '/index']

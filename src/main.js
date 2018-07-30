@@ -8,6 +8,7 @@ import './assets/icons.js'
 import './utils/permission'
 import store from './store'
 import Toast from './components/toast'
+import './assets/css/normalize.css'
 
 Vue.config.productionTip = false
 Vue.use(Toast)

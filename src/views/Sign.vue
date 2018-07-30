@@ -62,9 +62,9 @@
       </div>
       <div class="sign-box-footer" v-if="state === 0">
         <p>By creating an account，you agree with our&nbsp;</p>
-        <a href="javascript:void(0)">Terms of Service</a>
+        <router-link to="/terms">Terms of Service</router-link>
         <p>&nbsp;and&nbsp;</p>
-        <a href="javascript:void(0)">Privacy Policy</a>
+        <router-link to="/privacy">Privacy Policy</router-link>
         <p>.</p>
       </div>
       <div class="sign-box-footer" v-if="state === 1">
