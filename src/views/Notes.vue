@@ -3,7 +3,7 @@
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
         <span class="note-list-header-icon" @click="copyAll(note)">Copy all</span>
-        <h3 :id="note.id"><a :href="'#' + note.title">{{ note.title }}</a></h3>
+        <h3 :id="note.title" @click="scrollToTop(note.title)">{{ note.title }}</h3>
       </div>
       <sortable-list v-model="note.show" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
         :useDragHandle="true" lockAxis="y" helperClass="change-bg">
@@ -165,6 +165,12 @@ export default {
       this.loadingmore = true
       this.current++
       this.getdata()
+    },
+    scrollToTop (id) {
+      document.getElementById(id).scrollIntoView({
+        block: 'start',
+        behavior: 'smooth'
+      })
     }
   },
   mounted () {
@@ -194,10 +200,12 @@ export default {
         overflow: hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
-      }
-      & a {
         color: #1a2270;
         text-decoration: none;
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
       }
       &-icon {
         color: #1a2270;
@@ -206,6 +214,7 @@ export default {
         font-size: 14px;
         margin-top: 11px;
         text-align: center;
+        transition: all .3s ease;
         & svg {
           height: 10px;
           width: 20px;
