@@ -204,14 +204,16 @@ export default {
         display: block;
         float: right;
         font-size: 14px;
-        height: 31px;
-        line-height: 31px;
+        margin-top: 11px;
         text-align: center;
         & svg {
           height: 10px;
           width: 20px;
         }
-        &:hover { cursor: pointer; }
+        &:hover {
+          color: #FF6E03;
+          cursor: pointer;
+        }
       }
     }
     &-footer {
@@ -225,7 +227,7 @@ export default {
         max-width: 287px;
         overflow: hidden;
         text-overflow:ellipsis;
-        vertical-align: bottom;
+        vertical-align: -3px;
         white-space: nowrap;
         & a {
           color: #999;

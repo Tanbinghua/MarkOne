@@ -8,7 +8,6 @@
         </div>
         <transition name="fade">
           <div class="avatar-box-option" v-show="selectShow">
-            <p>Account</p>
             <p>Help Center</p>
             <p>Feedback</p>
             <p>About us</p>
@@ -83,7 +82,7 @@ export default {
       width: 24px;
       & svg {
         height: 16px;
-        vertical-align: -6px;
+        vertical-align: -4px;
         width: 16px;
       }
     }
@@ -120,7 +119,7 @@ export default {
     position: relative;
     width: 56px;
     &-shadow {
-      background-image: radial-gradient(55% 55%, #FF6E03 50%, #FFFFFF 100%);
+      background-image: radial-gradient(50% 50%, #FF6E03 50%, #FFFFFF 100%);
       height: 100%;
       left: 0;
       opacity: 0;
@@ -137,27 +136,29 @@ export default {
       width: 40px;
     }
     &-option {
-      border-radius: 4px;
-      font-family: PingFangSC-Semibold, sans-serif;
+      background: #fff;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      font-family: PingFangSC-Light, sans-serif;
       left: -52px;
+      overflow: hidden;
       position: absolute;
-      top: 56px;
+      top: 68px;
       width: 160px;
       z-index: 9;
       & p {
-        background: #fff;
         color: #666;
         font-size: 14px;
         padding: 10px 20px;
         text-align: center;
         transition: all .3s ease;
         &:hover {
-          background: #e2dfdd;
+          background: rgba(26,34,112,0.10);
           color: #FF6E03;
           cursor: pointer;
         }
       }
-      & p:last-child { border-top: 1px solid rgba(153,153,153,0.50); }
+      & p:last-child { border-top: 1px solid rgba(0, 0, 0, 0.1); }
     }
   }
   &-div {
