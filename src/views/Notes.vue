@@ -253,7 +253,6 @@ export default {
           display: inline-block;
           text-align: center;
           transform-origin: center;
-          transition: all .3s ease;
           width: 20px;
           & svg {
             height: 9px;
