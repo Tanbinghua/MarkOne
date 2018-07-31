@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import { ContainerMixin } from 'vue-slicksort'
+// import { ContainerMixin } from 'vue-slicksort'
 
 export default {
-  mixins: [ContainerMixin]
+  // mixins: [ContainerMixin]
 }
 </script>
 

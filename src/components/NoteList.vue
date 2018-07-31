@@ -10,7 +10,7 @@
       <span class="light-list-box-icon" @click="$emit('tohighlight')" title="Unmark">
         <icon-svg icon-class="highlighted"></icon-svg>
       </span>
-      <span class="light-list-box-icon" @click="$router.push('/#' + title)" title="Return notes">
+      <span class="light-list-box-icon" @click="$router.push('/')" title="Return notes">
         <icon-svg icon-class="back-to-note"></icon-svg>
       </span>
     </div>

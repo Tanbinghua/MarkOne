@@ -73,7 +73,7 @@ export default {
     border-bottom: 1px solid #ccc;
     display: flex;
     height: 32px;
-    margin: 23px 40px 23px 30px;
+    margin: 16px 40px 23px 16px;
     position: relative;
     transition: all .3s ease;
     &-icon {
@@ -116,7 +116,7 @@ export default {
   &-box {
     border-radius: 28px;
     height: 56px;
-    margin: 12px auto;
+    margin: 7px auto;
     position: relative;
     width: 56px;
     &-shadow {
@@ -144,7 +144,7 @@ export default {
       left: -52px;
       overflow: hidden;
       position: absolute;
-      top: 68px;
+      top: 65px;
       width: 160px;
       z-index: 9;
       & p {

@@ -3,24 +3,27 @@
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div class="note-list-header">
         <span class="note-list-header-icon" @click="copyAll(note)">Copy all</span>
-        <h3 :id="note.title" @click="scrollToTop(note.title)">{{ note.title }}</h3>
+        <h4 :id="note.title" @click="scrollToTop(note.title)">{{ note.title }}</h4>
       </div>
-      <sortable-list v-model="note.show" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
-        :useDragHandle="true" lockAxis="y" helperClass="change-bg">
+      <!-- <sortable-list v-model="note.show" @sortStart="sortstart" @sortEnd="sortend" @sortMove="sortmove"
+        :useDragHandle="true" lockAxis="y" helperClass="change-bg"> -->
+      <sortable-list>
         <sortable-item v-for="(item, index) in note.show"
           :index="index" :key="item.uuid" :item="item.remark"
           :isHighlight="item.highlight" :img="item.image"
-          :isVideo="item.is_video" :origin="item.origin"
+          :isVideo="item.is_video" :origin="note.origin"
           :startTime="item.start_time" @clickShowImg="clickImg(item.image)"
           @tohighlight="highLight(note.uuid, item.uuid, item.highlight)"
           @toTrash="totrash(note.uuid, item.uuid)" :isTrash="item.trash"></sortable-item>
         <collapse-transition>
           <div class="collapse" v-show="note.noteVisible">
             <sortable-item v-for="(item, index) in note.fold"
-              :index="index" :key="item.uuid" :item="item.remark"
-              :isHighlight="item.highlight" :img="item.image"
-              :isVideo="item.is_video" :origin="item.origin"
-              :startTime="item.start_time"></sortable-item>
+            :index="index" :key="item.uuid" :item="item.remark"
+            :isHighlight="item.highlight" :img="item.image"
+            :isVideo="item.is_video" :origin="note.origin"
+            :startTime="item.start_time" @clickShowImg="clickImg(item.image)"
+            @tohighlight="highLight(note.uuid, item.uuid, item.highlight)"
+            @toTrash="totrash(note.uuid, item.uuid)" :isTrash="item.trash"></sortable-item>
           </div>
         </collapse-transition>
       </sortable-list>
@@ -41,7 +44,7 @@
     <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
     <div class="copy-bord">
       <div ref="copyBord" id="section">
-        <p v-for="item in copyList" :key="item.uuid">{{ item.remark }}</p>
+        <p v-for="item in copyList" :key="item.uuid" v-if="item.remark !== 'null'">{{ item.remark }}</p>
       </div>
     </div>
   </div>
@@ -193,26 +196,23 @@ export default {
     max-width: 810px;
     &-header {
       font-family: PingFangSC-Medium, sans-serif;
-      font-size: 20px;
+      font-size: 18px;
       margin: 64px 0 16px;
-      & h3 {
+      & h4 {
         max-width: 520px;
         overflow: hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
         color: #1a2270;
         text-decoration: none;
-        &:hover {
-          cursor: pointer;
-          text-decoration: underline;
-        }
+        &:hover {  cursor: pointer; }
       }
       &-icon {
         color: #1a2270;
         display: block;
         float: right;
         font-size: 14px;
-        margin-top: 11px;
+        margin-top: 10px;
         text-align: center;
         transition: all .3s ease;
         & svg {
@@ -247,6 +247,7 @@ export default {
       &-box {
         color: #1a2270;
         float: right;
+        font-size: 14px;
         transition: all .3s ease;
         &-icon {
           display: inline-block;

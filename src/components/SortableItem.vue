@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import { ElementMixin, HandleDirective } from 'vue-slicksort'
+// import { ElementMixin, HandleDirective } from 'vue-slicksort'
 
 export default {
-  mixins: [ElementMixin],
+  // mixins: [ElementMixin],
   props: ['item', 'isHighlight', 'img', 'isVideo', 'origin', 'startTime', 'isTrash'],
-  directives: { handle: HandleDirective },
+  // directives: { handle: HandleDirective },
   methods: {
     highlight () {
       this.$emit('tohighlight')
