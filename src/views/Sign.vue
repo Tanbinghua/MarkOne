@@ -20,7 +20,7 @@
         <div class="sign-box-form-input"><input type="text" name="" placeholder="Nickname" v-model="nickname" @keyup.enter="signup"></div>
         <div class="sign-box-form-input"><input type="text" name="" placeholder="Email" v-model="email" @keyup.enter="signup" @input="checkEmail"></div>
         <div class="sign-box-form-input">
-          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="passworld" @keyup.enter="signup" @input="checkPassword">
+          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="password" @keyup.enter="signup" @input="checkPassword">
           <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
         </div>
         <div class="sign-box-form-warning signup">
@@ -87,7 +87,7 @@ export default {
     return {
       nickname: null,
       email: null,
-      passworld: null,
+      password: null,
       signinEmail: null,
       signinPassword: null,
       state: 1,
@@ -98,14 +98,14 @@ export default {
   },
   methods: {
     signup () {
-      if (!this.nickname || !this.email || !this.passworld || this.warning) {
+      if (!this.nickname || !this.email || !this.password || this.warning) {
         alert('Please make sure your information is complete and correct')
         return
       }
       const data = {
         nickname: this.nickname,
         email: this.email,
-        passworld: this.passworld
+        password: this.password
       }
       signUp(data).then(res => {
         if (res.status === 201) {
@@ -156,7 +156,7 @@ export default {
       if (!this.timer) return
       this.timer = false
       setTimeout(() => {
-        if (this.passworld.length <= 6) this.warning = 'password'
+        if (this.password.length <= 6) this.warning = 'password'
         else this.warning = null
         this.timer = true
       }, 1000)
@@ -167,7 +167,7 @@ export default {
     reset (state) {
       this.nickname = null
       this.email = null
-      this.passworld = null
+      this.password = null
       this.signinEmail = null
       this.signinPassword = null
       this.warning = null
