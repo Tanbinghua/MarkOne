@@ -36,11 +36,7 @@
         <p class="note-list-footer-link">&nbsp;&nbsp;From:&nbsp;<a :href="note.origin" target="_blank"><span>{{ note.origin }}</span></a></p>
       </div>
     </div>
-    <no-data v-if="loading || !notes.length" :loading="loading" :nodata="!loading && !notes.length"></no-data>
-    <div class="load-more" v-if="next">
-      <h3 v-if="!loadingmore" class="load-more-btn" @click="loadMore">Load more</h3>
-      <h3 v-if="nomoredata">-- No more data --</h3>
-    </div>
+    <no-data v-if="loading || !notes.length || next" :loading="loading" :nodata="!loading && !notes.length" :next="next" :loadingmore="loadingmore" :nomoredata="nomoredata" @loadMore="loadMore"></no-data>
     <big-img v-if="showImg" @clickit="viewImg" :imgSrc="imgSrc"></big-img>
     <div class="copy-bord">
       <div ref="copyBord" id="section">
@@ -271,12 +267,6 @@ export default {
       }
     }
   }
-}
-.load-more {
-  color: #999;
-  margin-top: 40px;
-  text-align: center;
-  &-btn:hover { cursor: pointer; }
 }
 .change-bg {
   background: #fff;

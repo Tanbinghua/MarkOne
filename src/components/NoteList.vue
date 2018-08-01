@@ -1,7 +1,7 @@
 <template>
   <li v-if="(type === 'highlight' && !isTrash) || type === 'trash'"
     :class="{'light-list': true, 'has-left-radius': type === 'highlight', 'no-left-radius': type === 'trash'}">
-    <div v-if="img" :class="{'light-list-img-box': true, 'border-left-radius': isHighlight && type === 'hightlight'}">
+    <div v-if="img" :class="{'light-list-img-box': true, 'border-left-radius': isHighlight && type === 'highlight'}">
       <img :src="img" alt="Markone" class="list-item-img" @click="$emit('clickShowImg')">
     </div>
     <p v-else>{{ context }}</p>
@@ -10,7 +10,7 @@
       <span class="light-list-box-icon" @click="$emit('tohighlight')" title="Unmark">
         <icon-svg icon-class="highlighted"></icon-svg>
       </span>
-      <span class="light-list-box-icon" @click="$router.push('/')" title="Return notes">
+      <span class="light-list-box-icon" @click="$router.push(`/detail/${title}`)" title="Return notes">
         <icon-svg icon-class="back-to-note"></icon-svg>
       </span>
     </div>

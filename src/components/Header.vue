@@ -20,15 +20,16 @@
     <div class="search">
       <div class="search-box">
         <span class="search-box-icon"><icon-svg icon-class="search"></icon-svg></span>
-        <input class="search-box-input" type="text" placeholder="Search">
+        <input class="search-box-input" type="text" placeholder="Search" v-model="searchVal" @input="searchNote">
         <span class="search-box-border"></span>
+        <span class="search-box-clear" v-if="searchVal" @click="searchVal = ''">✕</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { signOut } from '../api/interface'
+import { signOut, getNotes } from '../api/interface'
 import { clickoutside } from '../utils/tools'
 
 export default {
@@ -36,10 +37,23 @@ export default {
     return {
       avatar: this.$store.getters.avatar,
       email: this.$store.getters.email,
-      selectShow: false
+      selectShow: false,
+      searchVal: null,
+      timer: true,
+      data: []
     }
   },
   methods: {
+    searchNote () {
+      if (!this.timer) return
+      this.timer = false
+      setTimeout(() => {
+        getNotes({search: this.searchVal}).then(res => {
+          if (res.data.result) this.data = res.data.result
+        })
+        this.timer = true
+      }, 1000)
+    },
     signout () {
       signOut().then(res => {
         if (res.status === 204) {
@@ -96,6 +110,12 @@ export default {
       outline: none;
       &:focus { border-color: #ff6e03; }
       &:focus + .search-box-border { transform: scaleX(1); }
+    }
+    &-clear {
+      line-height: 32px;
+      position: absolute;
+      right: 10px;
+      &:hover { cursor: pointer; }
     }
     &-border {
       background: #ff6e03;

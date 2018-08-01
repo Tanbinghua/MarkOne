@@ -1,6 +1,5 @@
 <template>
   <div class="highlight">
-    <no-data :loading="loading" :nodata="!loading && nodata"></no-data>
     <ul class="light" v-for="item in data" :key="item.uuid">
       <note-list v-for="section in item.sections" :key="section.uuid"
         :context="section.remark" type="highlight" :img="section.image"
@@ -8,6 +7,7 @@
         @tohighlight="highLight(item.uuid, section.uuid)" :isTrash="section.trash"
         @toTrash="totrash(item.uuid, section.uuid)" :title="item.title"></note-list>
     </ul>
+    <no-data v-if="loading || nodata || next" :loading="loading" :nodata="!loading && nodata" :next="next" :loadingmore="loadingmore" :nomoredata="nomoredata" @loadMore="loadMore"></no-data>
     <big-img v-if="showImg" @clickit="imgShow" :imgSrc="imgSrc"></big-img>
   </div>
 </template>
@@ -25,14 +25,22 @@ export default {
       loading: false,
       showImg: false,
       imgSrc: '',
-      nodata: true
+      nodata: true,
+      next: null,
+      previous: null,
+      current: 1,
+      loadingmore: false,
+      nomoredata: false
     }
   },
   methods: {
     getData () {
       this.loading = true
-      getHighList().then(res => {
+      getHighList({page: this.current}).then(res => {
         if (res.data) {
+          this.next = res.data.next
+          this.previous = res.data.previous
+          if (res.data.next && res.data.next >= 2) this.current = this.next - 1
           this.data = res.data.results
           this.data.forEach(item => {
             if (item.sections.length) {
@@ -44,8 +52,14 @@ export default {
           this.loading = false
         }
       }).catch(() => {
+        this.nomoredata = false
         this.loading = false
       })
+    },
+    loadMore () {
+      this.loadingmore = true
+      this.current++
+      this.getData()
     },
     clickImg (src) {
       if (!src) return
@@ -97,7 +111,7 @@ export default {
 
 <style lang="scss" scoped>
 .highlight {
-  padding: 0 40px 100px;
+  padding: 64px 40px 100px;
 }
 .light {
   list-style-type: none;
