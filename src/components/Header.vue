@@ -20,7 +20,7 @@
     <div class="search">
       <div class="search-box">
         <span class="search-box-icon"><icon-svg icon-class="search"></icon-svg></span>
-        <input class="search-box-input" type="text" placeholder="Search" v-model="searchVal" @input="searchNote">
+        <input class="search-box-input" type="text" placeholder="Search" v-model="searchVal" @keyup.enter="searchNote">
         <span class="search-box-border"></span>
         <span class="search-box-clear" v-if="searchVal" @click="searchVal = ''">✕</span>
       </div>
@@ -29,8 +29,9 @@
 </template>
 
 <script>
-import { signOut, getNotes } from '../api/interface'
+import { signOut } from '../api/interface'
 import { clickoutside } from '../utils/tools'
+import {Central} from './Central'
 
 export default {
   data () {
@@ -45,14 +46,7 @@ export default {
   },
   methods: {
     searchNote () {
-      if (!this.timer) return
-      this.timer = false
-      setTimeout(() => {
-        getNotes({search: this.searchVal}).then(res => {
-          if (res.data.result) this.data = res.data.result
-        })
-        this.timer = true
-      }, 1000)
+      Central.$emit('search-notes', this.searchVal)
     },
     signout () {
       signOut().then(res => {

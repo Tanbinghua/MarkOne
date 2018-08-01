@@ -1,7 +1,11 @@
 <template>
   <div class="notes" id="scroll">
+    <div class="back-to-notes" v-if="$route.params.title" @click="$router.push('/')">
+      <span class="back-to-notes-icon"><icon-svg icon-class="down"></icon-svg></span>
+      <span>Back to notes</span>
+    </div>
     <div class="note-list" v-for="note in notes" :key="note.id">
-      <div class="note-list-header">
+      <div :class="{'note-list-header': true, 'params-header': $route.params.title}">
         <span class="note-list-header-icon" @click="copyAll(note)">Copy all</span>
         <h4 :id="note.title" @click="scrollToTop(note.title)">{{ note.title }}</h4>
       </div>
@@ -77,40 +81,58 @@ export default {
     NoData,
     BigImg
   },
+  watch: {
+    '$route' () {
+      this.notes = []
+      this.getdata()
+    }
+  },
   methods: {
-    sortstart () {
-    },
-    sortmove () {
-    },
-    sortend () {
-    },
     getdata () {
       this.loading = true
-      getNotes({page: this.current}).then(res => {
-        if (res.data) {
-          this.next = res.data.next
-          this.previous = res.data.previous
-          if (res.data.next && this.next >= 2) this.current = this.next - 1
-          res.data.results.forEach(item => {
-            const { sections, ...info } = item
-            const mark = {
-              show: [],
-              fold: []
-            }
-            if (item.sections.length <= 3) {
+      if (this.$route.params.title) {
+        getNotes({search: this.$route.params.title}).then(res => {
+          if (res.data) {
+            res.data.results.forEach(item => {
+              const { sections, ...info } = item
+              const mark = {
+                show: []
+              }
               for (let i = 0, len = item.sections.length; i < len; i++) mark.show.push(item.sections[i])
-            } else {
-              for (let i = 0; i < 3; i++) mark.show.push(item.sections[i])
-              for (let i = 3, len = item.sections.length; i < len; i++) mark.fold.push(item.sections[i])
-            }
-            this.notes.push({...info, ...mark, noteVisible: false, sections})
-          })
+              this.notes.push({...info, ...mark})
+            })
+            this.loading = false
+          }
+        }).catch(() => {
           this.loading = false
-        }
-      }).catch(() => {
-        this.nomoredata = true
-        this.loading = false
-      })
+        })
+      } else {
+        getNotes({page: this.current}).then(res => {
+          if (res.data) {
+            this.next = res.data.next
+            this.previous = res.data.previous
+            if (res.data.next && this.next >= 2) this.current = this.next - 1
+            res.data.results.forEach(item => {
+              const { sections, ...info } = item
+              const mark = {
+                show: [],
+                fold: []
+              }
+              if (item.sections.length <= 3) {
+                for (let i = 0, len = item.sections.length; i < len; i++) mark.show.push(item.sections[i])
+              } else {
+                for (let i = 0; i < 3; i++) mark.show.push(item.sections[i])
+                for (let i = 3, len = item.sections.length; i < len; i++) mark.fold.push(item.sections[i])
+              }
+              this.notes.push({...info, ...mark, noteVisible: false})
+            })
+            this.loading = false
+          }
+        }).catch(() => {
+          this.nomoredata = true
+          this.loading = false
+        })
+      }
     },
     highLight (notesUuid, itemUuid, flag) {
       const data = {
@@ -268,9 +290,24 @@ export default {
     }
   }
 }
-.change-bg {
-  background: #fff;
+.back-to-notes {
+  display: inline-block;
+  color: #1A2270;
+  font-size: 14px;
+  margin-top: 48px;
+  transition: all .3s ease;
+  &-icon svg {
+    height: 6px;
+    transform: rotate(-90deg);
+    vertical-align: 2px;
+    width: 10px;
+  }
+  &:hover {
+    color: #FF6E03;
+    cursor: pointer;
+  }
 }
+.note-list .params-header { margin-top: 43px; }
 .copy-bord {
   height: 1px;
   overflow: hidden;

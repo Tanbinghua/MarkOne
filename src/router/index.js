@@ -29,7 +29,8 @@ export default new Router({
         { path: '/', name: 'Notes', component: _import('Notes') },
         { path: '/detail/:title', name: 'NoteDetail', component: _import('Notes') },
         { path: '/highlight', name: 'HighLight', component: _import('Highlight') },
-        { path: '/trash', name: 'Trash', component: _import('Trash') }
+        { path: '/trash', name: 'Trash', component: _import('Trash') },
+        { path: '/search', name: 'Search', component: _import('Search') }
       ]
     },
     { path: '/sign', name: 'Sign', component: _import('Sign') },
