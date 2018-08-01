@@ -37,7 +37,7 @@
       <div class="sign-box-form signin" v-if="state === 1">
         <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail" @keyup.enter="signin"></div>
         <div class="sign-box-form-input">
-          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="signinPassword" @keyup.enter="signin">
+          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="signinPassword" @keyup.enter="signin" @input="warning = null">
           <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
         </div>
         <div class="sign-box-form-tip"><a href="javascript:void(0)" @click="reset(2)">Forgot password?</a></div>

@@ -133,7 +133,7 @@ export default {
 .nav {
   &-list {
     font-family: PingFangSC-Semibold, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     margin: 0 auto;
     line-height: 66px;
     transition: all .4s ease;

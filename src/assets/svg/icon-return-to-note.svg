@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title></title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icon/back-to-note" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5.7723,17.4139 L19.9823,17.4139" id="Stroke-1" stroke="#FF6E03" stroke-width="1.779"></path>
+        <path d="M5.7723,25.4247 L19.9823,25.4247" id="Stroke-2" stroke="#FF6E03" stroke-width="1.779"></path>
+        <path d="M9.7723,9.1952 L12.8773,6.0902" id="Stroke-3" stroke="#FF6E03" stroke-width="1.779"></path>
+        <path d="M9.7723,9.1952 L12.8773,12.3012" id="Stroke-4" stroke="#FF6E03" stroke-width="1.779"></path>
+        <path d="M30.8895,14.1105 L30.8895,15.9605 C30.8895,18.2635 29.4195,20.1305 27.6055,20.1305" id="Stroke-5" stroke="#FF6E03" stroke-width="1.779"></path>
+        <path d="M27.6053,9.4132 C29.4193,9.4132 30.8893,11.2802 30.8893,13.5832 L30.8893,15.4192" id="Stroke-7" stroke="#FF6E03" stroke-width="1.779"></path>
+        <path d="M9.7723,9.4132 L26.9823,9.4132" id="Stroke-9" stroke="#FF6E03" stroke-width="1.779"></path>
+        <path d="M24.3895,12.7648 L24.3895,27.1108 C24.3895,29.3198 22.5985,31.1108 20.3895,31.1108 L4.8895,31.1108 C2.6805,31.1108 0.8895,29.3198 0.8895,27.1108 L0.8895,5.1108 C0.8895,2.9018 2.6805,1.1108 4.8895,1.1108 L20.3895,1.1108 C22.5985,1.1108 24.3895,2.9018 24.3895,5.1108 L24.3895,6.5328" id="Stroke-11" stroke="#FF6E03" stroke-width="1.779"></path>
+    </g>
+</svg>
