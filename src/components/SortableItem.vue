@@ -10,7 +10,7 @@
         <icon-svg :icon-class="isHighlight ? 'highlighted' : 'highlight'"></icon-svg>
       </span>
       <span :class="{'list-item-box-icon': true, 'ban': !isVideo}" title="Return to video">
-        <a v-if="isVideo" :href="origin + '?t=' + startTime + 's'" class="list-item-box-icon-link" target="_blank"></a>
+        <a v-if="isVideo" :href="origin + '&t=' + startTime + 's'" class="list-item-box-icon-link" target="_blank"></a>
         <icon-svg icon-class="back-to-video"></icon-svg>
       </span>
       <!-- <span class="list-item-box-icon" v-handle></span> -->
