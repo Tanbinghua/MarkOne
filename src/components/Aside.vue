@@ -5,8 +5,8 @@
       <button class="new-btn" @click="change"><span class="new-btn-icon"><icon-svg icon-class="new"></icon-svg></span>New Note</button>
     </div> -->
     <div class="nav">
-      <div :class="{'nav-list': true, 'nav-list-active': tab === ''}" @click="toLink('')">
-        <router-link class="nav-list-link" to="/">
+      <div :class="{'nav-list': true, 'nav-list-active': tab === 'notes'}" @click="toLink('')">
+        <router-link class="nav-list-link" to="/notes">
           <p class="nav-list-text"><span class="nav-list-text-icon"><icon-svg icon-class="notes"></icon-svg></span><span>Notes</span></p>
         </router-link>
       </div>

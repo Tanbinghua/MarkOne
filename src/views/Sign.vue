@@ -1,7 +1,7 @@
 <template>
   <div class="sign">
     <div class="sign-box">
-      <p class="sign-box-title">{{ state === 0 ? 'Join Mark One' : state === 1 ? 'Sign in' : state === 4 ? 'Congratulation!' : 'Reset password'}}</p>
+      <p class="sign-box-title">{{ state === 0 ? 'Join Mark One' : state === 1 ? 'Sign in' : state === 5 ? 'Congratulation!' : 'Reset password'}}</p>
       <div class="sign-box-google" v-if="state === 0 || state === 1">
         <span class="sign-box-google-icon"><icon-svg icon-class="google"></icon-svg></span>
         <button class="sign-box-google-text">Sign in with Google</button>
@@ -14,13 +14,13 @@
       <div class="sign-box-tip" v-if="state >= 2">
         <p v-if="state === 2">Plesase provide the email you used, we will send an email to reset your password. </p>
         <p v-if="state === 3">An email with password reset instructions has been sent to your email address, if it exists in our system.</p>
-        <p v-if="state === 4">You have successfully reset your password :)</p>
+        <p v-if="state === 5">You have successfully reset your password :)</p>
       </div>
       <div class="sign-box-form" v-if="state === 0">
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Nickname" v-model="nickname" @keyup.enter="signup"></div>
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Email" v-model="email" @keyup.enter="signup" @input="checkEmail"></div>
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Nickname" v-model="nickname"></div>
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Email" v-model="email" @input="checkEmail"></div>
         <div class="sign-box-form-input">
-          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="password" @keyup.enter="signup" @input="checkPassword">
+          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="password" @input="checkPassword(1)">
           <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
         </div>
         <div class="sign-box-form-warning signup">
@@ -35,9 +35,9 @@
         </div>
       </div>
       <div class="sign-box-form signin" v-if="state === 1">
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail" @keyup.enter="signin"></div>
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail"></div>
         <div class="sign-box-form-input">
-          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="signinPassword" @keyup.enter="signin" @input="warning = null">
+          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="signinPassword" @input="warning = null">
           <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
         </div>
         <div class="sign-box-form-tip"><a href="javascript:void(0)" @click="reset(2)">Forgot password?</a></div>
@@ -49,7 +49,26 @@
         </div>
       </div>
       <div class="sign-box-form" v-if="state === 2">
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail" @keyup.enter="signin"></div>
+        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail"></div>
+        <div class="sign-box-form-warning signup">
+          <p v-if="warning === 'forget'">
+            <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
+            <span class="sign-box-form-warning-text">Invalid email address</span>
+          </p>
+        </div>
+      </div>
+      <div class="sign-box-form" v-if="state === 4">
+        <div class="sign-box-form-text">{{ signinEmail }}</div>
+        <div class="sign-box-form-input">
+          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="resetPassword" @input="checkPassword(2)">
+          <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
+        </div>
+        <div class="sign-box-form-warning signup">
+          <p v-if="warning === 'password'">
+            <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
+            <span class="sign-box-form-warning-text">Please use 6+ characters</span>
+          </p>
+        </div>
       </div>
       <div class="sign-box-signin" v-if="state === 0">
         <p class="sign-box-signin-text">Already have an account?&nbsp;</p>
@@ -58,7 +77,8 @@
       <div class="sign-box-btn">
         <button v-if="state === 0" @click="signup">Register</button>
         <button v-else-if="state === 1" @click="signin">Sign in</button>
-        <button v-else-if="state === 2" @click="sendEmail(3)">Send email</button>
+        <button v-else-if="state === 2" @click="sendEmail">Send email</button>
+        <button v-else-if="state === 4" @click="resetPass">Reset password</button>
       </div>
       <div class="sign-box-footer" v-if="state === 0">
         <p>By creating an account，you agree with our&nbsp;</p>
@@ -72,15 +92,15 @@
         <br>
         <button class="sign-box-signin-btn" @click="reset(0)">Create new account</button>
       </div>
-      <div class="sign-box-help" v-if="state === 2 || state === 3">
-        <p>Please contact <a href="">markone_support@163.com</a> for help if necessary.</p>
+      <div class="sign-box-help" v-if="state === 2 || state === 3 || state === 4">
+        <p>Please contact <a href="mailto:markone_support@163.com?subject=Feedback%20for%20Mark%20One">markone_support@163.com</a> for help if necessary.</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { signUp, signIn, checkUser } from '../api/interface'
+import { signUp, signIn, checkUser, forgetPassword, resetPassword } from '../api/interface'
 
 export default {
   data () {
@@ -93,13 +113,14 @@ export default {
       state: 1,
       warning: null,
       eye: false,
-      timer: true
+      timer: true,
+      resetPassword: null
     }
   },
   methods: {
     signup () {
       if (!this.nickname || !this.email || !this.password || this.warning) {
-        alert('Please make sure your information is complete and correct')
+        alert('Please make sure your information is complete and correct!')
         return
       }
       const data = {
@@ -114,14 +135,13 @@ export default {
             type: 'SET_USER_INFO',
             info: JSON.stringify(res.data)
           })
-          this.$toast('Sign up successfully!', 1500)
-          this.$router.push('/')
+          this.$router.push('/notes')
         }
       })
     },
     signin () {
       if (!this.signinEmail || !this.signinPassword || this.warning) {
-        alert('Please make sure your information is complete and correct')
+        alert('Please make sure your information is complete and correct!')
         return
       }
       const data = {
@@ -134,8 +154,7 @@ export default {
             type: 'SET_USER_INFO',
             info: JSON.stringify(res.data)
           })
-          this.$toast('Sign in successfully!')
-          this.$router.push('/')
+          this.$router.push('/notes')
         }
       }).catch(() => {
         this.warning = 'signin'
@@ -152,23 +171,48 @@ export default {
         this.timer = true
       }, 1000)
     },
-    checkPassword () {
+    checkPassword (flag) {
       if (!this.timer) return
       this.timer = false
       setTimeout(() => {
-        if (this.password.length <= 6) this.warning = 'password'
+        if ((flag === 1 && this.password.length <= 6) || (flag === 2 && this.resetPassword.length <= 6)) this.warning = 'password'
         else this.warning = null
         this.timer = true
       }, 1000)
     },
-    sendEmail (state) {
-      this.reset(state)
+    sendEmail () {
+      if (!this.signinEmail) {
+        alert('Please input your email!')
+        return
+      }
+      this.state = 3
+      forgetPassword({email: this.signinEmail}).then(res => {
+        if (res.data) {
+          alert(res.data.msg)
+          this.reset(4)
+        }
+      }).catch(() => {
+        this.reset(2)
+        this.warning = 'forget'
+      })
+    },
+    resetPass () {
+      const data = {
+        email: this.signinEmail,
+        password: this.resetPassword
+      }
+      resetPassword(data).then(res => {
+        if (res.data) {
+          this.reset(5)
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
     },
     reset (state) {
       this.nickname = null
       this.email = null
       this.password = null
-      this.signinEmail = null
       this.signinPassword = null
       this.warning = null
       this.state = state
@@ -308,6 +352,11 @@ export default {
       }
       & .signin {
         margin-top: 24px;
+      }
+      &-text {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 8px;
       }
     }
     &-signin {

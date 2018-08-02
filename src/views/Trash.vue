@@ -73,7 +73,6 @@ export default {
       }
       toHighlight(itemUuid, data).then(res => {
         if (res.status === 200) {
-          this.$toast('Mark as not highlight successfully!', 1500)
           this.data = []
           this.getData()
         }

@@ -6,7 +6,7 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/sign') {
     userInfo().then(res => {
       if (res.status === 200) {
-        next('/')
+        next('/notes')
       }
     }).catch(() => {
       next()
@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
         }
       }).catch(err => {
         if (err) {
-          next('/index')
+          next('/')
         }
       })
     } else {

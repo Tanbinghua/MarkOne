@@ -32,8 +32,8 @@ export default {
   },
   computed: {
     jumpLink () {
-      if (this.origin.indexOf('?') !== -1) return this.origin + '&t=' + this.startTime + 's'
-      else return this.origin + '?t=' + this.startTime + 's'
+      if (this.origin.indexOf('?') !== -1) return this.origin + '&t=' + this.startTime
+      else return this.origin + '?t=' + this.startTime
     }
   }
 }

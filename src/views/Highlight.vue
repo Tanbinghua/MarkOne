@@ -77,7 +77,6 @@ export default {
       }
       toHighlight(itemUuid, data).then(res => {
         if (res.status === 200) {
-          this.$toast('Mark as not highlight successfully!', 1500)
           this.data = []
           this.getData()
         }
@@ -91,7 +90,7 @@ export default {
       }
       toHighlight(itemUuid, data).then(res => {
         if (res.status === 200) {
-          // this.$toast('Put to trash successfully!', 1500)
+          this.$toast('Moved to Trash', 1500)
           this.data = []
           this.getData()
         }

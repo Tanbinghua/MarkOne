@@ -1,6 +1,6 @@
 <template>
   <div class="notes" id="scroll">
-    <div class="back-to-notes" v-if="$route.params.title" @click="$router.push('/')">
+    <div class="back-to-notes" v-if="$route.params.title" @click="$router.push('/notes')">
       <span class="back-to-notes-icon"><icon-svg icon-class="down"></icon-svg></span>
       <span>Back to notes</span>
     </div>
@@ -142,8 +142,6 @@ export default {
       }
       toHighlight(itemUuid, data).then(res => {
         if (res.status === 200) {
-          // const msg = flag ? 'Marked as not highlight successfully!' : 'Marked as highlight successfully!'
-          // this.$toast(msg, 1500)
           this.notes = []
           this.getdata()
         }
@@ -159,7 +157,7 @@ export default {
         if (res.status === 200) {
           this.notes = []
           this.getdata()
-          this.$toast('Put to trash successfully!', 1500)
+          this.$toast('Moved to Trash', 1500)
         }
       })
     },
@@ -179,7 +177,7 @@ export default {
         const selection = window.getSelection()
         if (selection.rangeCount > 0) selection.removeAllRanges()
         selection.addRange(range)
-        if (document.execCommand('copy')) this.$toast('Copied!')
+        if (document.execCommand('copy')) this.$toast('Copied')
       }, 500)
     },
     loadMore () {

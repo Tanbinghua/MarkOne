@@ -1,7 +1,7 @@
 <template>
   <div class="account">
     <div data-collapse="small" data-animation="default" data-duration="400" class="nav w-nav">
-        <div class="nav-container w-container"><router-link to="/" class="logo w-nav-brand"><img src="../../static/images/MarkOne_logo.png" class="image-3"></router-link>
+        <div class="nav-container w-container"><router-link to="/notes" class="logo w-nav-brand"><img src="../../static/images/MarkOne_logo.png" class="image-3"></router-link>
         </div>
     </div>
     <div class="section-6">
@@ -13,6 +13,7 @@
                 <br>
             </p>
             <p class="p4"><strong>Q: How to use Mark One?</strong>
+                <img src="../../static/images/markone_how_to_install.png" class="image-9">
                 <br>A: When watching videos, please click the logo on the upper right corner in the browser to activate Mark One in the first place. Then you can see the extension on the video page we support. Here is a picture to explain how to use Mark One:
                 <br>
             </p><img src="../../static/images/markone_how_it_works.png" class="image-9">

@@ -1,7 +1,7 @@
 <template>
   <div class="terms">
     <div data-collapse="small" data-animation="default" data-duration="400" class="nav w-nav">
-        <div class="nav-container w-container"><router-link to="/" class="logo w-nav-brand"><img src="../../static/images/MarkOne_logo.png" class="image-3"></router-link>
+        <div class="nav-container w-container"><router-link to="/notes" class="logo w-nav-brand"><img src="../../static/images/MarkOne_logo.png" class="image-3"></router-link>
         </div>
     </div>
 

@@ -69,3 +69,19 @@ export function checkUser (params) {
     params
   })
 }
+
+export function forgetPassword (data) {
+  return fetch({
+    url: 'api/users/forget_password',
+    method: 'PUT',
+    data
+  })
+}
+
+export function resetPassword (data) {
+  return fetch({
+    url: 'api/users/profile',
+    method: 'PUT',
+    data
+  })
+}

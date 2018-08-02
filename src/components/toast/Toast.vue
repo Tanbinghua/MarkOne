@@ -17,17 +17,17 @@ export default {
 
 <style lang="scss" scoped>
 .toast {
-  background-color: rgba(26,34,112,0.60);
-  border-radius: 25px;
+  background-color: rgba(26,34,112,0.80);
+  border-radius: 8px;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   left: 50%;
-  margin-left: -200px;
+  margin-left: -50px;
   padding: 15px;
   position: fixed;
   text-align: center;
-  top: 70%;
-  width: 400px;
+  bottom: 160px;
+  width: 160px;
   z-index: 999;
 }
 
@@ -41,5 +41,10 @@ export default {
 .fade-leave-active {
   opacity: 0;
   transform: scale(0.8);
+}
+@media screen and (max-width: 752px) {
+  .toast {
+    margin-left: -230px;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <div class="back-to-notes" @click="$router.push('/')">
+    <div class="back-to-notes" @click="$router.push('/notes')">
       <span class="back-to-notes-icon"><icon-svg icon-class="down"></icon-svg></span>
       <span>Back to notes</span>
     </div>
