@@ -34,7 +34,7 @@ export default new Router({
       ]
     },
     { path: '/sign', name: 'Sign', component: _import('Sign') },
-    { path: '/account', name: 'Account', component: _import('Account') },
+    { path: '/faq', name: 'Account', component: _import('Account') },
     { path: '/terms', name: 'Terms', component: _import('Terms') },
     { path: '/privacy', name: 'Privacy', component: _import('Privacy') },
     { path: '/index', name: 'Index', component: _import('Index') },

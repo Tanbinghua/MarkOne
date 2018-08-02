@@ -95,7 +95,14 @@ export default {
   text-align: center;
   width: 288px;
   z-index: 2;
-  &-logo { margin-bottom: 97px; }
+  &-logo {
+    margin-bottom: 97px;
+    padding: 18px 0;
+    & img {
+      display: block;
+      margin: auto;
+    }
+  }
 }
 
 .slide-to-left {
