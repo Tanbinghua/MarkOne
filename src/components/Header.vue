@@ -30,7 +30,6 @@
 <script>
 import { signOut } from '../api/interface'
 import { clickoutside } from '../utils/tools'
-import {Central} from './Central'
 
 export default {
   data () {
@@ -39,13 +38,18 @@ export default {
       email: this.$store.getters.email,
       selectShow: false,
       searchVal: null,
-      timer: true,
-      data: []
+      timer: true
     }
   },
   methods: {
     searchNote () {
-      Central.$emit('search-notes', this.searchVal)
+      if (!this.searchVal) return
+      this.$store.commit({
+        type: 'SET_SEARCH_VAL',
+        val: this.searchVal
+      })
+      this.searchVal = ''
+      if (this.$router.path !== '/search') this.$router.push('/search')
     },
     signout () {
       signOut().then(res => {

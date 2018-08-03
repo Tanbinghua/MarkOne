@@ -15,7 +15,8 @@ export default new Vuex.Store({
     name: null,
     type: null,
     is_admin: false,
-    uuid: null
+    uuid: null,
+    searchVal: null
   },
   mutations: {
     SET_USER_INFO (state, info) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
       state.type = JSONinfo.type
       state.is_admin = JSONinfo.is_admin
       state.uuid = JSONinfo.uuid
+    },
+    SET_SEARCH_VAL (state, val) {
+      state.searchVal = val.val
     }
   },
   getters
