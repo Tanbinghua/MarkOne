@@ -1,10 +1,10 @@
 <template>
   <div class="search">
-    <no-data v-if="loading && !data.length" :loading="loading" :nodata="!loading && !data.length"></no-data>
     <div v-if="!loading" class="back-to-notes" @click="$router.push('/notes')">
       <span class="back-to-notes-icon"><icon-svg icon-class="down"></icon-svg></span>
       <span>Back to notes</span>
     </div>
+    <no-data v-if="loading || nodata" :loading="loading" :nodata="!loading && nodata"></no-data>
     <div class="note-list" v-for="item in data" :key="item.uuid">
       <h4 class="header" v-html="item.title" @click="$router.push(`/detail/${item.jump}`)"></h4>
       <ul v-if="item.sections.length">
@@ -24,7 +24,8 @@ export default {
   data () {
     return {
       data: [],
-      loading: false
+      loading: false,
+      nodata: false
     }
   },
   components: {
@@ -63,6 +64,8 @@ export default {
               }
               this.data.push({title, sections, uuid: item.uuid, jump: item.title})
             })
+          } else {
+            this.nodata = true
           }
           this.loading = false
         }
