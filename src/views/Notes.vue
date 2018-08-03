@@ -124,7 +124,7 @@ export default {
                 for (let i = 0; i < 3; i++) mark.show.push(item.sections[i])
                 for (let i = 3, len = item.sections.length; i < len; i++) mark.fold.push(item.sections[i])
               }
-              this.notes.push({...info, ...mark, noteVisible: false})
+              this.notes.push({...info, ...mark, noteVisible: false, sections})
             })
             this.loading = false
           }
@@ -310,6 +310,7 @@ export default {
   height: 1px;
   overflow: hidden;
   position: absolute;
+  top: 72px;
   z-index: -99;
 }
 </style>

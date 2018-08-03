@@ -10,10 +10,10 @@
             <p class="p4"><strong>Q: How to install the Chrome Extension?</strong>
                 <br>A: Please click here or go to the Chrome Web Store and search for “Mark One&quot;. 如果中国大陆的用户在安装中遇到问题，请点击<a href="https://audionetwork.oss-cn-beijing.aliyuncs.com/MarkOne.crx" target="_blank" text-decoration="none">这里</a>下载，并根据如下步骤进行安装。如果您遇到任何问题，请通过下面的方式联系我们。
                 <br>
+                <img src="../../static/images/markone_how_to_install.png" class="image-9">
                 <br>
             </p>
             <p class="p4"><strong>Q: How to use Mark One?</strong>
-                <img src="../../static/images/markone_how_to_install.png" class="image-9">
                 <br>A: When watching videos, please click the logo on the upper right corner in the browser to activate Mark One in the first place. Then you can see the extension on the video page we support. Here is a picture to explain how to use Mark One:
                 <br>
             </p><img src="../../static/images/markone_how_it_works.png" class="image-9">
