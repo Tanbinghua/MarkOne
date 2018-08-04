@@ -1,10 +1,16 @@
 <template>
   <div class="sign">
     <div class="sign-box">
-      <p class="sign-box-title">{{ state === 0 ? 'Join Mark One' : state === 1 ? 'Sign in' : state === 5 ? 'Congratulation!' : 'Reset password'}}</p>
+      <div class="sign-box-title"><span class="sign-box-title-text">{{ state === 0 ? 'Join Mark One' : state === 1 ? 'Sign in' : state === 5 ? 'Congratulation!' : 'Reset password'}}</span></div>
       <div class="sign-box-google" v-if="state === 0 || state === 1">
         <span class="sign-box-google-icon"><icon-svg icon-class="google"></icon-svg></span>
-        <button class="sign-box-google-text">Sign in with Google</button>
+        <g-signin-button
+          class="sign-box-google-text"
+          :params="googleSignInParams"
+          @success="onSignInSuccess"
+          @error="onSignInError">
+          Sign in with Google
+        </g-signin-button>
       </div>
       <div class="sign-box-other" v-if="state === 0 || state === 1">
         <span class="sign-box-other-border left"></span>
@@ -100,7 +106,7 @@
 </template>
 
 <script>
-import { signUp, signIn, checkUser, forgetPassword, resetPassword } from '../api/interface'
+import { signUp, signIn, checkUser, forgetPassword, resetPassword, loginGoogle } from '../api/interface'
 
 export default {
   data () {
@@ -114,7 +120,10 @@ export default {
       warning: null,
       eye: false,
       timer: true,
-      resetPassword: null
+      resetPassword: null,
+      googleSignInParams: {
+        client_id: '728616517590-om5s9j1llfcbaru8t5al706r2tu5faqo.apps.googleusercontent.com'
+      }
     }
   },
   methods: {
@@ -159,6 +168,27 @@ export default {
       }).catch(() => {
         this.warning = 'signin'
       })
+    },
+    onSignInSuccess (googleUser) {
+      const profile = googleUser.getBasicProfile()
+      const data = {
+        email: profile.getEmail(),
+        name: profile.getName(),
+        avatar: profile.getImageUrl(),
+        token: googleUser.getAuthResponse().id_token
+      }
+      loginGoogle(data).then(res => {
+        if (res.status === 200) {
+          this.$store.commit({
+            type: 'SET_USER_INFO',
+            info: JSON.stringify(res.data)
+          })
+          this.$router.push('/notes')
+        }
+      })
+    },
+    onSignInError (error) {
+      console.log('OH NOES', error)
     },
     checkEmail () {
       if (!this.timer) return
@@ -226,26 +256,30 @@ export default {
   height: 100vh;
   &-box {
     background: #f8f8f8;
-    box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 32px;
-    height: 634px;
+    height: 617px;
     left: 50%;
-    min-width: 560px;
-    padding-top: 166px;
+    min-width: 464px;
+    padding-top: 64px;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 560px;
+    width: 464px;
     &-title {
-      color: #1A2270;
-      font-family: PingFangSC-Semibold, sans-serif;
-      font-size: 36px;
-      text-align: center;
+      margin: auto;
+      width: 320px;
+      &-text {
+        border-bottom: 2px solid #FF6E03;
+        color: #1A2270;
+        display: inline-block;
+        font-family: PingFangSC-Semibold, sans-serif;
+        font-size: 18px;
+        padding: 6px;
+      }
     }
     &-google {
       background: #fff;
       line-height: 48px;
-      margin: 54px auto 0;
+      margin: 50px auto 0;
       width: 320px;
       text-align: center;
       &-icon {
@@ -264,6 +298,7 @@ export default {
         background: transparent;
         border: none;
         color: #999;
+        display: inline-block;
         font-size: 14px;
         line-height: 20px;
         margin-left: 10px;
@@ -272,13 +307,13 @@ export default {
       }
     }
     &-other {
-      margin-top: 38px;
+      margin-top: 25px;
       text-align: center;
       &-border {
         display: inline-block;
         height: 1px;
         vertical-align: middle;
-        width: 175px;
+        width: 114px;
         &.left { background: linear-gradient(to right, #f8f8f8 , #999); }
         &.right { background: linear-gradient(to right, #999 , #f8f8f8); }
       }
@@ -290,7 +325,7 @@ export default {
       }
     }
     &-form {
-      padding: 8px 0 40px 0;
+      padding: 8px 0 24px 0;
       text-align: center;
       &-input {
         & input {
@@ -361,7 +396,7 @@ export default {
     }
     &-signin {
       font-size: 14px;
-      margin: 24px 0;
+      margin: 16px 0;
       text-align: center;
       &-text {
         color: #999;
@@ -421,7 +456,7 @@ export default {
         &:hover { text-decoration: underline; }
       }
     }
-    & > .signin { margin-bottom: 54px; }
+    & > .signin { margin-bottom: 44px; }
   }
 }
 </style>

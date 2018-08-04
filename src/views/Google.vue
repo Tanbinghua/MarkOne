@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { loginGoogle } from '../api/interface'
+
 export default {
   data () {
     return {
@@ -28,12 +30,18 @@ export default {
       this.auth2.attachClickHandler(this.$refs.customBtn, {}, (googleUser = {}) => {
         document.getElementById('name').innerHTML = 'Signed in: ' + googleUser.getBasicProfile().getName()
         const profile = this.auth2.currentUser.get().getBasicProfile()
-        console.log('ID: ' + profile.getId())
-        console.log('Full Name: ' + profile.getName())
-        console.log('Given Name: ' + profile.getGivenName())
-        console.log('Family Name: ' + profile.getFamilyName())
-        console.log('Image URL: ' + profile.getImageUrl())
-        console.log('Email: ' + profile.getEmail())
+        // console.log('ID Token: ' + idToken)
+        const data = {
+          email: profile.getEmail(),
+          name: profile.getName(),
+          avatar: profile.getImageUrl(),
+          token: googleUser.getAuthResponse().id_token
+        }
+        loginGoogle(data).then(res => {
+          if (res.data) {
+            console.log(res.data)
+          }
+        })
       }, (err) => {
         console.log(JSON.stringify(err, undefined, 2))
       })

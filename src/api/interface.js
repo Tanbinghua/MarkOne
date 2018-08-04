@@ -85,3 +85,11 @@ export function resetPassword (data) {
     data
   })
 }
+
+export function loginGoogle (data) {
+  return fetch({
+    url: 'api/users/google_login',
+    method: 'POST',
+    data
+  })
+}

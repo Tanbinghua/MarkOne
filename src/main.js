@@ -8,9 +8,11 @@ import './assets/icons.js'
 import './utils/permission'
 import store from './store'
 import Toast from './components/toast'
+import GSignInButton from 'vue-google-signin-button'
 
 Vue.config.productionTip = false
 Vue.use(Toast)
+Vue.use(GSignInButton)
 
 /* eslint-disable no-new */
 new Vue({

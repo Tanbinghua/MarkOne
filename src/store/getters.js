@@ -9,6 +9,7 @@ const getters = {
   type: state => state.type,
   is_admin: state => state.is_admin,
   uuid: state => state.uuid,
-  searchVal: state => state.searchVal
+  searchVal: state => state.searchVal,
+  token: state => state.token
 }
 export default getters
