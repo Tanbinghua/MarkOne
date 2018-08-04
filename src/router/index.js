@@ -18,6 +18,7 @@ export default new Router({
         { path: '/search', name: 'Search', component: _import('Search') }
       ]
     },
+    { path: '/google', component: _import('Google') },
     { path: '/sign', name: 'Sign', component: _import('Sign') },
     { path: '/faq', name: 'Account', component: _import('Account') },
     { path: '/terms', name: 'Terms', component: _import('Terms') },
