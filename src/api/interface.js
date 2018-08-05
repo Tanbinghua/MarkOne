@@ -31,6 +31,13 @@ export function getNotes (params) {
   })
 }
 
+export function getNotesByUuid (uuid) {
+  return fetch({
+    url: `api/notes/${uuid}`,
+    method: 'GET'
+  })
+}
+
 export function userInfo () {
   return fetch({
     url: 'api/users/profile',

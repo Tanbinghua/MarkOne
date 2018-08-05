@@ -10,7 +10,7 @@
       <span class="light-list-box-icon" @click="$emit('tohighlight')" title="Unmark">
         <icon-svg icon-class="highlighted"></icon-svg>
       </span>
-      <span class="light-list-box-icon" @click="$router.push(`/detail/${title}`)" title="Return notes">
+      <span class="light-list-box-icon" @click="$router.push(`/detail/${uuid}`)" title="Return notes">
         <icon-svg icon-class="back-to-note"></icon-svg>
       </span>
     </div>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  props: ['context', 'type', 'img', 'isHighlight', 'isTrash', 'title']
+  props: ['context', 'type', 'img', 'isHighlight', 'isTrash', 'uuid']
 }
 </script>
 

@@ -18,15 +18,14 @@
         <span class="sign-box-other-border right"></span>
       </div>
       <div class="sign-box-tip" v-if="state >= 2">
-        <p v-if="state === 2">Plesase provide the email you used, we will send an email to reset your password. </p>
-        <p v-if="state === 3">An email with password reset instructions has been sent to your email address, if it exists in our system.</p>
+        <p v-if="state === 2">Please provide your email address you used. We will send you an email within a code to reset your password., if it exists in our system.</p>
         <p v-if="state === 5">You have successfully reset your password :)</p>
       </div>
       <div class="sign-box-form" v-if="state === 0">
         <div class="sign-box-form-input"><input type="text" name="" placeholder="Nickname" v-model="nickname"></div>
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Email" v-model="email" @input="checkEmail"></div>
+        <div class="sign-box-form-input"><input :class="warning === 'email' ? 'warning' : warning === 'normalEmail' ? 'normal' : ''" type="email" name="" placeholder="Email" v-model="email" @input="checkEmail"></div>
         <div class="sign-box-form-input">
-          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="password" @input="checkPassword(1)">
+          <input :class="warning === 'password' ? 'warning' : warning ==='normalPassword' ? 'normal' : ''" :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="password" @input="checkPassword(1)">
           <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
         </div>
         <div class="sign-box-form-warning signup">
@@ -41,21 +40,25 @@
         </div>
       </div>
       <div class="sign-box-form signin" v-if="state === 1">
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail"></div>
         <div class="sign-box-form-input">
-          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="signinPassword" @input="warning = null">
+          <input :class="warning === 'signinE' ? 'warning' : warning === 'normalSigninE' ? 'normal' : ''" type="email" name="" placeholder="Email" v-model="signinEmail" @input="checkSignEmail">
+        </div>
+        <div class="sign-box-form-input">
+          <input :class="warning === 'signinP' ? 'warning' : warning === 'normalSigninP' ? 'normal' : ''" :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="signinPassword" @input="checkSignPassword">
           <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
         </div>
         <div class="sign-box-form-tip"><a href="javascript:void(0)" @click="reset(2)">Forgot password?</a></div>
         <div class="sign-box-form-warning signin">
-          <p v-if="warning === 'signin'">
+          <p v-if="warning === 'signinP'">
             <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
             <span class="sign-box-form-warning-text">Incorrect email or password</span>
           </p>
         </div>
       </div>
       <div class="sign-box-form" v-if="state === 2">
-        <div class="sign-box-form-input"><input type="text" name="" placeholder="Eamil" v-model="signinEmail"></div>
+        <div class="sign-box-form-input">
+          <input :class="warning === 'signinE' ? 'warning' : warning === 'normalSigninE' ? 'normal' : ''" type="email" name="" placeholder="Email" v-model="signinEmail" @input="checkSignEmail">
+        </div>
         <div class="sign-box-form-warning signup">
           <p v-if="warning === 'forget'">
             <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
@@ -66,7 +69,7 @@
       <div class="sign-box-form" v-if="state === 4">
         <div class="sign-box-form-text">{{ signinEmail }}</div>
         <div class="sign-box-form-input">
-          <input :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="resetPassword" @input="checkPassword(2)">
+          <input :class="warning === 'forget' ? 'warning' : warning === 'normalForget' ? 'normal' : ''" :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="resetPassword" @input="checkPassword(2)">
           <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
         </div>
         <div class="sign-box-form-warning signup">
@@ -123,12 +126,13 @@ export default {
       resetPassword: null,
       googleSignInParams: {
         client_id: '728616517590-om5s9j1llfcbaru8t5al706r2tu5faqo.apps.googleusercontent.com'
-      }
+      },
+      reg: /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
     }
   },
   methods: {
     signup () {
-      if (!this.nickname || !this.email || !this.password || this.warning) {
+      if (!this.nickname || !this.email || !this.password || this.warning.indexOf('normal') === -1) {
         alert('Please make sure your information is complete and correct!')
         return
       }
@@ -149,7 +153,7 @@ export default {
       })
     },
     signin () {
-      if (!this.signinEmail || !this.signinPassword || this.warning) {
+      if (!this.signinEmail || !this.signinPassword || this.warning.indexOf('normal') === -1) {
         alert('Please make sure your information is complete and correct!')
         return
       }
@@ -166,7 +170,7 @@ export default {
           this.$router.push('/notes')
         }
       }).catch(() => {
-        this.warning = 'signin'
+        this.warning = 'signinP'
       })
     },
     onSignInSuccess (googleUser) {
@@ -191,12 +195,16 @@ export default {
       console.log('OH NOES', error)
     },
     checkEmail () {
+      if (!this.reg.test(this.email)) {
+        this.warning = 'email'
+        return
+      }
       if (!this.timer) return
       this.timer = false
       setTimeout(() => {
         checkUser({email: this.email}).then(res => {
           if (res.data.result) this.warning = 'email'
-          else this.warning = null
+          else this.warning = 'normalEmail'
         })
         this.timer = true
       }, 1000)
@@ -206,12 +214,25 @@ export default {
       this.timer = false
       setTimeout(() => {
         if ((flag === 1 && this.password.length <= 6) || (flag === 2 && this.resetPassword.length <= 6)) this.warning = 'password'
-        else this.warning = null
+        else this.warning = 'normalPassword'
         this.timer = true
-      }, 1000)
+      }, 500)
+    },
+    checkSignEmail () {
+      if (!this.reg.test(this.signinEmail)) this.warning = 'signinE'
+      else this.warning = 'normalSigninE'
+    },
+    checkSignPassword () {
+      if (!this.timer) return
+      this.timer = false
+      setTimeout(() => {
+        if (this.signinPassword.length <= 6) this.warning = 'signinP'
+        else this.warning = 'normalSigninP'
+        this.timer = true
+      }, 500)
     },
     sendEmail () {
-      if (!this.signinEmail) {
+      if (!this.signinEmail || this.warning.indexOf('normal') === -1) {
         alert('Please input your email!')
         return
       }
@@ -243,6 +264,7 @@ export default {
       this.nickname = null
       this.email = null
       this.password = null
+      this.signinEmail = null
       this.signinPassword = null
       this.warning = null
       this.state = state
@@ -330,7 +352,7 @@ export default {
       &-input {
         & input {
           background: #fff;
-          border: none;
+          border: 1px solid #fff;
           border-radius: 8px;
           color: #999;
           height: 40px;
@@ -340,10 +362,16 @@ export default {
           outline: none;
           width: 304px;
         }
+        & .warning {
+          border: 1px solid #D81E06;
+        }
+        & .normal {
+          border: 1px solid #1A2270;
+        }
         &-icon {
           margin-top: 27px;
           position: absolute;
-          right: 140px;
+          right: 90px;
           & svg {
             height: 18px;
             width: 24px;

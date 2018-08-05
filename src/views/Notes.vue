@@ -1,6 +1,6 @@
 <template>
   <div class="notes" id="scroll">
-    <div class="back-to-notes" v-if="$route.params.title" @click="$router.push('/notes')">
+    <div class="back-to-notes" v-if="$route.params.uuid" @click="$router.push('/notes')">
       <span class="back-to-notes-icon"><icon-svg icon-class="down"></icon-svg></span>
       <span>Back to notes</span>
     </div>
@@ -56,7 +56,7 @@ import SortableItem from '../components/SortableItem'
 import CollapseTransition from '../components/Collapse'
 import NoData from '../components/Nodata'
 import BigImg from '../components/BigImg'
-import { getNotes, toHighlight } from '../api/interface'
+import { getNotes, toHighlight, getNotesByUuid } from '../api/interface'
 import { formatDate } from '../utils/tools'
 
 export default {
@@ -90,17 +90,11 @@ export default {
   methods: {
     getdata () {
       this.loading = true
-      if (this.$route.params.title) {
-        getNotes({search: this.$route.params.title}).then(res => {
-          if (res.data) {
-            res.data.results.forEach(item => {
-              const { sections, ...info } = item
-              const mark = {
-                show: []
-              }
-              for (let i = 0, len = item.sections.length; i < len; i++) mark.show.push(item.sections[i])
-              this.notes.push({...info, ...mark})
-            })
+      if (this.$route.params.uuid) {
+        getNotesByUuid(this.$route.params.uuid).then(res => {
+          if (res.status === 200) {
+            const { sections, ...info } = res.data
+            this.notes.push({show: sections, ...info})
             this.loading = false
           }
         }).catch(() => {

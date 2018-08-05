@@ -12,7 +12,7 @@ export default new Router({
       component: _import('Home'),
       children: [
         { path: '/notes', name: 'Notes', component: _import('Notes') },
-        { path: '/detail/:title', name: 'NoteDetail', component: _import('Notes') },
+        { path: '/detail/:uuid', name: 'NoteDetailUuid', component: _import('Notes') },
         { path: '/highlight', name: 'HighLight', component: _import('Highlight') },
         { path: '/trash', name: 'Trash', component: _import('Trash') },
         { path: '/search', name: 'Search', component: _import('Search') }
@@ -25,6 +25,5 @@ export default new Router({
     { path: '/privacy', name: 'Privacy', component: _import('Privacy') },
     { path: '*', redirect: '/error' },
     { path: '/error', name: 'Error', component: _import('Error') }
-  ],
-  mode: 'history'
+  ]
 })

@@ -5,7 +5,7 @@
         :context="section.remark" type="highlight" :img="section.image"
         :isHighlight="section.highlight"  @clickShowImg="clickImg(section.image)"
         @tohighlight="highLight(item.uuid, section.uuid)" :isTrash="section.trash"
-        @toTrash="totrash(item.uuid, section.uuid)" :title="item.title"></note-list>
+        @toTrash="totrash(item.uuid, section.uuid)" :uuid="item.uuid"></note-list>
     </ul>
     <no-data v-if="loading || nodata || next" :loading="loading" :nodata="!loading && nodata" :next="next" :loadingmore="loadingmore" :nomoredata="nomoredata" @loadMore="loadMore"></no-data>
     <big-img v-if="showImg" @clickit="imgShow" :imgSrc="imgSrc"></big-img>

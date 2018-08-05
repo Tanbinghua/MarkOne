@@ -6,10 +6,10 @@
     </div>
     <no-data v-if="loading || nodata" :loading="loading" :nodata="!loading && nodata"></no-data>
     <div class="note-list" v-for="item in data" :key="item.uuid">
-      <h4 class="header" v-html="item.title" @click="$router.push(`/detail/${item.jump}`)"></h4>
+      <h4 class="header" v-html="item.title" @click="$router.push(`/detail/${item.uuid}`)"></h4>
       <ul v-if="item.sections.length">
         <li v-for="(section, index) in item.sections" :key="index"
-          v-html="section.remark"  @click="$router.push(`/detail/${item.jump}`)"
+          v-html="section.remark"  @click="$router.push(`/detail/${item.uuid}`)"
           :class="{'list-item': true, 'has-left-radius': section.highlight, 'border-left-radius': section.highlight}"></li>
       </ul>
     </div>
@@ -62,7 +62,7 @@ export default {
                   sections.push({remark: item.sections[i].remark.replace(replaceReg, replaceString), highlight: item.sections[i].highlight})
                 }
               }
-              this.data.push({title, sections, uuid: item.uuid, jump: item.title})
+              this.data.push({title, sections, uuid: item.uuid})
             })
           } else {
             this.nodata = true
@@ -86,7 +86,6 @@ export default {
 }
 .note-list {
   margin: auto;
-  padding-right: 112px;
   max-width: 810px;
 }
 .back-to-notes {
@@ -123,6 +122,7 @@ export default {
   margin: 0 0 16px;
   padding: 24px 32px;
   position: relative;
+  &:hover { cursor: pointer; }
 }
 h4.header {
   font-family: PingFangSC-Medium, sans-serif;
