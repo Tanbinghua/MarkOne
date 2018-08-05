@@ -80,7 +80,15 @@ export function checkUser (params) {
 export function forgetPassword (data) {
   return fetch({
     url: 'api/users/forget_password',
-    method: 'PUT',
+    method: 'POST',
+    data
+  })
+}
+
+export function sendCode (data) {
+  return fetch({
+    url: 'api/users/send_code',
+    method: 'POST',
     data
   })
 }

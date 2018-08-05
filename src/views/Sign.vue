@@ -1,7 +1,7 @@
 <template>
   <div class="sign">
     <div class="sign-box">
-      <div class="sign-box-title"><span class="sign-box-title-text">{{ state === 0 ? 'Join Mark One' : state === 1 ? 'Sign in' : state === 5 ? 'Congratulation!' : 'Reset password'}}</span></div>
+      <div class="sign-box-title"><span class="sign-box-title-text">{{ state === 0 ? 'Join Mark One' : state === 1 ? 'Sign in' : state === 2 ? 'Forgot Password' : 'Reset password'}}</span></div>
       <div class="sign-box-google" v-if="state === 0 || state === 1">
         <span class="sign-box-google-icon"><icon-svg icon-class="google"></icon-svg></span>
         <g-signin-button
@@ -19,7 +19,7 @@
       </div>
       <div class="sign-box-tip" v-if="state >= 2">
         <p v-if="state === 2">Please provide your email address you used. We will send you an email within a code to reset your password., if it exists in our system.</p>
-        <p v-if="state === 5">You have successfully reset your password :)</p>
+        <p v-if="state === 3">Please type in your new password.</p>
       </div>
       <div class="sign-box-form" v-if="state === 0">
         <div class="sign-box-form-input"><input type="text" name="" placeholder="Nickname" v-model="nickname"></div>
@@ -59,15 +59,18 @@
         <div class="sign-box-form-input">
           <input :class="warning === 'signinE' ? 'warning' : warning === 'normalSigninE' ? 'normal' : ''" type="email" name="" placeholder="Email" v-model="signinEmail" @input="checkSignEmail">
         </div>
+        <div class="sign-box-form-input">
+          <input class="code" type="text" name="" placeholder="Type the code" v-model="forgetCode"  :class="warning === 'code' ? 'warning' : warning === 'normalCode' ? 'normal' : ''" @input="checkCode">
+          <span :class="{'sign-box-form-code-btn': true, 'disabe': signinEmail && warning !== 'signinE'}" @click="sendEmail">send</span>
+        </div>
         <div class="sign-box-form-warning signup">
-          <p v-if="warning === 'forget'">
+          <p v-if="warning === 'signinE'">
             <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
             <span class="sign-box-form-warning-text">Invalid email address</span>
           </p>
         </div>
       </div>
-      <div class="sign-box-form" v-if="state === 4">
-        <div class="sign-box-form-text">{{ signinEmail }}</div>
+      <div class="sign-box-form" v-if="state === 3">
         <div class="sign-box-form-input">
           <input :class="warning === 'forget' ? 'warning' : warning === 'normalForget' ? 'normal' : ''" :type="eye ? 'text' : 'password'" name="" placeholder="Password" v-model="resetPassword" @input="checkPassword(2)">
           <span class="sign-box-form-input-icon" @click="eye = !eye"><icon-svg :icon-class="eye ? 'eye' : 'no-eye'"></icon-svg></span>
@@ -86,8 +89,8 @@
       <div class="sign-box-btn">
         <button v-if="state === 0" @click="signup">Register</button>
         <button v-else-if="state === 1" @click="signin">Sign in</button>
-        <button v-else-if="state === 2" @click="sendEmail">Send email</button>
-        <button v-else-if="state === 4" @click="resetPass">Reset password</button>
+        <button v-else-if="state === 2" :class="{'marginBtn': true, 'disable': !forgetCode || !signinEmail || warning === 'signinE'}" @click="toReset">Next</button>
+        <button v-else-if="state === 3" @click="resetPass" :class="{'marginBtn': true, 'disable': !signinEmail || warning === 'signinE'}">Reset password</button>
       </div>
       <div class="sign-box-footer" v-if="state === 0">
         <p>By creating an account，you agree with our&nbsp;</p>
@@ -101,7 +104,7 @@
         <br>
         <button class="sign-box-signin-btn" @click="reset(0)">Create new account</button>
       </div>
-      <div class="sign-box-help" v-if="state === 2 || state === 3 || state === 4">
+      <div class="sign-box-help" v-if="state === 2 || state === 3">
         <p>Please contact <a href="mailto:markone_support@163.com?subject=Feedback%20for%20Mark%20One">markone_support@163.com</a> for help if necessary.</p>
       </div>
     </div>
@@ -109,7 +112,7 @@
 </template>
 
 <script>
-import { signUp, signIn, checkUser, forgetPassword, resetPassword, loginGoogle } from '../api/interface'
+import { signUp, signIn, checkUser, sendCode, forgetPassword, loginGoogle } from '../api/interface'
 
 export default {
   data () {
@@ -124,6 +127,7 @@ export default {
       eye: false,
       timer: true,
       resetPassword: null,
+      forgetCode: null,
       googleSignInParams: {
         client_id: '728616517590-om5s9j1llfcbaru8t5al706r2tu5faqo.apps.googleusercontent.com'
       },
@@ -231,33 +235,39 @@ export default {
         this.timer = true
       }, 500)
     },
+    checkCode () {
+      if (this.forgetCode.length < 8) this.warning = 'code'
+      else this.warning = 'normalCode'
+    },
     sendEmail () {
-      if (!this.signinEmail || this.warning.indexOf('normal') === -1) {
-        alert('Please input your email!')
-        return
-      }
-      this.state = 3
-      forgetPassword({email: this.signinEmail}).then(res => {
+      if (!this.signinEmail || this.warning.indexOf('normal') === -1) return
+      sendCode({email: this.signinEmail}).then(res => {
         if (res.data) {
           alert(res.data.msg)
-          this.reset(4)
         }
-      }).catch(() => {
-        this.reset(2)
-        this.warning = 'forget'
+      }).catch((err) => {
+        alert(err.data.msg)
+        this.warning = 'signinE'
       })
+    },
+    toReset () {
+      if (!this.forgetCode || !this.signinEmail || this.warning === 'signinE') return
+      this.state = 3
     },
     resetPass () {
       const data = {
         email: this.signinEmail,
+        code: this.forgetCode,
         password: this.resetPassword
       }
-      resetPassword(data).then(res => {
+      forgetPassword(data).then(res => {
         if (res.data) {
-          this.reset(5)
+          this.$router.push('/notes')
         }
       }).catch((err) => {
-        console.log(err)
+        this.state = 2
+        this.warning = 'code'
+        alert(err.data.msg)
       })
     },
     reset (state) {
@@ -362,12 +372,9 @@ export default {
           outline: none;
           width: 304px;
         }
-        & .warning {
-          border: 1px solid #D81E06;
-        }
-        & .normal {
-          border: 1px solid #1A2270;
-        }
+        & .warning { border: 1px solid #D81E06; }
+        & .normal { border: 1px solid #1A2270; }
+        & .code { width: 242px; }
         &-icon {
           margin-top: 27px;
           position: absolute;
@@ -377,6 +384,10 @@ export default {
             width: 24px;
           }
           &:hover { cursor: pointer; }
+        }
+        & .disabe {
+          color: #FF6E03;
+          cursor: pointer!important;
         }
       }
       ::-webkit-input-placeholder {
@@ -416,10 +427,11 @@ export default {
       & .signin {
         margin-top: 24px;
       }
-      &-text {
-        color: #666;
-        font-size: 18px;
-        margin-bottom: 8px;
+      &-code-btn {
+        color: #999;
+        font-size: 14px;
+        margin: 0 8px 0 22px;
+        &:hover { cursor: not-allowed; }
       }
     }
     &-signin {
@@ -440,6 +452,12 @@ export default {
     }
     &-btn {
       text-align: center;
+      & .disable {
+        background: #999;
+        border: 1px solid #999;
+        color: #fff;
+        &:hover { cursor: not-allowed; }
+      }
       & button {
         background: #FF6E03;
         border: 1px solid #FF6E03;
@@ -451,6 +469,7 @@ export default {
         width: 320px;
         &:hover { cursor: pointer; }
       }
+      & .marginBtn { margin-top: 24px; }
     }
     &-footer {
       color: #999;
@@ -475,9 +494,10 @@ export default {
       bottom: 64px;
       color: #666;
       font-size: 14px;
+      margin: 0 72px;
       position: absolute;
       text-align: center;
-      width: 100%;
+      width: 320px;
       & a {
         color: #FF6E03;
         text-decoration: none;
