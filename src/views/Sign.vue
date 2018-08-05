@@ -2,23 +2,22 @@
   <div class="sign">
     <div class="sign-box">
       <div class="sign-box-title"><span class="sign-box-title-text">{{ state === 0 ? 'Join Mark One' : state === 1 ? 'Sign in' : state === 2 ? 'Forgot Password' : 'Reset password'}}</span></div>
-      <div class="sign-box-google" v-if="state === 0 || state === 1">
+      <g-signin-button
+        class="sign-box-google"
+        v-if="state === 0 || state === 1"
+        :params="googleSignInParams"
+        @success="onSignInSuccess"
+        @error="onSignInError">
         <span class="sign-box-google-icon"><icon-svg icon-class="google"></icon-svg></span>
-        <g-signin-button
-          class="sign-box-google-text"
-          :params="googleSignInParams"
-          @success="onSignInSuccess"
-          @error="onSignInError">
-          Sign in with Google
-        </g-signin-button>
-      </div>
+        <div class="sign-box-google-text">Sign in with Google</div>
+      </g-signin-button>
       <div class="sign-box-other" v-if="state === 0 || state === 1">
         <span class="sign-box-other-border left"></span>
         <p class="sign-box-other-text">or</p>
         <span class="sign-box-other-border right"></span>
       </div>
       <div class="sign-box-tip" v-if="state >= 2">
-        <p v-if="state === 2">Please provide your email address you used. We will send you an email within a code to reset your password., if it exists in our system.</p>
+        <p v-if="state === 2">Please provide your email address you used. We will send you an email within a code to reset your password, if it exists in our system.</p>
         <p v-if="state === 3">Please type in your new password.</p>
       </div>
       <div class="sign-box-form" v-if="state === 0">
@@ -315,6 +314,7 @@ export default {
     }
     &-google {
       background: #fff;
+      border-radius: 8px;
       line-height: 48px;
       margin: 50px auto 0;
       width: 320px;
@@ -340,19 +340,20 @@ export default {
         line-height: 20px;
         margin-left: 10px;
         outline: none;
-        &:hover { cursor: pointer; }
       }
+      &:hover { cursor: pointer; }
     }
     &-other {
       margin-top: 25px;
       text-align: center;
       &-border {
+        background: #999;
         display: inline-block;
         height: 1px;
         vertical-align: middle;
         width: 114px;
-        &.left { background: linear-gradient(to right, #f8f8f8 , #999); }
-        &.right { background: linear-gradient(to right, #999 , #f8f8f8); }
+        // &.left { background: linear-gradient(to right, #f8f8f8 , #999); }
+        // &.right { background: linear-gradient(to right, #999 , #f8f8f8); }
       }
       &-text {
         color: #999;
@@ -379,7 +380,7 @@ export default {
         }
         & .warning { border: 1px solid #D81E06; }
         & .normal { border: 1px solid #1A2270; }
-        & .code { width: 242px; }
+        & .code { width: 200px; }
         &-icon {
           margin-top: 27px;
           position: absolute;
@@ -391,7 +392,9 @@ export default {
           &:hover { cursor: pointer; }
         }
         & .disabe {
-          color: #FF6E03;
+          background: #FF6E03;
+          border: 1px solid #FF6E03;
+          color: #fff;
           cursor: pointer!important;
         }
       }
@@ -433,9 +436,16 @@ export default {
         margin-top: 24px;
       }
       &-code-btn {
+        background: transparent;
+        border: 1px solid #999;
+        border-radius: 8px;
         color: #999;
+        display: inline-block;
         font-size: 14px;
-        margin: 0 8px 0 22px;
+        height: 31px;
+        line-height: 31px;
+        margin-left: 15px;
+        width: 80px;
         &:hover { cursor: not-allowed; }
       }
     }

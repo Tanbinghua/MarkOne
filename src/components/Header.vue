@@ -54,11 +54,11 @@ export default {
     signout () {
       signOut().then(res => {
         if (res.status === 204) {
+          this.$router.push('sign')
           this.$store.commit({
             type: 'SET_USER_INFO',
             info: JSON.stringify({})
           })
-          this.$router.push('sign')
         }
       })
     },
