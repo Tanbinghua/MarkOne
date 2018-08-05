@@ -61,12 +61,13 @@
         </div>
         <div class="sign-box-form-input">
           <input class="code" type="text" name="" placeholder="Type the code" v-model="forgetCode"  :class="warning === 'code' ? 'warning' : warning === 'normalCode' ? 'normal' : ''" @input="checkCode">
-          <span :class="{'sign-box-form-code-btn': true, 'disabe': signinEmail && warning !== 'signinE'}" @click="sendEmail">send</span>
+          <span :class="{'sign-box-form-code-btn': true, 'disabe': signinEmail && warning !== 'signinE' && !click}" @click="sendEmail">send</span>
         </div>
         <div class="sign-box-form-warning signup">
-          <p v-if="warning === 'signinE'">
+          <p v-if="warning === 'signinE' || warning === 'code'">
             <span class="sign-box-form-warning-icon"><icon-svg icon-class="warning"></icon-svg></span>
-            <span class="sign-box-form-warning-text">Invalid email address</span>
+            <span class="sign-box-form-warning-text" v-if="warning === 'signinE'">Invalid email address</span>
+            <span class="sign-box-form-warning-text" v-if="warning === 'code'">Incorrect code</span>
           </p>
         </div>
       </div>
@@ -89,7 +90,7 @@
       <div class="sign-box-btn">
         <button v-if="state === 0" @click="signup">Register</button>
         <button v-else-if="state === 1" @click="signin">Sign in</button>
-        <button v-else-if="state === 2" :class="{'marginBtn': true, 'disable': !forgetCode || !signinEmail || warning === 'signinE'}" @click="toReset">Next</button>
+        <button v-else-if="state === 2" :class="{'marginBtn': true, 'disable': !forgetCode || !signinEmail || warning === 'signinE' || warning === 'code'}" @click="toReset">Next</button>
         <button v-else-if="state === 3" @click="resetPass" :class="{'marginBtn': true, 'disable': !signinEmail || warning === 'signinE'}">Reset password</button>
       </div>
       <div class="sign-box-footer" v-if="state === 0">
@@ -128,6 +129,7 @@ export default {
       timer: true,
       resetPassword: null,
       forgetCode: null,
+      click: false,
       googleSignInParams: {
         client_id: '728616517590-om5s9j1llfcbaru8t5al706r2tu5faqo.apps.googleusercontent.com'
       },
@@ -224,7 +226,10 @@ export default {
     },
     checkSignEmail () {
       if (!this.reg.test(this.signinEmail)) this.warning = 'signinE'
-      else this.warning = 'normalSigninE'
+      else {
+        this.click = false
+        this.warning = 'normalSigninE'
+      }
     },
     checkSignPassword () {
       if (!this.timer) return
@@ -236,22 +241,22 @@ export default {
       }, 500)
     },
     checkCode () {
-      if (this.forgetCode.length < 8) this.warning = 'code'
-      else this.warning = 'normalCode'
+      if (this.forgetCode.length >= 8) this.warning = 'normalCode'
     },
     sendEmail () {
-      if (!this.signinEmail || this.warning.indexOf('normal') === -1) return
+      if (!this.signinEmail || this.warning.indexOf('normal') === -1 || this.click) return
+      this.click = true
       sendCode({email: this.signinEmail}).then(res => {
         if (res.data) {
           alert(res.data.msg)
         }
-      }).catch((err) => {
-        alert(err.data.msg)
+      }).catch(() => {
         this.warning = 'signinE'
+        alert('This email has not signed in.')
       })
     },
     toReset () {
-      if (!this.forgetCode || !this.signinEmail || this.warning === 'signinE') return
+      if (!this.forgetCode || !this.signinEmail || this.warning === 'signinE' || this.warning === 'code') return
       this.state = 3
     },
     resetPass () {
@@ -264,10 +269,10 @@ export default {
         if (res.data) {
           this.$router.push('/notes')
         }
-      }).catch((err) => {
+      }).catch(() => {
         this.state = 2
         this.warning = 'code'
-        alert(err.data.msg)
+        alert('Email and code not match.')
       })
     },
     reset (state) {
