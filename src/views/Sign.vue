@@ -60,7 +60,7 @@
         </div>
         <div class="sign-box-form-input">
           <input class="code" type="text" name="" placeholder="Type the code" v-model="forgetCode"  :class="warning === 'code' ? 'warning' : warning === 'normalCode' ? 'normal' : ''" @input="checkCode">
-          <span :class="{'sign-box-form-code-btn': true, 'disabe': signinEmail && warning !== 'signinE' && !click}" @click="sendEmail">send</span>
+          <span :class="{'sign-box-form-code-btn': true, 'disabe': signinEmail && warning !== 'signinE' && !click}" @click="sendEmail">{{ click ? 'Sent' : 'Send' }}</span>
         </div>
         <div class="sign-box-form-warning signup">
           <p v-if="warning === 'signinE' || warning === 'code'">
@@ -89,7 +89,7 @@
       <div class="sign-box-btn">
         <button v-if="state === 0" @click="signup">Register</button>
         <button v-else-if="state === 1" @click="signin">Sign in</button>
-        <button v-else-if="state === 2" :class="{'marginBtn': true, 'disable': !forgetCode || !signinEmail || warning === 'signinE' || warning === 'code'}" @click="toReset">Next</button>
+        <button v-else-if="state === 2" :class="{'marginBtn': true, 'disable': !forgetCode || !signinEmail || warning === 'signinE' || warning === 'code' || !next}" @click="toReset">Next</button>
         <button v-else-if="state === 3" @click="resetPass" :class="{'marginBtn': true, 'disable': !signinEmail || warning === 'signinE'}">Reset password</button>
       </div>
       <div class="sign-box-footer" v-if="state === 0">
@@ -129,6 +129,7 @@ export default {
       resetPassword: null,
       forgetCode: null,
       click: false,
+      next: false,
       googleSignInParams: {
         client_id: '728616517590-om5s9j1llfcbaru8t5al706r2tu5faqo.apps.googleusercontent.com'
       },
@@ -212,7 +213,7 @@ export default {
           else this.warning = 'normalEmail'
         })
         this.timer = true
-      }, 1000)
+      }, 500)
     },
     checkPassword (flag) {
       if (!this.timer) return
@@ -226,8 +227,20 @@ export default {
     checkSignEmail () {
       if (!this.reg.test(this.signinEmail)) this.warning = 'signinE'
       else {
-        this.click = false
-        this.warning = 'normalSigninE'
+        if (!this.timer) return
+        this.timer = false
+        setTimeout(() => {
+          checkUser({email: this.signinEmail}).then(res => {
+            if (!res.data.result) {
+              this.click = false
+              this.warning = 'normalSigninE'
+            } else {
+              this.click = true
+              this.warning = 'signinE'
+            }
+          })
+          this.timer = true
+        }, 500)
       }
     },
     checkSignPassword () {
@@ -246,16 +259,17 @@ export default {
       if (!this.signinEmail || this.warning.indexOf('normal') === -1 || this.click) return
       this.click = true
       sendCode({email: this.signinEmail}).then(res => {
-        if (res.data) {
+        if (res.data.success) {
+          this.next = true
+        } else {
           alert(res.data.msg)
         }
       }).catch(() => {
         this.warning = 'signinE'
-        alert('This email has not signed in.')
       })
     },
     toReset () {
-      if (!this.forgetCode || !this.signinEmail || this.warning === 'signinE' || this.warning === 'code') return
+      if (!this.forgetCode || !this.signinEmail || this.warning === 'signinE' || this.warning === 'code' || !this.next) return
       this.state = 3
     },
     resetPass () {
