@@ -1,7 +1,7 @@
 <template>
   <li v-if="(type === 'highlight' && !isTrash) || type === 'trash'"
     :class="{'light-list': true, 'has-left-radius': type === 'highlight', 'no-left-radius': type === 'trash'}">
-    <div v-if="img" :class="{'light-list-img-box': true, 'border-left-radius': isHighlight && type === 'highlight'}">
+    <div v-if="img" :class="{'light-list-img-box': true, 'border-box-radius': isHighlight && type === 'highlight'}">
       <img :src="img" alt="Markone" class="list-item-img" @click="$emit('clickShowImg')">
     </div>
     <p v-else>{{ context }}</p>
@@ -89,8 +89,6 @@ export default {
     transition: all .3s ease;
   }
   &-delete {
-    background: rgba(26,34,112,0.10);
-    border-radius: 4px;
     color: rgba(0, 0, 0, 0.3);
     display: none;
     height: 25px;
@@ -130,5 +128,9 @@ export default {
 .border-left-radius {
   border-top-left-radius: 4px!important;
   border-bottom-left-radius: 4px!important;
+}
+.border-box-radius {
+  border-top-left-radius: 0px!important;
+  border-bottom-left-radius: 0px!important;
 }
 </style>

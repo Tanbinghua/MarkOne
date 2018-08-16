@@ -6,6 +6,9 @@
     </div>
     <div class="note-list" v-for="note in notes" :key="note.id">
       <div :class="{'note-list-header': true, 'params-header': $route.params.title}">
+        <span class="note-list-header-title">
+          <span></span>
+        </span>
         <span class="note-list-header-icon" @click="copyAll(note)">Copy all</span>
         <h4 :id="note.title" @click="scrollToTop(note.title)">{{ note.title }}</h4>
       </div>
@@ -14,8 +17,8 @@
       <sortable-list>
         <sortable-item v-for="(item, index) in note.show"
           :index="index" :key="item.uuid" :item="item.remark"
-          :isHighlight="item.highlight" :img="item.image"
-          :isVideo="item.is_video" :origin="note.origin"
+          :isHighlight="item.highlight" :img="item.image" :notesUuid="note.uuid"
+          :isVideo="item.is_video" :origin="note.origin" :itemUuid="item.uuid"
           :startTime="item.start_time" @clickShowImg="clickImg(item.image)"
           @tohighlight="highLight(note.uuid, item.uuid, item.highlight)"
           @toTrash="totrash(note.uuid, item.uuid)" :isTrash="item.trash"></sortable-item>
@@ -207,22 +210,48 @@ export default {
     &-header {
       font-family: PingFangSC-Medium, sans-serif;
       font-size: 18px;
+      position: relative;
       margin: 64px 0 16px;
       & h4 {
         max-width: 520px;
         overflow: hidden;
+        margin-left: 32px;
         text-overflow:ellipsis;
         white-space: nowrap;
         color: #1a2270;
         text-decoration: none;
         &:hover {  cursor: pointer; }
       }
+      &-title {
+        background: rgba(255,110,3,0.15);
+        border-radius: 8px;
+        display: inline-block;
+        height: 16px;
+        left: 0;
+        margin: 4px 8px;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 16px;
+        & span {
+          background: #FF6E03;
+          border-radius: 4px;
+          display: inline-block;
+          height: 8px;
+          position: absolute;
+          width: 8px;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
       &-icon {
         color: #1a2270;
         display: block;
         float: right;
+        font-family: PingFangSC-Light, sans-serif;
         font-size: 14px;
-        margin-top: 10px;
+        margin-top: 4px;
         text-align: center;
         transition: all .3s ease;
         & svg {
@@ -257,6 +286,7 @@ export default {
       &-box {
         color: #1a2270;
         float: right;
+        font-family: PingFangSC-Light, sans-serif;
         font-size: 14px;
         transition: all .3s ease;
         &-icon {
