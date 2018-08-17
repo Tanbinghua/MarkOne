@@ -34,4 +34,4 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-const whiteList = ['/terms', '/privacy', '/error', '/index', '/faq', '/', '/google']
+const whiteList = ['/terms', '/privacy', '/error', '/index', '/faq', '/']
