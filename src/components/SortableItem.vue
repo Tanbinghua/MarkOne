@@ -1,11 +1,11 @@
 <template>
-  <li v-if="!isTrash" :class="{'list-item': true, 'has-left-radius': isHighlight, 'border-left-radius': isHighlight, editing: editing}" v-clickoutside="edited">
-    <div v-if="editing" v-focus type="text" @keyup.esc="cancel" class="list-item-edit" contenteditable @input="handleInput">{{content.trim()}}</div>
+  <li v-if="!isTrash" :class="{'list-item': true, 'has-left-radius': isHighlight, 'border-left-radius': isHighlight, editing: editing}">
+    <edit-able v-if="editing" class="list-item-edit" :content="content" @update="content = $event" @edited="edited" @cancel="cancel"></edit-able>
     <div v-if="img && !editing" :class="{'list-item-img-box': true, 'border-box-radius': isHighlight}">
       <img :src="img" alt="Markone" class="list-item-img" @click="$emit('clickShowImg')">
     </div>
     <p v-if="!img && !editing" class="list-item-text" @dblclick="edit">{{content}}</p>
-    <div v-if="!editing" class="list-item-delete" @click="$emit('toTrash')" title="Move to trash"><span>✖</span></div>
+    <div v-if="!editing" class="list-item-delete" @click="$emit('toTrash')" title="Move to trash"><span>×</span></div>
     <div v-if="!editing" class="list-item-box">
       <span class="list-item-box-icon" @click="highlight" :title="isHighlight ? 'Unmark' : 'Mark'">
         <icon-svg :icon-class="isHighlight ? 'highlighted' : 'highlight'"></icon-svg>
@@ -19,37 +19,38 @@
 </template>
 
 <script>
-import { clickoutside } from '../utils/tools'
 import { toHighlight } from '../api/interface'
+import EditAble from './EditAble'
 
 export default {
   data () {
     return {
       editing: false,
-      content: null,
-      hasEdit: false
+      content: null
     }
   },
   props: ['item', 'isHighlight', 'img', 'isVideo', 'origin', 'startTime', 'isTrash', 'notesUuid', 'itemUuid'],
+  components: {
+    EditAble
+  },
   methods: {
     highlight () {
       this.$emit('tohighlight')
     },
     edit () {
+      this.content = this.item
       this.editing = true
-      this.hasEdit = false
     },
     edited () {
       this.editing = false
-      if (this.content === this.item || this.hasEdit) return
+      if (this.content === this.item) return
       const data = {
         user: this.$store.getters.uuid,
         notes: this.notesUuid,
-        remark: this.content.trim()
+        remark: this.content
       }
       toHighlight(this.itemUuid, data).then(res => {
         if (res.status === 200) {
-          this.hasEdit = true
         }
       }).catch(() => {
         this.content = this.item
@@ -58,13 +59,6 @@ export default {
     cancel () {
       this.editing = false
       this.content = this.item
-    },
-    handleInput (event) {
-      if (event.inputType === 'insertParagraph') {
-        this.edited()
-        return
-      }
-      this.content = event.target.innerText
     }
   },
   computed: {
@@ -72,14 +66,6 @@ export default {
       if (this.origin.indexOf('?') !== -1) return this.origin + '&t=' + this.startTime
       else return this.origin + '?t=' + this.startTime
     }
-  },
-  directives: {
-    focus: {
-      inserted (el) {
-        el.focus()
-      }
-    },
-    clickoutside
   },
   mounted () {
     this.content = this.item
@@ -180,6 +166,7 @@ export default {
   &-delete {
     color: rgba(0, 0, 0, 0.3);
     display: none;
+    font-size: 24px;
     height: 25px;
     line-height: 25px;
     right: 4px;
