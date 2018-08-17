@@ -233,10 +233,9 @@ export default {
           checkUser({email: this.signinEmail}).then(res => {
             if (!res.data.result) {
               this.click = false
-              this.warning = 'normalSigninE'
-            } else {
-              this.click = true
               this.warning = 'signinE'
+            } else {
+              this.warning = 'normalSigninE'
             }
           })
           this.timer = true
