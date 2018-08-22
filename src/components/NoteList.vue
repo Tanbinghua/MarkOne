@@ -89,10 +89,12 @@ export default {
     transition: all .3s ease;
   }
   &-delete {
+    background: rgba(236, 237, 241, 0.60);
+    border-radius: 15px;
     color: rgba(0, 0, 0, 0.3);
     display: none;
-    height: 25px;
-    line-height: 25px;
+    height: 23px;
+    line-height: 23px;
     right: 4px;
     position: absolute;
     text-align: center;
@@ -105,11 +107,9 @@ export default {
     border-top-right-radius: 0;
   }
   &:hover > .highlight {
-    border-radius: 0;
     right: -112px;
   }
   &:hover > .trash {
-    border-radius: 0;
     right: -56px;
   }
   &:hover > &-img-box {

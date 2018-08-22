@@ -86,7 +86,7 @@ export default {
   border-bottom-left-radius: 0px!important;
 }
 .editing {
-  box-shadow: 0 0 12px 0 rgba(153,153,153,0.30);
+  box-shadow: 0 0 15px 0 rgba(153,153,153,0.50);
   &:hover {
     border-top-right-radius: 8px!important;
     border-bottom-right-radius: 8px!important;
@@ -164,11 +164,13 @@ export default {
     }
   }
   &-delete {
+    background: rgba(236, 237, 241, 0.60);
+    border-radius: 15px;
     color: rgba(0, 0, 0, 0.3);
     display: none;
     font-size: 24px;
-    height: 25px;
-    line-height: 25px;
+    height: 23px;
+    line-height: 23px;
     right: 4px;
     position: absolute;
     text-align: center;

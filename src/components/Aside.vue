@@ -96,7 +96,7 @@ export default {
   width: 288px;
   z-index: 2;
   &-logo {
-    margin-bottom: 97px;
+    margin-bottom: 40px;
     padding: 18px 0;
     & img {
       display: block;

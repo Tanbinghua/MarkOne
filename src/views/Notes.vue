@@ -313,10 +313,11 @@ export default {
   }
 }
 .back-to-notes {
-  display: inline-block;
   color: #1A2270;
   font-size: 14px;
-  margin-top: 48px;
+  margin: 48px auto 0;
+  max-width: 810px;
+  padding-right: 112px;
   transition: all .3s ease;
   &-icon svg {
     height: 6px;
