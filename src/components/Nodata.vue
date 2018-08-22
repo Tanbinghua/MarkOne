@@ -3,8 +3,8 @@
     <p v-if="loading">Loding ...</p>
     <p v-if="nodata">-- No data --</p>
     <div class="load-more" v-if="next">
-      <h3 v-if="!loadingmore" class="load-more-btn" @click="$emit('loadMore') ">Load more</h3>
-      <h3 v-if="nomoredata">-- No more data --</h3>
+      <p v-if="!loadingmore" class="load-more-btn" @click="$emit('loadMore') ">Load more</p>
+      <p v-if="nomoredata">-- No more data --</p>
     </div>
   </div>
 </template>
