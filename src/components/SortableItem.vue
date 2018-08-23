@@ -63,8 +63,10 @@ export default {
   },
   computed: {
     jumpLink () {
-      if (this.origin.indexOf('?') !== -1) return this.origin + '&t=' + this.startTime
-      else return this.origin + '?t=' + this.startTime
+      if (this.origin.indexOf('youtu') !== -1) {
+        const query = this.origin.split('=')[1]
+        return 'https://youtu.be/' + query + '?t=' + Math.floor(this.startTime)
+      } else return this.origin
     }
   },
   mounted () {
